@@ -107,11 +107,9 @@ namespace Doctor_Appointment.Controllers
         }      
 
 
-        //Post api/Account/Login
        
-
+        //Post api/Auth/ChangePassword
         [Authorize]
-        [HttpPost]
         [Route("api/Auth/ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(UserForChangePasswordDTO userForChangePasswordDTO)
         {
@@ -123,6 +121,7 @@ namespace Doctor_Appointment.Controllers
             //var user = await UserManager.FindByNameAsync(userForLoginDTO.Username);
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), userForChangePasswordDTO.OldPassword, userForChangePasswordDTO.NewPassword);
+            
 
             if (!result.Succeeded)
             {
