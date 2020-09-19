@@ -7,13 +7,13 @@ namespace Doctor_Appointment.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class InitialDB : IMigrationMetadata
+    public sealed partial class ChangedDefaultColumnNames : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialDB));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangedDefaultColumnNames));
         
         string IMigrationMetadata.Id
         {
-            get { return "202009150225233_InitialDB"; }
+            get { return "202009190709098_ChangedDefaultColumnNames"; }
         }
         
         string IMigrationMetadata.Source

@@ -4,6 +4,7 @@ using Doctor_Appointment.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
 using System.Data.Entity;
 using System.Net;
 using System.Net.Http;
@@ -25,11 +26,10 @@ namespace Doctor_Appointment.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager,
-            ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
+        public AccountController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
-            AccessTokenFormat = accessTokenFormat;
+
         }
 
         public ApplicationUserManager UserManager
@@ -44,10 +44,9 @@ namespace Doctor_Appointment.Controllers
             }
         }
 
-        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         //Post api/Account/Register
-        [Route("api/Account/Register")]
+        [Route("api/Auth/Register")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<IHttpActionResult> Register(UserForRegisterDTO userForRegisterDTO)
@@ -57,9 +56,17 @@ namespace Doctor_Appointment.Controllers
             {
                 return BadRequest(ModelState);
             }
+            IdentityResult result;
+            var user = new ApplicationUser() { UserName = userForRegisterDTO.Username, JoinDate = DateTime.UtcNow };
+            try
+            {
+                result = await UserManager.CreateAsync(user, userForRegisterDTO.Password);
 
-            var user = new ApplicationUser() { UserName = userForRegisterDTO.Username };
-            IdentityResult result = await UserManager.CreateAsync(user, userForRegisterDTO.Password);
+            }
+            catch (Exception ex)
+            {
+                result = null;
+            }
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -101,50 +108,11 @@ namespace Doctor_Appointment.Controllers
 
 
         //Post api/Account/Login
-        [Route("api/Account/Login")]
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IHttpActionResult> Login(UserForLoginDTO userForLoginDTO)
-        {
-
-        
-            UserForLoginDTO loginrequest = new UserForLoginDTO { };
-            loginrequest.Username = userForLoginDTO.Username.ToLower();
-            loginrequest.Password = userForLoginDTO.Password;
-
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var user = await UserManager.FindByNameAsync(userForLoginDTO.Username);
-
-            var checkPassword = await UserManager.CheckPasswordAsync(user,userForLoginDTO.Password);
-
-           string access_token = JwtManager.GenerateToken1(userForLoginDTO.Username);
-            if (user == null)
-            {
-                return Content(HttpStatusCode.NotFound, "Ivalid Username");
-            }
-
-            if (!checkPassword)
-            {
-                return Content(HttpStatusCode.NotFound, "Ivalid Password");
-            }
-
-
-
-            return Ok(new
-            {
-                Username = user.UserName,
-                token = access_token
-            });
-        }
+       
 
         [Authorize]
         [HttpPost]
-        [Route("api/Account/ChangePassword")]
+        [Route("api/Auth/ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(UserForChangePasswordDTO userForChangePasswordDTO)
         {
             if (!ModelState.IsValid)
@@ -154,7 +122,7 @@ namespace Doctor_Appointment.Controllers
 
             //var user = await UserManager.FindByNameAsync(userForLoginDTO.Username);
 
-            IdentityResult result = await this.UserManager.ChangePasswordAsync(User.Identity.GetUserId(), userForChangePasswordDTO.OldPassword, userForChangePasswordDTO.NewPassword);
+            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), userForChangePasswordDTO.OldPassword, userForChangePasswordDTO.NewPassword);
 
             if (!result.Succeeded)
             {
