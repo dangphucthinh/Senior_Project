@@ -1,20 +1,18 @@
 ﻿using System;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
-using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
 using Doctor_Appointment.Models;
 using Doctor_Appointment.Provider;
 using Doctor_Appointment.App_Start;
 using System.Web.Http;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using System.Configuration;
-//using System.Web.Configuration;
 using Microsoft.Owin.Security.Jwt;
 using System.Net.Http.Formatting;
 using Microsoft.Owin.Security;
-using System.Security.Policy;
+using System.Linq;
+using Newtonsoft.Json.Serialization;
 
 [assembly: OwinStartup(typeof(Doctor_Appointment.Startup1))]
 
@@ -26,29 +24,7 @@ namespace Doctor_Appointment
         public static string PublicClientId { get; private set; }
         public void Configuration(IAppBuilder app)
         {
-            //// For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=316888
-            //// Configure the db context and user manager to use a single instance per request
-            //app.CreatePerOwinContext(ApplicationDbContext.Create);
-            //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-
-            //// Enable the application to use a cookie to store information for the signed in user
-            //// and to use a cookie to temporarily store information about a user logging in with a third party login provider
-            //app.UseCookieAuthentication(new CookieAuthenticationOptions());
-            //app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
-
-            //// Configure the application for OAuth based flow
-            //PublicClientId = "self";
-            //OAuthOptions = new OAuthAuthorizationServerOptions
-            //{
-            //    TokenEndpointPath = new PathString("/api/Auth/Login"),
-            //    Provider = new ApplicationOAuthProvider(PublicClientId),
-            //    AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-            //    AccessTokenExpireTimeSpan = TimeSpan.FromDays(14)
-            //    //AllowInsecureHttp = true
-            //};
-
-            //// Enable the application to use bearer tokens to authenticate users
-            //app.UseOAuthBearerTokens(OAuthOptions);
+            
             HttpConfiguration httpConfig = new HttpConfiguration();
 
             ConfigureOAuthTokenGeneration(app);
@@ -90,23 +66,23 @@ namespace Doctor_Appointment
 
             // Api controllers with an [Authorize] attribute will be validated with JWT
             app.UseJwtBearerAuthentication(
-                new JwtBearerAuthenticationOptions
-                {
-                    AuthenticationMode = AuthenticationMode.Active,
-                    AllowedAudiences = new[] { audienceId },
-                    IssuerSecurityKeyProviders = new IIssuerSecurityKeyProvider[]
-                    {
-                        new SymmetricKeyIssuerSecurityKeyProvider(issuer, audienceSecret)
-                    }
-                });
+               new JwtBearerAuthenticationOptions
+               {
+                   AuthenticationMode = AuthenticationMode.Active,
+                   AllowedAudiences = new[] { audienceId },
+                   IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
+                   {
+                        new SymmetricKeyIssuerSecurityTokenProvider(issuer, audienceSecret)
+                   }
+               });
         }
 
         private void ConfigureWebApi(HttpConfiguration config)
         {
             config.MapHttpAttributeRoutes();
 
-            //var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
-            //jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
+            jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
 
     }
