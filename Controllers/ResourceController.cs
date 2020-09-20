@@ -8,14 +8,23 @@ using System.Web.Http.Results;
 
 namespace Doctor_Appointment.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ResourceController : ApiController
     {
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles ="C")]
+        [Route("api/Resource/GetData")]
         public string GetData()
         {
             return "success";
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("api/Resource/GetDataAno")]
+        public string GetDataAno()
+        {
+            return "success anoymous";
         }
     }
 }
