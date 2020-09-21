@@ -1,4 +1,5 @@
 ﻿using Doctor_Appointment.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using System;
@@ -49,7 +50,8 @@ namespace Doctor_Appointment.Provider
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
             {
                 new Claim("Username", data.Identity.Name),
-            });
+                new Claim("ID", data.Identity.GetUserId())
+            });;
 
             ApplicationDbContext db = new ApplicationDbContext();
             //var lstRole = db.U.Where(e => e.Name == data.Identity.Name);

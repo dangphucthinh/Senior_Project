@@ -148,6 +148,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BasiAPIController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="DTO\UserForChangePasswordDTO.cs" />
     <Compile Include="DTO\UserForLoginDTO.cs" />
@@ -164,7 +165,9 @@
       <DependentUpon>202009190709098_ChangedDefaultColumnNames.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ApplicationRoleManager.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\ApplicationUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\ApplicationOAuthProvider.cs" />
     <Compile Include="Provider\CustomJwtFormat.cs" />
@@ -182,7 +185,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Implementions\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202009190705273_InitialDB.resx">

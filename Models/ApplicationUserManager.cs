@@ -1,14 +1,15 @@
-﻿using Doctor_Appointment.Models;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
 
-namespace Doctor_Appointment.App_Start
+namespace Doctor_Appointment.Models
 {
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
@@ -20,7 +21,7 @@ namespace Doctor_Appointment.App_Start
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
-           
+
             // Configure validation logic for usernames
             //manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             //{
