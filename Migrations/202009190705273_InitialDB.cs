@@ -37,7 +37,6 @@
                         Id = c.String(nullable: false, maxLength: 128),
                         FirstName = c.String(),
                         LastName = c.String(),
-                        Level = c.Int(nullable: false),
                         JoinDate = c.DateTime(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),

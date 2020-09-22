@@ -20,11 +20,7 @@ namespace Doctor_Appointment.Models
         //[Required]
         //[MaxLength(100)]
         public string LastName { get; set; }
-
-
-        public int Level { get; set; }
-
-     
+    
         public DateTime JoinDate { get; set; }
 
 

@@ -1,16 +1,13 @@
-﻿using Doctor_Appointment.App_Start;
-using Doctor_Appointment.Models;
-using Microsoft.AspNet.Identity;
+﻿using Doctor_Appointment.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
+
 
 namespace Doctor_Appointment.Provider
 {

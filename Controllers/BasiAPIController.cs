@@ -1,5 +1,4 @@
-﻿using Doctor_Appointment.App_Start;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,13 +6,14 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Doctor_Appointment.Models;
 
 namespace Doctor_Appointment.Controllers
 {
     public class BaseAPIController : ApiController
     {   
         private ApplicationUserManager _AppUserManager = null;
-
+        private ApplicationRoleManager _AppRoleManager = null;
         protected ApplicationUserManager AppUserManager
         {
             get
@@ -22,6 +22,13 @@ namespace Doctor_Appointment.Controllers
             }
         }
 
+        protected ApplicationRoleManager AppRoleManager
+        {
+            get
+            {
+                return _AppRoleManager ?? Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+            }
+        }
       
         public BaseAPIController()
         {

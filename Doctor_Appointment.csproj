@@ -145,26 +145,24 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BasiAPIController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
-    <Compile Include="DTO\UserForChangePasswordDTO.cs" />
-    <Compile Include="DTO\UserForLoginDTO.cs" />
-    <Compile Include="DTO\UserForRegisterDTO.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="DTO\User\UserForChangePasswordDTO.cs" />
+    <Compile Include="DTO\User\UserForLoginDTO.cs" />
+    <Compile Include="DTO\User\UserForRegisterDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202009190705273_InitialDB.cs" />
-    <Compile Include="Migrations\202009190705273_InitialDB.designer.cs">
+    <Compile Include="Migrations\202009190705273_InitialDB.Designer.cs">
       <DependentUpon>202009190705273_InitialDB.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009190709098_ChangedDefaultColumnNames.cs" />
-    <Compile Include="Migrations\202009190709098_ChangedDefaultColumnNames.designer.cs">
-      <DependentUpon>202009190709098_ChangedDefaultColumnNames.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Models\ApplicationRoleManager.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
@@ -189,9 +187,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202009190705273_InitialDB.resx">
       <DependentUpon>202009190705273_InitialDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009190709098_ChangedDefaultColumnNames.resx">
-      <DependentUpon>202009190709098_ChangedDefaultColumnNames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

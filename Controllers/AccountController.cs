@@ -8,11 +8,13 @@ using System.Web.Http;
 namespace Doctor_Appointment.Controllers
 {
     [Authorize]
-    //[RoutePrefix("api/Account")]
+    [RoutePrefix("api/Auth")]
+
+    [Route("User")]
     public class AccountController : BaseAPIController
     {
         //Post api/Account/Register
-        [Route("api/Auth/Register")]
+        [Route("Register")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<IHttpActionResult> Register(UserForRegisterDTO userForRegisterDTO)
@@ -46,7 +48,7 @@ namespace Doctor_Appointment.Controllers
      
         //Post api/Auth/ChangePassword
         [Authorize]
-        [Route("api/Auth/ChangePassword")]
+        [Route("ChangePassword")]
         [HttpPost]
         public async Task<IHttpActionResult> ChangePassword(UserForChangePasswordDTO userForChangePasswordDTO)
         {
