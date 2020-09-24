@@ -11,7 +11,8 @@ using Doctor_Appointment.Models;
 namespace Doctor_Appointment.Controllers
 {
     public class BaseAPIController : ApiController
-    {   
+    {
+        private ModelFactory _modelFactory;
         private ApplicationUserManager _AppUserManager = null;
         private ApplicationRoleManager _AppRoleManager = null;
         protected ApplicationUserManager AppUserManager
@@ -32,6 +33,18 @@ namespace Doctor_Appointment.Controllers
       
         public BaseAPIController()
         {
+        }
+
+        protected ModelFactory TheModelFactory
+        {
+            get
+            {
+                if (_modelFactory == null)
+                {
+                    _modelFactory = new ModelFactory(this.Request, this.AppUserManager);
+                }
+                return _modelFactory;
+            }
         }
 
         protected IHttpActionResult GetErrorResult(IdentityResult result)
