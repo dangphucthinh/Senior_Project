@@ -50,6 +50,31 @@ namespace Doctor_Appointment.Controllers
 
         }
 
+        [Route("user/{id:guid}")]
+        public async Task<IHttpActionResult> DeleteUser(string id)
+        {
+
+            //Only SuperAdmin or Admin can delete users (Later when implement roles)
+
+            var appUser = await this.AppUserManager.FindByIdAsync(id);
+
+            if (appUser != null)
+            {
+                IdentityResult result = await this.AppUserManager.DeleteAsync(appUser);
+
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+
+                return Ok();
+
+            }
+
+            return NotFound();
+
+        }
+
         //Post api/Account/Register
         [Route("Register")]
         [HttpPost]
