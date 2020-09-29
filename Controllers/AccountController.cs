@@ -14,11 +14,15 @@ namespace Doctor_Appointment.Controllers
 
     public class AccountController : BaseAPIController
     {
-
         [Route("users")]
         public IHttpActionResult GetUsers()
         {
-            return Ok(this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u)));
+            return Ok(new Response
+            {
+                status = 0,
+                message = "success",
+                data = this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u))
+            });
         }
 
 
@@ -29,10 +33,20 @@ namespace Doctor_Appointment.Controllers
 
             if (user != null)
             {
-                return Ok(this.TheModelFactory.Create(user));
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = "success",
+                    data = this.TheModelFactory.Create(user)
+                });
             }
 
-            return NotFound();
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false",
+                data = user
+            });
 
         }
 
@@ -42,11 +56,21 @@ namespace Doctor_Appointment.Controllers
             var user = await this.AppUserManager.FindByNameAsync(username);
 
             if (user != null)
-            {
-                return Ok(this.TheModelFactory.Create(user));
+            {  
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = "success",
+                    data = this.TheModelFactory.Create(user)
+                });
             }
 
-            return NotFound();
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false",
+                data = user
+            }) ;
 
         }
 
@@ -54,7 +78,7 @@ namespace Doctor_Appointment.Controllers
         public async Task<IHttpActionResult> DeleteUser(string id)
         {
 
-            //Only SuperAdmin or Admin can delete users (Later when implement roles)
+            //Only SuperAdmin or Admin can delete users
 
             var appUser = await this.AppUserManager.FindByIdAsync(id);
 
@@ -64,14 +88,29 @@ namespace Doctor_Appointment.Controllers
 
                 if (!result.Succeeded)
                 {
-                    return GetErrorResult(result);
+                    return Ok(new Response
+                    {
+                        status = 1,
+                        message = "false",
+                        data = result
+                    });
                 }
 
-                return Ok();
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = "success",
+                    data = appUser
+                });
 
             }
 
-            return NotFound();
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false",
+                data = appUser
+            }); 
 
         }
 
@@ -84,9 +123,14 @@ namespace Doctor_Appointment.Controllers
             
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return Ok(new Response
+                {
+                    status = 1,
+                    message = "false",
+                    data = ModelState
+                });
             }
-            IdentityResult result;
+
             var user = new ApplicationUser() {
                 UserName = userForRegisterDTO.Username,
                 Email = userForRegisterDTO.Email,
@@ -94,25 +138,29 @@ namespace Doctor_Appointment.Controllers
                 LastName = userForRegisterDTO.LastName,
                 JoinDate = DateTime.Now.Date,
             };
-            try
-            {
-                result = await this.AppUserManager.CreateAsync(user, userForRegisterDTO.Password);
+            IdentityResult result = await this.AppUserManager.CreateAsync(user, userForRegisterDTO.Password);
 
-            }
-            catch (Exception ex)
-            {
-                result = null;
-            }
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                return Ok(new Response
+                {
+                    status = 1,
+                    message = "false",
+                    data = result
+                });
             }
 
             Uri locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
 
-            return Created(locationHeader, TheModelFactory.Create(user));
+            //return Created(locationHeader, TheModelFactory.Create(user));
+            return Ok( new Response
+            {
+                status = 0,
+                message = "success",
+                data = TheModelFactory.Create(user)
+            });
         }
-     
+
         //Post api/Auth/ChangePassword
         [Authorize]
         [Route("ChangePassword")]
@@ -128,15 +176,20 @@ namespace Doctor_Appointment.Controllers
             
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                return Ok(new Response
+                {
+                    status = 1,
+                    message = "false",
+                    data = result
+                });
             }
 
-            return Ok(new
+            return Ok(new Response
             {
-                Notification = "Change passsword succeed"
-            }) ;
-        }
-
-       
+                status = 0,
+                message = "success",
+                data = new object()
+            });
+        }     
     }
 }

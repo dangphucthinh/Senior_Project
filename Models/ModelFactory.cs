@@ -13,6 +13,8 @@ namespace Doctor_Appointment.Models
         private UrlHelper _UrlHelper;
         private ApplicationUserManager _AppUserManager;
 
+
+
         public ModelFactory(HttpRequestMessage request, ApplicationUserManager appUserManager)
         {
             _UrlHelper = new UrlHelper(request);
