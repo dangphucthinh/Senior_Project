@@ -39,14 +39,14 @@
 
             if (roleManager.Roles.Count() == 0)
             {
-                roleManager.Create(new IdentityRole { Name = "SuperAdmin" });
                 roleManager.Create(new IdentityRole { Name = "Admin" });
-                roleManager.Create(new IdentityRole { Name = "User" });
+                roleManager.Create(new IdentityRole { Name = "Doctor" });
+                roleManager.Create(new IdentityRole { Name = "Patient" });
             }
 
             var adminUser = manager.FindByName("Oscar");
 
-            manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
+            manager.AddToRoles(adminUser.Id, new string[] { "Admin", "Patient" });
         }
     }
 }

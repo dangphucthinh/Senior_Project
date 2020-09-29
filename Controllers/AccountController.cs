@@ -132,14 +132,17 @@ namespace Doctor_Appointment.Controllers
             }
 
             var user = new ApplicationUser() {
-                UserName = userForRegisterDTO.Username,
+                UserName = userForRegisterDTO.Username, 
                 Email = userForRegisterDTO.Email,
                 FirstName = userForRegisterDTO.FirstName,
                 LastName = userForRegisterDTO.LastName,
                 JoinDate = DateTime.Now.Date,
             };
+
+
             IdentityResult result = await this.AppUserManager.CreateAsync(user, userForRegisterDTO.Password);
 
+            result = AppUserManager.AddToRole(user.Id, "Patient");
             if (!result.Succeeded)
             {
                 return Ok(new Response
@@ -150,9 +153,6 @@ namespace Doctor_Appointment.Controllers
                 });
             }
 
-            Uri locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
-
-            //return Created(locationHeader, TheModelFactory.Create(user));
             return Ok( new Response
             {
                 status = 0,
