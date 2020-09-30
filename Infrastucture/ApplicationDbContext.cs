@@ -42,5 +42,10 @@ namespace Doctor_Appointment.Models
             modelBuilder.Entity<IdentityUserLogin>()
                 .ToTable("UserLogin");
         }
+        public DbSet<Patient> patients { get; set; }
+        public DbSet<Doctor> doctors { get; set; }
+        public DbSet<Address> addresses { get; set; }
+        public DbSet<HospitalCenter> hospitalCenters { get; set; }
+        public DbSet<Specialty> specialties { get; set; }
     }
 }

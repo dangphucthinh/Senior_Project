@@ -32,7 +32,9 @@
                 EmailConfirmed = true,
                 FirstName = "Thinh",
                 LastName = "Dang",
-                JoinDate = DateTime.Now.AddYears(-3)
+                Gender = true,
+                DateOfBirth = DateTime.Now.AddYears(-3),
+                isPatient = true
             };
 
             manager.Create(user, "Admin@123");

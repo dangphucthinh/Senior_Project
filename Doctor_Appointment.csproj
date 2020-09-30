@@ -169,8 +169,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\Roles\RoleModel.cs" />
+    <Compile Include="Migrations\202009301423023_InitialDB.cs" />
+    <Compile Include="Migrations\202009301423023_InitialDB.designer.cs">
+      <DependentUpon>202009301423023_InitialDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009301458259_add_models.cs" />
+    <Compile Include="Migrations\202009301458259_add_models.designer.cs">
+      <DependentUpon>202009301458259_add_models.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009301613095_update_hospital.cs" />
+    <Compile Include="Migrations\202009301613095_update_hospital.designer.cs">
+      <DependentUpon>202009301613095_update_hospital.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Doctor.cs" />
+    <Compile Include="Models\HospitalCenter.cs" />
     <Compile Include="Models\ModelFactory.cs" />
+    <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\Response.cs" />
+    <Compile Include="Models\Specialty.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -185,11 +203,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009220341499_InitialDB.cs" />
-    <Compile Include="Migrations\202009220341499_InitialDB.designer.cs">
-      <DependentUpon>202009220341499_InitialDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Infrastucture\ApplicationDbContext.cs" />
     <Compile Include="Infrastucture\ApplicationRole.cs" />
     <Compile Include="Infrastucture\ApplicationRoleManager.cs" />
@@ -211,8 +224,14 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009220341499_InitialDB.resx">
-      <DependentUpon>202009220341499_InitialDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202009301423023_InitialDB.resx">
+      <DependentUpon>202009301423023_InitialDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009301458259_add_models.resx">
+      <DependentUpon>202009301458259_add_models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009301613095_update_hospital.resx">
+      <DependentUpon>202009301613095_update_hospital.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

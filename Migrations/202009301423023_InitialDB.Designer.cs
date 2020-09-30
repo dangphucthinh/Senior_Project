@@ -13,7 +13,7 @@ namespace Doctor_Appointment.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202009220341499_InitialDB"; }
+            get { return "202009301423023_InitialDB"; }
         }
         
         string IMigrationMetadata.Source

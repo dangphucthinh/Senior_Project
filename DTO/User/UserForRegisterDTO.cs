@@ -22,6 +22,13 @@ namespace Doctor_Appointment.DTO
         public string LastName { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfBirth { get; set; }
+
+        [Required]
+        public bool isPatient { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }

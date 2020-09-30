@@ -18,9 +18,17 @@ namespace Doctor_Appointment.Models
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-    
-        public DateTime JoinDate { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfBirth { get; set; }
+
+        public string Avatar { get; set; }
+
+        public bool Gender { get; set; }
+
+        public bool isPatient { get; set; }
+
+        public int Address_Id { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {

@@ -12,7 +12,7 @@ namespace Doctor_Appointment.Controllers
     public class ResourceController : ApiController
     {
         [HttpGet]
-        [Authorize(Roles ="C")]
+        [Authorize(Roles ="Doctor")]
         [Route("api/Resource/GetData")]
         public string GetData()
         {

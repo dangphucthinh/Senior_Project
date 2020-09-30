@@ -136,13 +136,14 @@ namespace Doctor_Appointment.Controllers
                 Email = userForRegisterDTO.Email,
                 FirstName = userForRegisterDTO.FirstName,
                 LastName = userForRegisterDTO.LastName,
-                JoinDate = DateTime.Now.Date,
+                DateOfBirth = userForRegisterDTO.DateOfBirth,
+                isPatient = userForRegisterDTO.isPatient,
+
             };
 
 
             IdentityResult result = await this.AppUserManager.CreateAsync(user, userForRegisterDTO.Password);
-
-            result = AppUserManager.AddToRole(user.Id, "Patient");
+            
             if (!result.Succeeded)
             {
                 return Ok(new Response
@@ -152,6 +153,8 @@ namespace Doctor_Appointment.Controllers
                     data = result
                 });
             }
+
+            AppUserManager.AddToRole(user.Id, "Patient");
 
             return Ok( new Response
             {
