@@ -1,8 +1,17 @@
 ﻿using Doctor_Appointment.DTO;
+using Doctor_Appointment.DTO.User;
 using Doctor_Appointment.Models;
+using Doctor_Appointment.Provider;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Data.Entity.Migrations.Design;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -14,14 +23,19 @@ namespace Doctor_Appointment.Controllers
 
     public class AccountController : BaseAPIController
     {
-
         [Route("users")]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult GetUsers()
         {
-            return Ok(this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u)));
+            return Ok(new Response
+            {
+                status = 0,
+                message = "success",
+                data = this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u))
+            });
         }
 
-
+        [Authorize(Roles = "Admin")]
         [Route("user/{id:guid}", Name = "GetUserById")]
         public async Task<IHttpActionResult> GetUser(string Id)
         {
@@ -29,10 +43,20 @@ namespace Doctor_Appointment.Controllers
 
             if (user != null)
             {
-                return Ok(this.TheModelFactory.Create(user));
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = "success",
+                    data = this.TheModelFactory.Create(user)
+                });
             }
 
-            return NotFound();
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false",
+                data = user
+            });
 
         }
 
@@ -43,10 +67,20 @@ namespace Doctor_Appointment.Controllers
 
             if (user != null)
             {
-                return Ok(this.TheModelFactory.Create(user));
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = "success",
+                    data = this.TheModelFactory.Create(user)
+                });
             }
 
-            return NotFound();
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false",
+                data = user
+            });
 
         }
 
@@ -54,7 +88,7 @@ namespace Doctor_Appointment.Controllers
         public async Task<IHttpActionResult> DeleteUser(string id)
         {
 
-            //Only SuperAdmin or Admin can delete users (Later when implement roles)
+            //Only SuperAdmin or Admin can delete users
 
             var appUser = await this.AppUserManager.FindByIdAsync(id);
 
@@ -64,14 +98,29 @@ namespace Doctor_Appointment.Controllers
 
                 if (!result.Succeeded)
                 {
-                    return GetErrorResult(result);
+                    return Ok(new Response
+                    {
+                        status = 1,
+                        message = "false",
+                        data = result
+                    });
                 }
 
-                return Ok();
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = "success",
+                    data = appUser
+                });
 
             }
 
-            return NotFound();
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false",
+                data = appUser
+            });
 
         }
 
@@ -81,38 +130,51 @@ namespace Doctor_Appointment.Controllers
         [AllowAnonymous]
         public async Task<IHttpActionResult> Register(UserForRegisterDTO userForRegisterDTO)
         {
-            
+
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return Ok(new Response
+                {
+                    status = 1,
+                    message = "false",
+                    data = ModelState
+                });
             }
-            IdentityResult result;
-            var user = new ApplicationUser() {
+
+            var user = new ApplicationUser()
+            {
                 UserName = userForRegisterDTO.Username,
                 Email = userForRegisterDTO.Email,
                 FirstName = userForRegisterDTO.FirstName,
                 LastName = userForRegisterDTO.LastName,
-                JoinDate = DateTime.Now.Date,
+                DateOfBirth = userForRegisterDTO.DateOfBirth,
+                isPatient = userForRegisterDTO.isPatient,
+                PhoneNumber = userForRegisterDTO.PhoneNumber
             };
-            try
-            {
-                result = await this.AppUserManager.CreateAsync(user, userForRegisterDTO.Password);
 
-            }
-            catch (Exception ex)
-            {
-                result = null;
-            }
+
+            IdentityResult result = await this.AppUserManager.CreateAsync(user, userForRegisterDTO.Password);
+
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                return Ok(new Response
+                {
+                    status = 1,
+                    message = "false",
+                    data = result
+                });
             }
 
-            Uri locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
+            AppUserManager.AddToRole(user.Id, "Patient");
 
-            return Created(locationHeader, TheModelFactory.Create(user));
+            return Ok(new Response
+            {
+                status = 0,
+                message = "success",
+                data = TheModelFactory.Create(user)
+            });
         }
-     
+
         //Post api/Auth/ChangePassword
         [Authorize]
         [Route("ChangePassword")]
@@ -121,22 +183,116 @@ namespace Doctor_Appointment.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return Ok(new Response
+                {
+                    status = 1,
+                    message = "false",
+                    data = ModelState
+                });
             }
 
             IdentityResult result = await this.AppUserManager.ChangePasswordAsync(User.Identity.GetUserId(), userForChangePasswordDTO.OldPassword, userForChangePasswordDTO.NewPassword);
-            
+
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                return Ok(new Response
+                {
+                    status = 1,
+                    message = "false",
+                    data = result
+                });
             }
 
-            return Ok(new
+            return Ok(new Response
             {
-                Notification = "Change passsword succeed"
-            }) ;
+                status = 0,
+                message = "success",
+                data = new object()
+            });
         }
 
-       
+        //Post api/Auth/ResetPassword
+        [HttpPost]
+        [Route("ResetPassword")]
+        public async Task<IHttpActionResult> ResetPassword(UserForResetPassword userForResetPassword)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok(new Response
+                {
+                    status = 1,
+                    message = "false",
+                    data = ModelState
+                });
+            }
+
+            var removePassword = await this.AppUserManager.RemovePasswordAsync(User.Identity.GetUserId());
+            if (removePassword.Succeeded)
+            {
+                //Removed Password Success
+                var AddPassword = await this.AppUserManager.AddPasswordAsync(User.Identity.GetUserId(), userForResetPassword.NewPassword);
+                if (AddPassword.Succeeded)
+                {
+                    return Ok(new Response
+                    {
+                        status = 0,
+                        message = "success",
+                        data = AddPassword
+                    });
+                }
+            }
+
+            return Ok(new Response
+            {
+                status = 0,
+                message = "success",
+                data = ModelState
+            });
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("testLogin")]
+        public async Task<IHttpActionResult> CreatePayment(UserForLoginDTO pm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok(new Response
+                {
+                    status = 1,
+                    message = "false",
+                    data = ModelState
+                });
+            }
+
+            string baseAddress = "https://localhost:44355";
+            using (var client = new HttpClient())
+            {
+                var form = new Dictionary<string, string>
+               {
+                   {"grant_type", "password"},
+                   {"Username", pm.Username},
+                   {"Password", pm.Password},
+               };
+                var tokenResponse = await client.PostAsync(baseAddress + "/Auth/Login", new FormUrlEncodedContent(form));
+                var token = tokenResponse.Content.ReadAsAsync<Token>(new[] { new JsonMediaTypeFormatter() }).Result;      
+                if(token.AccessToken == null)
+                {
+                    return Ok(new Response
+                    {
+                        status = 1,
+                        message = "false",
+                        data = token
+                    });
+                }
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = "success",
+                    data = token
+                });
+            }
+        }
     }
 }

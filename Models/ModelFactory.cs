@@ -25,11 +25,14 @@ namespace Doctor_Appointment.Models
             {
                 Url = _UrlHelper.Link("GetUserById", new { id = appUser.Id }),
                 Id = appUser.Id,
+                Avatar = appUser.Avatar,
                 UserName = appUser.UserName,
                 FullName = string.Format("{0} {1}", appUser.FirstName, appUser.LastName),
+                Phone = appUser.PhoneNumber,
                 Email = appUser.Email,
+                Gender = appUser.Gender,
+                DateOfBirth = appUser.DateOfBirth,
                 EmailConfirmed = appUser.EmailConfirmed,
-                JoinDate = appUser.JoinDate,
                 Roles = _AppUserManager.GetRolesAsync(appUser.Id).Result,
                 Claims = _AppUserManager.GetClaimsAsync(appUser.Id).Result
             };
@@ -38,7 +41,6 @@ namespace Doctor_Appointment.Models
 
         public RoleReturnModel CreateRole(IdentityRole appRole)
         {
-
             return new RoleReturnModel
             {
                 Url = _UrlHelper.Link("GetRoleById", new { id = appRole.Id }),
@@ -52,17 +54,17 @@ namespace Doctor_Appointment.Models
     {
         public string Url { get; set; }
         public string Id { get; set; }
+        public string Avatar { get; set; }
         public string UserName { get; set; }
         public string FullName { get; set; }
+        public string Phone { get; set; }
+        public bool Gender { get; set; }
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
-        public DateTime JoinDate { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public IList<string> Roles { get; set; }
         public IList<System.Security.Claims.Claim> Claims { get; set; }
     }
-
-
-
 
     public class RoleReturnModel
     {

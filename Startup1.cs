@@ -12,6 +12,8 @@ using System.Net.Http.Formatting;
 using Microsoft.Owin.Security;
 using System.Linq;
 using Newtonsoft.Json.Serialization;
+using Microsoft.Owin.Security.Facebook;
+using Doctor_Appointment.Providers;
 
 [assembly: OwinStartup(typeof(Doctor_Appointment.Startup1))]
 
@@ -19,12 +21,16 @@ namespace Doctor_Appointment
 {
     public partial class Startup1
     {
-        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+        //public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+
+        public static OAuthBearerAuthenticationOptions OAuthBearerOptions { get; private set; }
         public static string PublicClientId { get; private set; }
+        public static FacebookAuthenticationOptions facebookAuthenticationOptions { get; private set; }
         public void Configuration(IAppBuilder app)
         {
             
             HttpConfiguration httpConfig = new HttpConfiguration();
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
 
             ConfigureOAuthTokenGeneration(app);
 
@@ -38,6 +44,10 @@ namespace Doctor_Appointment
         }
         private void ConfigureOAuthTokenGeneration(IAppBuilder app)
         {
+            //use a cookie to temporarily store information about a user logging in with a third party login provider
+            app.UseExternalSignInCookie(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalCookie);
+            OAuthBearerOptions = new OAuthBearerAuthenticationOptions();
+
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
@@ -48,6 +58,7 @@ namespace Doctor_Appointment
                 //For Dev enviroment only (on production should be AllowInsecureHttp = false)
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/Auth/Login"),
+                AuthorizeEndpointPath = new PathString("/api/Auth/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(7),
                 Provider = new CustomOAuthProvider(),
                 AccessTokenFormat = new CustomJwtFormat("https://localhost:44355/")
@@ -55,6 +66,14 @@ namespace Doctor_Appointment
 
             // OAuth 2.0 Bearer Access Token Generation
             app.UseOAuthAuthorizationServer(OAuthServerOptions);
+
+            facebookAuthenticationOptions = new FacebookAuthenticationOptions()
+            {
+                AppId = "624214714911167",
+                AppSecret = "c6c727e3400693316daea3cb6a464a91",
+                Provider = new FacebookAuthProvider()
+            };
+            app.UseFacebookAuthentication(facebookAuthenticationOptions);
         }
 
         private void ConfigureOAuthTokenConsumption(IAppBuilder app)

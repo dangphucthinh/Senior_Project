@@ -86,6 +86,9 @@
     <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Owin.Security.Facebook.4.1.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin.Security.Jwt, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Owin.Security.Jwt.3.1.0\lib\net45\Microsoft.Owin.Security.Jwt.dll</HintPath>
     </Reference>
@@ -168,13 +171,28 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constant\Constant.cs" />
+    <Compile Include="DTO\ExternalLogin\ExternalLoginData.cs" />
+    <Compile Include="DTO\ExternalLogin\ExternalLoginDTO.cs" />
     <Compile Include="DTO\Roles\RoleModel.cs" />
-    <Compile Include="Migrations\202009280458055_InitalDB.cs" />
-    <Compile Include="Migrations\202009280458055_InitalDB.designer.cs">
-      <DependentUpon>202009280458055_InitalDB.cs</DependentUpon>
+    <Compile Include="DTO\User\UserForResetPassword.cs" />
+    <Compile Include="GenerateToken.cs" />
+    <Compile Include="Migrations\202009300301516_InitialDB.cs" />
+    <Compile Include="Migrations\202009300301516_InitialDB.designer.cs">
+      <DependentUpon>202009300301516_InitialDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010010225406_add_model.cs" />
+    <Compile Include="Migrations\202010010225406_add_model.designer.cs">
+      <DependentUpon>202010010225406_add_model.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\Doctor.cs" />
+    <Compile Include="Models\HospitalCenter.cs" />
     <Compile Include="Models\ModelFactory.cs" />
+    <Compile Include="Models\Patient.cs" />
+    <Compile Include="Models\Response.cs" />
+    <Compile Include="Models\Specialty.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -195,7 +213,9 @@
     <Compile Include="Infrastucture\ApplicationUser.cs" />
     <Compile Include="Infrastucture\ApplicationUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\FacebookAuthProvider.cs" />
     <Compile Include="Startup1.cs" />
+    <Compile Include="Token.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -210,8 +230,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009280458055_InitalDB.resx">
-      <DependentUpon>202009280458055_InitalDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202009300301516_InitialDB.resx">
+      <DependentUpon>202009300301516_InitialDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010010225406_add_model.resx">
+      <DependentUpon>202010010225406_add_model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

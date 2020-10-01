@@ -23,11 +23,12 @@ namespace Doctor_Appointment.Models
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
 
             // Configure validation logic for usernames
-            //manager.UserValidator = new UserValidator<ApplicationUser>(manager)
-            //{
-            //    AllowOnlyAlphanumericUserNames = false,
-            //    RequireUniqueEmail = true
-            //};
+
+            manager.UserValidator = new UserValidator<ApplicationUser>(manager)
+            {
+                //AllowOnlyAlphanumericUserNames = false,
+                RequireUniqueEmail = true
+            };
 
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
@@ -36,7 +37,7 @@ namespace Doctor_Appointment.Models
                 RequireNonLetterOrDigit = true,
                 RequireDigit = true,
                 RequireLowercase = true,
-                RequireUppercase = true,
+                RequireUppercase = true
             };
             return manager;
         }

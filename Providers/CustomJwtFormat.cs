@@ -1,16 +1,11 @@
-﻿using Doctor_Appointment.Models;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Data.SqlClient;
 using System.IdentityModel.Tokens;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Web;
+using System.Web.Http.Results;
 using Thinktecture.IdentityModel.Tokens;
 
 
@@ -69,7 +64,7 @@ namespace Doctor_Appointment.Provider
             var jwt = handler.WriteToken(token);
 
             return jwt;
-            
+
         }
 
         public AuthenticationTicket Unprotect(string protectedText)
