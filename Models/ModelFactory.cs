@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace Doctor_Appointment.Models
                 DateOfBirth = appUser.DateOfBirth,
                 EmailConfirmed = appUser.EmailConfirmed,
                 Roles = _AppUserManager.GetRolesAsync(appUser.Id).Result,
-                Claims = _AppUserManager.GetClaimsAsync(appUser.Id).Result
+                Claims = _AppUserManager.GetClaimsAsync(appUser.Id).Result,
             };
         }
 
@@ -52,6 +53,16 @@ namespace Doctor_Appointment.Models
 
     public class UserReturnModel
     {
+        [JsonProperty("access_token")]
+        public string AccessToken { get; set; }
+        [JsonProperty("token_type")]
+        public string TokenType { get; set; }
+        [JsonProperty("expires_in")]
+        public int ExpiresIn { get; set; }
+        //[JsonProperty("refresh_token")]
+        //public string RefreshToken { get; set; }
+        [JsonProperty("error")]
+        public string Error { get; set; }
         public string Url { get; set; }
         public string Id { get; set; }
         public string Avatar { get; set; }

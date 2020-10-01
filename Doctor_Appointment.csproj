@@ -171,12 +171,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constant\Constant.cs" />
-    <Compile Include="DTO\ExternalLogin\ExternalLoginData.cs" />
-    <Compile Include="DTO\ExternalLogin\ExternalLoginDTO.cs" />
-    <Compile Include="DTO\Roles\RoleModel.cs" />
-    <Compile Include="DTO\User\UserForResetPassword.cs" />
-    <Compile Include="GenerateToken.cs" />
+    <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Utils\Constant\Constant.cs" />
+    <Compile Include="Models\DTO\ExternalLogin\ExternalLoginData.cs" />
+    <Compile Include="Models\DTO\ExternalLogin\ExternalLoginDTO.cs" />
+    <Compile Include="Models\DTO\Roles\RoleModel.cs" />
+    <Compile Include="Models\DTO\User\UserForResetPassword.cs" />
     <Compile Include="Migrations\202009300301516_InitialDB.cs" />
     <Compile Include="Migrations\202009300301516_InitialDB.designer.cs">
       <DependentUpon>202009300301516_InitialDB.cs</DependentUpon>
@@ -197,13 +197,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BasiAPIController.cs" />
-    <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Providers\CustomJwtFormat.cs" />
     <Compile Include="Providers\CustomOAuthProvider.cs" />
-    <Compile Include="DTO\User\UserForChangePasswordDTO.cs" />
-    <Compile Include="DTO\User\UserForLoginDTO.cs" />
-    <Compile Include="DTO\User\UserForRegisterDTO.cs" />
+    <Compile Include="Models\DTO\User\UserForChangePasswordDTO.cs" />
+    <Compile Include="Models\DTO\User\UserForLoginDTO.cs" />
+    <Compile Include="Models\DTO\User\UserForRegisterDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -215,7 +214,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\FacebookAuthProvider.cs" />
     <Compile Include="Startup1.cs" />
-    <Compile Include="Token.cs" />
+    <Compile Include="Models\Token.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

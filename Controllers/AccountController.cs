@@ -152,8 +152,17 @@ namespace Doctor_Appointment.Controllers
                 PhoneNumber = userForRegisterDTO.PhoneNumber
             };
 
-
             IdentityResult result = await this.AppUserManager.CreateAsync(user, userForRegisterDTO.Password);
+
+            if (user.isPatient == true)
+            {
+                AppUserManager.AddToRole(user.Id, Constant.Constant.PATIENT);
+            }
+            else
+            {
+                AppUserManager.AddToRole(user.Id, Constant.Constant.DOCTOR);                
+            }
+            
 
             if (!result.Succeeded)
             {
@@ -164,8 +173,6 @@ namespace Doctor_Appointment.Controllers
                     data = result
                 });
             }
-
-            AppUserManager.AddToRole(user.Id, "Patient");
 
             return Ok(new Response
             {
@@ -250,11 +257,11 @@ namespace Doctor_Appointment.Controllers
             });
         }
 
-
+        //Post api/Auth/Login   
         [HttpPost]
         [AllowAnonymous]
-        [Route("testLogin")]
-        public async Task<IHttpActionResult> CreatePayment(UserForLoginDTO pm)
+        [Route("Login")]
+        public async Task<IHttpActionResult> Login(UserForLoginDTO userForLoginDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -272,11 +279,12 @@ namespace Doctor_Appointment.Controllers
                 var form = new Dictionary<string, string>
                {
                    {"grant_type", "password"},
-                   {"Username", pm.Username},
-                   {"Password", pm.Password},
+                   {"Username", userForLoginDTO.Username},
+                   {"Password", userForLoginDTO.Password},
                };
                 var tokenResponse = await client.PostAsync(baseAddress + "/Auth/Login", new FormUrlEncodedContent(form));
-                var token = tokenResponse.Content.ReadAsAsync<Token>(new[] { new JsonMediaTypeFormatter() }).Result;      
+                var token = tokenResponse.Content.ReadAsAsync<UserReturnModel>(new[] { new JsonMediaTypeFormatter() }).Result;      
+                
                 if(token.AccessToken == null)
                 {
                     return Ok(new Response
