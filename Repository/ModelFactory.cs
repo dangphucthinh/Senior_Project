@@ -1,19 +1,20 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http.Routing;
+using Doctor_Appointment.Models;
+using Doctor_Appointment.Infrastucture;
 
-namespace Doctor_Appointment.Models
+namespace Doctor_Appointment.Repository
 {
     public class ModelFactory
     {
         private UrlHelper _UrlHelper;
         private ApplicationUserManager _AppUserManager;
-
-
 
         public ModelFactory(HttpRequestMessage request, ApplicationUserManager appUserManager)
         {
@@ -21,7 +22,7 @@ namespace Doctor_Appointment.Models
             _AppUserManager = appUserManager;
         }
 
-        public UserReturnModel Create(ApplicationUser appUser)
+        public UserReturnModel CreateUser(ApplicationUser appUser)
         {
             return new UserReturnModel
             {
@@ -40,6 +41,7 @@ namespace Doctor_Appointment.Models
             };
         }
 
+        //public 
 
         public RoleReturnModel CreateRole(IdentityRole appRole)
         {
@@ -51,7 +53,9 @@ namespace Doctor_Appointment.Models
                 Name = appRole.Name
             };
         }
+        
     }
+
 
     public class UserReturnModel
     {
@@ -70,13 +74,12 @@ namespace Doctor_Appointment.Models
         public IList<System.Security.Claims.Claim> Claims { get; set; }
     }
 
-
-
-
     public class RoleReturnModel
     {
         public string Url { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }
     }
+
+
 }

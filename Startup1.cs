@@ -12,6 +12,7 @@ using System.Net.Http.Formatting;
 using Microsoft.Owin.Security;
 using System.Linq;
 using Newtonsoft.Json.Serialization;
+using Doctor_Appointment.Infrastucture;
 
 [assembly: OwinStartup(typeof(Doctor_Appointment.Startup1))]
 

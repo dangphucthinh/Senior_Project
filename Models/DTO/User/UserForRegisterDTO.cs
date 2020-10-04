@@ -22,6 +22,9 @@ namespace Doctor_Appointment.DTO
         public string LastName { get; set; }
 
         [Required]
+        public bool Gender { get; set; }
+
+        [Required]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 

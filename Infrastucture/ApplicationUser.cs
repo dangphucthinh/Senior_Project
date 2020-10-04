@@ -9,7 +9,7 @@ using System.Web;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace Doctor_Appointment.Models
+namespace Doctor_Appointment.Infrastucture
 {
     public class ApplicationUser : IdentityUser
     {

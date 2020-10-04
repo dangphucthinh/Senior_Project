@@ -1,4 +1,5 @@
 ﻿using Doctor_Appointment.DTO;
+using Doctor_Appointment.Infrastucture;
 using Doctor_Appointment.Models;
 using Microsoft.AspNet.Identity;
 using System;
@@ -21,7 +22,7 @@ namespace Doctor_Appointment.Controllers
             {
                 status = 0,
                 message = "success",
-                data = this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u))
+                data = this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.CreateUser(u))
             });
         }
 
@@ -37,7 +38,7 @@ namespace Doctor_Appointment.Controllers
                 {
                     status = 0,
                     message = "success",
-                    data = this.TheModelFactory.Create(user)
+                    data = this.TheModelFactory.CreateUser(user)
                 });
             }
 
@@ -61,7 +62,7 @@ namespace Doctor_Appointment.Controllers
                 {
                     status = 0,
                     message = "success",
-                    data = this.TheModelFactory.Create(user)
+                    data = this.TheModelFactory.CreateUser(user)
                 });
             }
 
@@ -130,15 +131,15 @@ namespace Doctor_Appointment.Controllers
                     data = ModelState
                 });
             }
-
+            //default account register is patient (isPatient == true)
             var user = new ApplicationUser() {
                 UserName = userForRegisterDTO.Username, 
                 Email = userForRegisterDTO.Email,
                 FirstName = userForRegisterDTO.FirstName,
                 LastName = userForRegisterDTO.LastName,
                 DateOfBirth = userForRegisterDTO.DateOfBirth,
-                isPatient = userForRegisterDTO.isPatient,
-
+                Gender = userForRegisterDTO.Gender,
+                isPatient = true,
             };
 
 
@@ -160,7 +161,7 @@ namespace Doctor_Appointment.Controllers
             {
                 status = 0,
                 message = "success",
-                data = TheModelFactory.Create(user)
+                data = TheModelFactory.CreateUser(user)
             });
         }
 

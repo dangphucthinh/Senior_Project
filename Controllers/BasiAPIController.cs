@@ -2,7 +2,8 @@
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Doctor_Appointment.Models;
+using Doctor_Appointment.Repository;
+using Doctor_Appointment.Infrastucture;
 
 namespace Doctor_Appointment.Controllers
 {

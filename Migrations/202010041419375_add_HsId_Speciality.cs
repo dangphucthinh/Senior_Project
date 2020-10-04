@@ -3,16 +3,16 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class update_hospital : DbMigration
+    public partial class add_HsId_Speciality : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.HospitalCenters", "Name", c => c.String());
+            AddColumn("dbo.Specialties", "HsId", c => c.Int(nullable: false));
         }
         
         public override void Down()
         {
-            DropColumn("dbo.HospitalCenters", "Name");
+            DropColumn("dbo.Specialties", "HsId");
         }
     }
 }

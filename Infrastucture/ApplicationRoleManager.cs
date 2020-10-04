@@ -9,7 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Doctor_Appointment.Models
+namespace Doctor_Appointment.Infrastucture
 {
     public class ApplicationRoleManager : RoleManager<IdentityRole>
     {

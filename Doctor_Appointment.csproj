@@ -168,24 +168,25 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\Roles\RoleModel.cs" />
-    <Compile Include="Migrations\202009301423023_InitialDB.cs" />
-    <Compile Include="Migrations\202009301423023_InitialDB.designer.cs">
-      <DependentUpon>202009301423023_InitialDB.cs</DependentUpon>
+    <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Controllers\SpecialityController.cs" />
+    <Compile Include="Migrations\202010041349093_InitialDb.cs" />
+    <Compile Include="Migrations\202010041349093_InitialDb.designer.cs">
+      <DependentUpon>202010041349093_InitialDb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009301458259_add_models.cs" />
-    <Compile Include="Migrations\202009301458259_add_models.designer.cs">
-      <DependentUpon>202009301458259_add_models.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202009301613095_update_hospital.cs" />
-    <Compile Include="Migrations\202009301613095_update_hospital.designer.cs">
-      <DependentUpon>202009301613095_update_hospital.cs</DependentUpon>
+    <Compile Include="Migrations\202010041419375_add_HsId_Speciality.cs" />
+    <Compile Include="Migrations\202010041419375_add_HsId_Speciality.designer.cs">
+      <DependentUpon>202010041419375_add_HsId_Speciality.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DTO\Doctor\DoctorForRegisterDTO.cs" />
+    <Compile Include="Models\DTO\Roles\RoleModel.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\HospitalCenter.cs" />
-    <Compile Include="Models\ModelFactory.cs" />
+    <Compile Include="Models\HospitalSpeciality.cs" />
+    <Compile Include="Repository\DoctorRepository.cs" />
+    <Compile Include="Repository\ModelFactory.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\Response.cs" />
     <Compile Include="Models\Specialty.cs" />
@@ -193,13 +194,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BasiAPIController.cs" />
-    <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Providers\CustomJwtFormat.cs" />
     <Compile Include="Providers\CustomOAuthProvider.cs" />
-    <Compile Include="DTO\User\UserForChangePasswordDTO.cs" />
-    <Compile Include="DTO\User\UserForLoginDTO.cs" />
-    <Compile Include="DTO\User\UserForRegisterDTO.cs" />
+    <Compile Include="Models\DTO\User\UserForChangePasswordDTO.cs" />
+    <Compile Include="Models\DTO\User\UserForLoginDTO.cs" />
+    <Compile Include="Models\DTO\User\UserForRegisterDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -209,6 +209,7 @@
     <Compile Include="Infrastucture\ApplicationUser.cs" />
     <Compile Include="Infrastucture\ApplicationUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\HospitalSpecialityRepository.cs" />
     <Compile Include="Startup1.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -224,14 +225,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009301423023_InitialDB.resx">
-      <DependentUpon>202009301423023_InitialDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010041349093_InitialDb.resx">
+      <DependentUpon>202010041349093_InitialDb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009301458259_add_models.resx">
-      <DependentUpon>202009301458259_add_models.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202009301613095_update_hospital.resx">
-      <DependentUpon>202009301613095_update_hospital.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010041419375_add_HsId_Speciality.resx">
+      <DependentUpon>202010041419375_add_HsId_Speciality.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

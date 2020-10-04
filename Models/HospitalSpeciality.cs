@@ -6,10 +6,9 @@ using System.Web;
 
 namespace Doctor_Appointment.Models
 {
-    public class Specialty
+    public class HospitalSpeciality
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int HsId { get; set; }
     }
 }

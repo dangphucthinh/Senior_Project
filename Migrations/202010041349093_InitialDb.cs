@@ -3,10 +3,69 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialDB : DbMigration
+    public partial class InitialDb : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.Addresses",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Address_Number = c.Int(nullable: false),
+                        Street = c.String(),
+                        City = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Doctors",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.String(),
+                        Certification = c.String(),
+                        Education = c.String(),
+                        Specialty_Id = c.Int(nullable: false),
+                        Hospital_Id = c.Int(nullable: false),
+                        HospitalSpeciality_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.HospitalCenters",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Address_Number = c.Int(nullable: false),
+                        Street = c.String(),
+                        City = c.String(),
+                        Address_Id = c.Int(nullable: false),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.HospitalSpecialities",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Patients",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.String(),
+                        Medical_History = c.String(),
+                        Sympton = c.String(),
+                        Allergy = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
             CreateTable(
                 "dbo.Role",
                 c => new
@@ -31,6 +90,15 @@
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.Specialties",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.User",
                 c => new
                     {
@@ -41,6 +109,7 @@
                         Avatar = c.String(),
                         Gender = c.Boolean(nullable: false),
                         isPatient = c.Boolean(nullable: false),
+                        Address_Id = c.Int(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -98,8 +167,14 @@
             DropTable("dbo.UserLogin");
             DropTable("dbo.UserClaim");
             DropTable("dbo.User");
+            DropTable("dbo.Specialties");
             DropTable("dbo.UserRole");
             DropTable("dbo.Role");
+            DropTable("dbo.Patients");
+            DropTable("dbo.HospitalSpecialities");
+            DropTable("dbo.HospitalCenters");
+            DropTable("dbo.Doctors");
+            DropTable("dbo.Addresses");
         }
     }
 }
