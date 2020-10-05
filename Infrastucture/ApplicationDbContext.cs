@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Doctor_Appointment.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace Doctor_Appointment.Models
+namespace Doctor_Appointment.Infrastucture
+
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -47,5 +49,6 @@ namespace Doctor_Appointment.Models
         public DbSet<Address> addresses { get; set; }
         public DbSet<HospitalCenter> hospitalCenters { get; set; }
         public DbSet<Specialty> specialties { get; set; }
+        public DbSet<HospitalSpecialty> hospitalSpecialties { get; set; }
     }
 }

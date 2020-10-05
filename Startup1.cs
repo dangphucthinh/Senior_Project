@@ -14,6 +14,7 @@ using System.Linq;
 using Newtonsoft.Json.Serialization;
 using Microsoft.Owin.Security.Facebook;
 using Doctor_Appointment.Providers;
+using Doctor_Appointment.Infrastucture;
 
 [assembly: OwinStartup(typeof(Doctor_Appointment.Startup1))]
 

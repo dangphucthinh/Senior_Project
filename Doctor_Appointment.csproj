@@ -172,24 +172,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Migrations\202010050803393_InitialDb.cs" />
+    <Compile Include="Migrations\202010050803393_InitialDb.designer.cs">
+      <DependentUpon>202010050803393_InitialDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DTO\Doctor\DoctorRegister.cs" />
+    <Compile Include="Models\HospitalSpecialty.cs" />
+    <Compile Include="Repository\DoctorRepository.cs" />
     <Compile Include="Utils\Constant\Constant.cs" />
     <Compile Include="Models\DTO\ExternalLogin\ExternalLoginData.cs" />
     <Compile Include="Models\DTO\ExternalLogin\ExternalLoginDTO.cs" />
     <Compile Include="Models\DTO\Roles\RoleModel.cs" />
     <Compile Include="Models\DTO\User\UserForResetPassword.cs" />
-    <Compile Include="Migrations\202009300301516_InitialDB.cs" />
-    <Compile Include="Migrations\202009300301516_InitialDB.designer.cs">
-      <DependentUpon>202009300301516_InitialDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010010225406_add_model.cs" />
-    <Compile Include="Migrations\202010010225406_add_model.designer.cs">
-      <DependentUpon>202010010225406_add_model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\HospitalCenter.cs" />
-    <Compile Include="Models\ModelFactory.cs" />
+    <Compile Include="Repository\ModelFactory.cs" />
     <Compile Include="Models\Patient.cs" />
     <Compile Include="Models\Response.cs" />
     <Compile Include="Models\Specialty.cs" />
@@ -200,9 +199,9 @@
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Providers\CustomJwtFormat.cs" />
     <Compile Include="Providers\CustomOAuthProvider.cs" />
-    <Compile Include="Models\DTO\User\UserForChangePasswordDTO.cs" />
-    <Compile Include="Models\DTO\User\UserForLoginDTO.cs" />
-    <Compile Include="Models\DTO\User\UserForRegisterDTO.cs" />
+    <Compile Include="Models\DTO\User\UserForChangePassword.cs" />
+    <Compile Include="Models\DTO\User\UserForLogin.cs" />
+    <Compile Include="Models\DTO\User\UserForRegister.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -229,11 +228,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009300301516_InitialDB.resx">
-      <DependentUpon>202009300301516_InitialDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010010225406_add_model.resx">
-      <DependentUpon>202010010225406_add_model.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010050803393_InitialDb.resx">
+      <DependentUpon>202010050803393_InitialDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

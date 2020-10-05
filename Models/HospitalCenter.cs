@@ -10,7 +10,7 @@ namespace Doctor_Appointment.Models
     {
         [Key]
         public int Id { get; set; }
-        public int Address_Number { get; set; }
+        public int AddressNumber { get; set; }
         public string Street { get; set; }
         public string City { get; set; }
         public int Address_Id { get; set; }

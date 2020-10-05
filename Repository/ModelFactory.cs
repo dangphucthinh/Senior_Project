@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Doctor_Appointment.Infrastucture;
+using Doctor_Appointment.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http.Routing;
 
-namespace Doctor_Appointment.Models
+namespace Doctor_Appointment.Repository
 {
     public class ModelFactory
     {
@@ -20,7 +22,7 @@ namespace Doctor_Appointment.Models
             _AppUserManager = appUserManager;
         }
 
-        public UserReturnModel Create(ApplicationUser appUser)
+        public UserReturnModel GetUser(ApplicationUser appUser)
         {
             return new UserReturnModel
             {
@@ -38,6 +40,7 @@ namespace Doctor_Appointment.Models
                 Claims = _AppUserManager.GetClaimsAsync(appUser.Id).Result,
             };
         }
+
 
 
         public RoleReturnModel CreateRole(IdentityRole appRole)

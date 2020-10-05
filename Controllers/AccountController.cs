@@ -1,17 +1,12 @@
 ﻿using Doctor_Appointment.DTO;
 using Doctor_Appointment.DTO.User;
+using Doctor_Appointment.Infrastucture;
 using Doctor_Appointment.Models;
-using Doctor_Appointment.Provider;
 using Microsoft.AspNet.Identity;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations.Design;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -19,8 +14,6 @@ namespace Doctor_Appointment.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Auth")]
-
-
     public class AccountController : BaseAPIController
     {
         [Route("users")]
@@ -31,7 +24,7 @@ namespace Doctor_Appointment.Controllers
             {
                 status = 0,
                 message = "success",
-                data = this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u))
+                data = this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.GetUser(u))
             });
         }
 
@@ -47,7 +40,7 @@ namespace Doctor_Appointment.Controllers
                 {
                     status = 0,
                     message = "success",
-                    data = this.TheModelFactory.Create(user)
+                    data = this.TheModelFactory.GetUser(user)
                 });
             }
 
@@ -71,7 +64,7 @@ namespace Doctor_Appointment.Controllers
                 {
                     status = 0,
                     message = "success",
-                    data = this.TheModelFactory.Create(user)
+                    data = this.TheModelFactory.GetUser(user)
                 });
             }
 
@@ -146,23 +139,14 @@ namespace Doctor_Appointment.Controllers
                 UserName = userForRegisterDTO.Username,
                 Email = userForRegisterDTO.Email,
                 FirstName = userForRegisterDTO.FirstName,
+                Gender = userForRegisterDTO.Gender,
                 LastName = userForRegisterDTO.LastName,
                 DateOfBirth = userForRegisterDTO.DateOfBirth,
-                isPatient = userForRegisterDTO.isPatient,
+                isPatient = true,
                 PhoneNumber = userForRegisterDTO.PhoneNumber
             };
 
             IdentityResult result = await this.AppUserManager.CreateAsync(user, userForRegisterDTO.Password);
-
-            if (user.isPatient == true)
-            {
-                AppUserManager.AddToRole(user.Id, Constant.Constant.PATIENT);
-            }
-            else
-            {
-                AppUserManager.AddToRole(user.Id, Constant.Constant.DOCTOR);                
-            }
-            
 
             if (!result.Succeeded)
             {
@@ -174,11 +158,13 @@ namespace Doctor_Appointment.Controllers
                 });
             }
 
+            AppUserManager.AddToRole(user.Id, Constant.Constant.PATIENT);
+
             return Ok(new Response
             {
                 status = 0,
                 message = "success",
-                data = TheModelFactory.Create(user)
+                data = TheModelFactory.GetUser(user)
             });
         }
 
@@ -283,7 +269,7 @@ namespace Doctor_Appointment.Controllers
                    {"Password", userForLoginDTO.Password},
                };
                 var tokenResponse = await client.PostAsync(baseAddress + "/Auth/Login", new FormUrlEncodedContent(form));
-                var token = tokenResponse.Content.ReadAsAsync<UserReturnModel>(new[] { new JsonMediaTypeFormatter() }).Result;      
+                var token = tokenResponse.Content.ReadAsAsync<Token>(new[] { new JsonMediaTypeFormatter() }).Result;      
                 
                 if(token.AccessToken == null)
                 {
@@ -294,11 +280,16 @@ namespace Doctor_Appointment.Controllers
                         data = token
                     });
                 }
+                var user = await this.AppUserManager.FindByNameAsync(userForLoginDTO.Username);
                 return Ok(new Response
                 {
                     status = 0,
                     message = "success",
-                    data = token
+                    data = new
+                    {
+                        Token = token,
+                        User = user
+                    }
                 });
             }
         }

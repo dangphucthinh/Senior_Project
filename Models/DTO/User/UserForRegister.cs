@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Doctor_Appointment.DTO
+namespace Doctor_Appointment.DTO.User
 {
     public class UserForRegisterDTO
     {
@@ -22,6 +22,9 @@ namespace Doctor_Appointment.DTO
         public string LastName { get; set; }
 
         [Required]
+        public bool Gender { get; set; }
+
+        [Required]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
@@ -36,8 +39,6 @@ namespace Doctor_Appointment.DTO
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
-        public string RoleName { get; set; }
 
         public string PhoneNumber { get; set; }
 

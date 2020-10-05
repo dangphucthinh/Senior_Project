@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 
-namespace Doctor_Appointment.DTO
+namespace Doctor_Appointment.DTO.User
 {
     public class UserForLoginDTO
     {

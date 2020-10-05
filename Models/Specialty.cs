@@ -8,11 +8,8 @@ namespace Doctor_Appointment.Models
 {
     public class Specialty
     {
-        [Key]
         public int Id { get; set; }
-
         public string Name { get; set; }
-
-        public string Image { get; set; }
+        public int HsId { get; set; }
     }
 }

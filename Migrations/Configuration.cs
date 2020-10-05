@@ -1,5 +1,6 @@
 ﻿namespace Doctor_Appointment.Migrations
 {
+    using Doctor_Appointment.Infrastucture;
     using Doctor_Appointment.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
@@ -8,14 +9,14 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Doctor_Appointment.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Doctor_Appointment.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -24,6 +25,7 @@
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+
 
             var user = new ApplicationUser()
             {
@@ -48,7 +50,8 @@
 
             var adminUser = manager.FindByName("Oscar");
 
-            manager.AddToRoles(adminUser.Id, new string[] { Constant.Constant.ADMIN, Constant.Constant.PATIENT });
+            //manager.AddToRoles(adminUser.Id, new string[] { Constant.Constant.ADMIN, Constant.Constant.PATIENT });
+            manager.AddToRoles(adminUser.Id, Constant.Constant.ADMIN);
         }
     }
 }
