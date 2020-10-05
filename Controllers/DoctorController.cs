@@ -18,7 +18,7 @@ namespace Doctor_Appointment.Controllers
     [RoutePrefix("api/Doctor")]
     public class DoctorController : BaseAPIController
     {
-
+        [Route("GetListAllDoctor")]
        public async Task<IHttpActionResult> GetListAllDoctor()
         {
 
@@ -87,6 +87,52 @@ namespace Doctor_Appointment.Controllers
                 status = 1,
                 message = "false",
                 //data = TheModelFactory.CreateUser(doctor)
+            });
+        }
+        
+        [Route("GetDoctorInfo/{UserId}")]
+        public async Task<IHttpActionResult> GetDoctorInfo(string UserId)
+        {
+           // var doctor = await this.AppUserManager.FindByNameAsync(UserId);
+
+            DoctorReturnModel doctor = await new DoctorRepository().GetDoctorInfo(UserId);
+            if (doctor != null)
+            {
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = "success",
+                    data = doctor
+                });
+            }
+
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false",
+                data = doctor
+            });
+        }
+
+        [Route("GetDoctorInfoBySpec/{HosSpecId}")]
+        public async Task<IHttpActionResult> GetDoctorInfoBySpec(int HosSpecId)
+        {
+          IEnumerable <DoctorReturnModel> doctor = await new DoctorRepository().GetDoctorsInfoBySpeciallity(HosSpecId);
+            if (doctor != null)
+            {
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = "success",
+                    data = doctor
+                });
+            }
+
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false",
+                data = doctor
             });
         }
     }

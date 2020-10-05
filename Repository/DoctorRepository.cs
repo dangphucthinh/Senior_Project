@@ -90,6 +90,40 @@ namespace Doctor_Appointment.Repository
         {
             return await this.db.doctors.AsNoTracking().ToListAsync();
         }
+
+        public async Task<IEnumerable<DoctorReturnModel>> GetDoctorsInfoBySpeciallity(int specId)
+        {
+            //return 
+            List<DoctorReturnModel> ret = await (from doc in db.doctors
+                                                 join spec in db.specialties on doc.Specialty_Id equals spec.Id
+                                                 join user in db.Users on doc.UserId equals user.Id
+                                                 join hosSpec in db.hospitalSpecialities on doc.HospitalSpeciality_Id equals hosSpec.Id
+                                                 where user.isPatient == false && doc.HospitalSpeciality_Id == specId
+                                                 select new DoctorReturnModel()
+                                                 {
+                                                     // user:
+                                                     Id = user.Id,
+                                                     Avatar = user.Avatar,
+                                                     UserName = user.UserName,
+                                                     Gender = user.Gender,
+                                                     Email = user.Email,
+                                                     EmailConfirmed = user.EmailConfirmed,
+                                                     isPatient = user.isPatient,
+                                                     DateOfBirth = user.DateOfBirth,
+                                                     FullName = user.FirstName + " " + user.LastName,
+                                                     Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
+                                                     //doctor:
+                                                     DoctorId = doc.Id,
+                                                     Certification = doc.Certification,
+                                                     Education = doc.Education,
+                                                     Hospital_Id = doc.Hospital_Id,
+                                                     SpecialityName = spec.Name,
+                                                     HospitalSpeciality_Id = doc.HospitalSpeciality_Id,
+                                                     HospitalSpeciality_Name = hosSpec.Name,
+                                                     UserId = doc.UserId
+                                                 }).ToListAsync<DoctorReturnModel>();
+            return ret;
+        }
         public async Task<IEnumerable<DoctorReturnModel>> GetAllDoctorsInfo()
         {
             List<DoctorReturnModel> ret =  await (from doc in db.doctors

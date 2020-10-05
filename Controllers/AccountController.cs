@@ -11,8 +11,6 @@ namespace Doctor_Appointment.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Auth")]
-
-
     public class AccountController : BaseAPIController
     {
         [Route("users")]

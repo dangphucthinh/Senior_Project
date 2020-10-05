@@ -26,6 +26,6 @@ namespace Doctor_Appointment.Repository
             return await this.db.specialties.Where(s => s.HsId == HsId).ToListAsync();
         }
 
-
+        
     }
 }
