@@ -2,6 +2,8 @@
 using Doctor_Appointment.DTO.User;
 using Doctor_Appointment.Infrastucture;
 using Doctor_Appointment.Models;
+using Doctor_Appointment.Repository;
+using Doctor_Appointment.Utils.Constant;
 using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +25,7 @@ namespace Doctor_Appointment.Controllers
             return Ok(new Response
             {
                 status = 0,
-                message = "success",
+                message = ResponseMessages.Success,
                 data = this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.GetUser(u))
             });
         }
@@ -39,7 +41,7 @@ namespace Doctor_Appointment.Controllers
                 return Ok(new Response
                 {
                     status = 0,
-                    message = "success",
+                    message = ResponseMessages.Success,
                     data = this.TheModelFactory.GetUser(user)
                 });
             }
@@ -47,7 +49,7 @@ namespace Doctor_Appointment.Controllers
             return Ok(new Response
             {
                 status = 1,
-                message = "false",
+                message = ResponseMessages.False,
                 data = user
             });
 
@@ -63,7 +65,7 @@ namespace Doctor_Appointment.Controllers
                 return Ok(new Response
                 {
                     status = 0,
-                    message = "success",
+                    message = ResponseMessages.Success,
                     data = this.TheModelFactory.GetUser(user)
                 });
             }
@@ -71,7 +73,7 @@ namespace Doctor_Appointment.Controllers
             return Ok(new Response
             {
                 status = 1,
-                message = "false",
+                message = ResponseMessages.False,
                 data = user
             });
 
@@ -129,7 +131,7 @@ namespace Doctor_Appointment.Controllers
                 return Ok(new Response
                 {
                     status = 1,
-                    message = "false",
+                    message = ResponseMessages.False,
                     data = ModelState
                 });
             }
@@ -153,7 +155,7 @@ namespace Doctor_Appointment.Controllers
                 return Ok(new Response
                 {
                     status = 1,
-                    message = "false",
+                    message = ResponseMessages.False,
                     data = result
                 });
             }
@@ -163,7 +165,7 @@ namespace Doctor_Appointment.Controllers
             return Ok(new Response
             {
                 status = 0,
-                message = "success",
+                message = ResponseMessages.Success,
                 data = TheModelFactory.GetUser(user)
             });
         }
@@ -178,8 +180,8 @@ namespace Doctor_Appointment.Controllers
             {
                 return Ok(new Response
                 {
-                    status = 1,
-                    message = "false",
+                    status = 0,
+                    message = ResponseMessages.Success,
                     data = ModelState
                 });
             }
@@ -191,7 +193,7 @@ namespace Doctor_Appointment.Controllers
                 return Ok(new Response
                 {
                     status = 1,
-                    message = "false",
+                    message = ResponseMessages.False,
                     data = result
                 });
             }
@@ -199,7 +201,7 @@ namespace Doctor_Appointment.Controllers
             return Ok(new Response
             {
                 status = 0,
-                message = "success",
+                message = ResponseMessages.Success,
                 data = new object()
             });
         }
@@ -214,7 +216,7 @@ namespace Doctor_Appointment.Controllers
                 return Ok(new Response
                 {
                     status = 1,
-                    message = "false",
+                    message = ResponseMessages.False,
                     data = ModelState
                 });
             }
@@ -229,7 +231,7 @@ namespace Doctor_Appointment.Controllers
                     return Ok(new Response
                     {
                         status = 0,
-                        message = "success",
+                        message = ResponseMessages.Success,
                         data = AddPassword
                     });
                 }
@@ -238,7 +240,7 @@ namespace Doctor_Appointment.Controllers
             return Ok(new Response
             {
                 status = 0,
-                message = "success",
+                message = ResponseMessages.Success,
                 data = ModelState
             });
         }
@@ -254,7 +256,7 @@ namespace Doctor_Appointment.Controllers
                 return Ok(new Response
                 {
                     status = 1,
-                    message = "false",
+                    message = ResponseMessages.False,
                     data = ModelState
                 });
             }
@@ -276,21 +278,21 @@ namespace Doctor_Appointment.Controllers
                     return Ok(new Response
                     {
                         status = 1,
-                        message = "false",
+                        message = ResponseMessages.False,
                         data = token
                     });
                 }
-                var user = await this.AppUserManager.FindByNameAsync(userForLoginDTO.Username);
-                return Ok(new Response
+                var user = await this.AppUserManager.FindByNameAsync(userForLoginDTO.Username);       
+                    return Ok(new Response
                 {
                     status = 0,
-                    message = "success",
-                    data = new
-                    {
-                        Token = token,
-                        User = user
-                    }
-                });
+                    message = ResponseMessages.False,
+                        data = new
+                        {
+                            Token = token,
+                            User = user
+                        }
+                    });
             }
         }
     }

@@ -21,6 +21,11 @@ namespace Doctor_Appointment.Repository
             _UrlHelper = new UrlHelper(request);
             _AppUserManager = appUserManager;
         }
+        
+        public ModelFactory()
+        {
+
+        }
 
         public UserReturnModel GetUser(ApplicationUser appUser)
         {

@@ -172,14 +172,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DoctorController.cs" />
-    <Compile Include="Migrations\202010050803393_InitialDb.cs" />
-    <Compile Include="Migrations\202010050803393_InitialDb.designer.cs">
-      <DependentUpon>202010050803393_InitialDb.cs</DependentUpon>
+    <Compile Include="Migrations\202010060653574_InitialDb.cs" />
+    <Compile Include="Migrations\202010060653574_InitialDb.designer.cs">
+      <DependentUpon>202010060653574_InitialDb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DTO\Doctor\DoctorRegister.cs" />
     <Compile Include="Models\HospitalSpecialty.cs" />
     <Compile Include="Repository\DoctorRepository.cs" />
+    <Compile Include="Repository\HospitalSpecialtyRepository.cs" />
     <Compile Include="Utils\Constant\Constant.cs" />
     <Compile Include="Models\DTO\ExternalLogin\ExternalLoginData.cs" />
     <Compile Include="Models\DTO\ExternalLogin\ExternalLoginDTO.cs" />
@@ -214,8 +215,10 @@
     <Compile Include="Providers\FacebookAuthProvider.cs" />
     <Compile Include="Startup1.cs" />
     <Compile Include="Models\Token.cs" />
+    <Compile Include="Utils\Constant\ResponeMessage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".editorconfig" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -228,8 +231,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010050803393_InitialDb.resx">
-      <DependentUpon>202010050803393_InitialDb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010060653574_InitialDb.resx">
+      <DependentUpon>202010060653574_InitialDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

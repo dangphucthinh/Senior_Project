@@ -29,10 +29,6 @@ namespace Doctor_Appointment.Controllers
             }
         }
 
-        public BaseAPIController()
-        {
-        }
-
         protected ModelFactory TheModelFactory
         {
             get

@@ -4,10 +4,8 @@ using Doctor_Appointment.Models.DTO.Doctor;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace Doctor_Appointment.Repository
 {
@@ -24,6 +22,7 @@ namespace Doctor_Appointment.Repository
         public bool isPatient { get; set; }
         public DateTime DateOfBirth { get; set; }
         public IList<string> Roles { get; set; }
+
         //doctor:
         public int DoctorId { get; set; }
         public string UserId { get; set; }
@@ -65,7 +64,7 @@ namespace Doctor_Appointment.Repository
             }
 
             ApplicationUser user = db.Users.Find(UserId);
-            var s = db.specialties.Find(model.Specialty_Id);
+           
             return new DoctorReturnModel()
             {
 
@@ -79,7 +78,9 @@ namespace Doctor_Appointment.Repository
                 DateOfBirth = user.DateOfBirth,
                 FullName = user.FirstName + " " + user.LastName,
                 Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
-
+                
+                DoctorId = doc.Id,
+                UserId = UserId,
                 Specialty_Id = model.Specialty_Id,
                 Education = model.Education,
                 Hospital_Id = model.Hospital_Id,
@@ -159,6 +160,38 @@ namespace Doctor_Appointment.Repository
                                                HospitalSpecialty_Name = hosSpec.Name,
                                                UserId = doc.UserId
                                            }).FirstOrDefaultAsync();
+            return ret;
+        }
+        public async Task<IEnumerable<DoctorReturnModel>> GetDoctorInfoBySpecialty(int specId)
+        {
+            List<DoctorReturnModel> ret = await (from doc in db.doctors
+                                                 join spec in db.specialties on doc.Specialty_Id equals spec.Id
+                                                 join user in db.Users on doc.UserId equals user.Id
+                                                 join hosSpec in db.hospitalSpecialties on doc.HospitalSpecialty_Id equals hosSpec.Id
+                                                 where user.isPatient == false && doc.HospitalSpecialty_Id == specId
+                                                 select new DoctorReturnModel()
+                                                 {
+                                                     // user:
+                                                     Id = user.Id,
+                                                     Avatar = user.Avatar,
+                                                     UserName = user.UserName,
+                                                     Gender = user.Gender,
+                                                     Email = user.Email,
+                                                     EmailConfirmed = user.EmailConfirmed,
+                                                     isPatient = user.isPatient,
+                                                     DateOfBirth = user.DateOfBirth,
+                                                     FullName = user.FirstName + " " + user.LastName,
+                                                     Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
+                                                     //doctor:
+                                                     DoctorId = doc.Id,
+                                                     Certification = doc.Certification,
+                                                     Education = doc.Education,
+                                                     Hospital_Id = doc.Hospital_Id,
+                                                     SpecialtyName = spec.Name,
+                                                     HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
+                                                     HospitalSpecialty_Name = hosSpec.Name,
+                                                     UserId = doc.UserId
+                                                 }).ToListAsync<DoctorReturnModel>();
             return ret;
         }
     }

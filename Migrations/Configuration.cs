@@ -1,7 +1,6 @@
 ﻿namespace Doctor_Appointment.Migrations
 {
     using Doctor_Appointment.Infrastucture;
-    using Doctor_Appointment.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
@@ -9,14 +8,14 @@
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Doctor_Appointment.Infrastucture.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ApplicationDbContext context)
+        protected override void Seed(Doctor_Appointment.Infrastucture.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -26,7 +25,6 @@
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
 
-
             var user = new ApplicationUser()
             {
                 UserName = "Oscar",
@@ -34,24 +32,23 @@
                 EmailConfirmed = true,
                 FirstName = "Thinh",
                 LastName = "Dang",
-                DateOfBirth = DateTime.Now.AddYears(-3),
                 Gender = true,
-                Avatar = ""
+                DateOfBirth = DateTime.Now.AddYears(-3),
+                isPatient = true
             };
 
             manager.Create(user, "Admin@123");
 
             if (roleManager.Roles.Count() == 0)
             {
-                roleManager.Create(new IdentityRole { Name = Constant.Constant.ADMIN });
-                roleManager.Create(new IdentityRole { Name = Constant.Constant.DOCTOR });
-                roleManager.Create(new IdentityRole { Name = Constant.Constant.PATIENT });
+                roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "Doctor" });
+                roleManager.Create(new IdentityRole { Name = "Patient" });
             }
 
             var adminUser = manager.FindByName("Oscar");
 
-            //manager.AddToRoles(adminUser.Id, new string[] { Constant.Constant.ADMIN, Constant.Constant.PATIENT });
-            manager.AddToRoles(adminUser.Id, Constant.Constant.ADMIN);
+            manager.AddToRoles(adminUser.Id, new string[] { "Admin" });
         }
-    }
+    }    
 }
