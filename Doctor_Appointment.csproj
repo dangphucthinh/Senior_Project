@@ -168,6 +168,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\SpecialityController.cs" />
     <Compile Include="Migrations\202010041349093_InitialDb.cs" />
@@ -178,13 +179,20 @@
     <Compile Include="Migrations\202010041419375_add_HsId_Speciality.designer.cs">
       <DependentUpon>202010041419375_add_HsId_Speciality.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010061355331_create_Appointment_table.cs" />
+    <Compile Include="Migrations\202010061355331_create_Appointment_table.designer.cs">
+      <DependentUpon>202010061355331_create_Appointment_table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\AppointmentStatus.cs" />
     <Compile Include="Models\DTO\Doctor\DoctorForRegisterDTO.cs" />
     <Compile Include="Models\DTO\Roles\RoleModel.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\HospitalCenter.cs" />
     <Compile Include="Models\HospitalSpeciality.cs" />
+    <Compile Include="Repository\AppointmentRepository.cs" />
     <Compile Include="Repository\DoctorRepository.cs" />
     <Compile Include="Repository\ModelFactory.cs" />
     <Compile Include="Models\Patient.cs" />
@@ -210,6 +218,7 @@
     <Compile Include="Infrastucture\ApplicationUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\HospitalSpecialityRepository.cs" />
+    <Compile Include="Repository\PatientRepository.cs" />
     <Compile Include="Startup1.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +239,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010041419375_add_HsId_Speciality.resx">
       <DependentUpon>202010041419375_add_HsId_Speciality.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010061355331_create_Appointment_table.resx">
+      <DependentUpon>202010061355331_create_Appointment_table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

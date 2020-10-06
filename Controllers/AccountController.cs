@@ -1,11 +1,13 @@
 ﻿using Doctor_Appointment.DTO;
 using Doctor_Appointment.Infrastucture;
 using Doctor_Appointment.Models;
+using Doctor_Appointment.Repository;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
+using static Doctor_Appointment.Repository.PatientRepository;
 
 namespace Doctor_Appointment.Controllers
 {
@@ -21,6 +23,17 @@ namespace Doctor_Appointment.Controllers
                 status = 0,
                 message = "success",
                 data = this.AppUserManager.Users.ToList().Select(u => this.TheModelFactory.CreateUser(u))
+            });
+        }
+
+        [Route("GetListAllPatient")]
+        public async Task<IHttpActionResult> GetListAllPatient()
+        {
+            return Ok(new Response
+            {
+                status = 0,
+                message = "success",
+                data = await new PatientRepository().GetAllPatientInfo()
             });
         }
 
@@ -154,12 +167,14 @@ namespace Doctor_Appointment.Controllers
             }
 
             AppUserManager.AddToRole(user.Id, "Patient");
+            PatientReturnModel res = await new PatientRepository().CreatePatient(user.Id, userForRegisterDTO);
 
             return Ok( new Response
             {
                 status = 0,
                 message = "success",
-                data = TheModelFactory.CreateUser(user)
+                //data = TheModelFactory.CreateUser(user)
+                data = res
             });
         }
 

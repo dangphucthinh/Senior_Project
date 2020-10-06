@@ -36,11 +36,13 @@ namespace Doctor_Appointment.DTO
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        public string RoleName { get; set; }
-
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public string Medical_History { get; set; }
+        public string Sympton { get; set; }
+        public string Allergy { get; set; }
 
     }
 }
