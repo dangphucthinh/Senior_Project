@@ -183,9 +183,14 @@
     <Compile Include="Migrations\202010061355331_create_Appointment_table.designer.cs">
       <DependentUpon>202010061355331_create_Appointment_table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010071257144_update_appoinment_table.cs" />
+    <Compile Include="Migrations\202010071257144_update_appoinment_table.designer.cs">
+      <DependentUpon>202010071257144_update_appoinment_table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
+    <Compile Include="Models\DTO\Appoinment\MakeAppoinment.cs" />
     <Compile Include="Models\DTO\Doctor\DoctorForRegisterDTO.cs" />
     <Compile Include="Models\DTO\Roles\RoleModel.cs" />
     <Compile Include="Models\Address.cs" />
@@ -242,6 +247,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010061355331_create_Appointment_table.resx">
       <DependentUpon>202010061355331_create_Appointment_table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010071257144_update_appoinment_table.resx">
+      <DependentUpon>202010071257144_update_appoinment_table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

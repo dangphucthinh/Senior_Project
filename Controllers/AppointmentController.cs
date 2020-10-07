@@ -1,27 +1,55 @@
 ﻿using Doctor_Appointment.Models;
+using Doctor_Appointment.Models.DTO.Appoinment;
 using Doctor_Appointment.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Doctor_Appointment.Controllers
 {
-    [RoutePrefix("api/Appointment")]
     [Authorize]
+    [RoutePrefix("api/Appointment")]
     public class AppointmentController : BaseAPIController
     {
-        [Route("GetAppointmentByPatient")]
-        public IHttpActionResult GetAppointMentByPatient()
+        [Route("GetAppointmentInfo")]
+        public async Task<IHttpActionResult> GetAppointmentInfo()
         {
             return Ok(new Response
             {
                 status = 0,
+                message = "Success",
+                data = await new AppoinmentRepository().GetAppointments()
+            });
+        }
+
+        [Route("MakeAnAppointment")]
+        [HttpPost]
+        public async Task<IHttpActionResult> MakeAnAppointment(MakeAppoinment makeAppointment)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok(new Response
+                {
+                    status = 1,
+                    message = "false",
+                    data = ModelState
+                });
+            }
+
+            var app = new Appointment()
+            {
+                Issue = makeAppointment.Issue,
+                Detail = makeAppointment.Detail,
+                AppointmentStatus_Id = 1,
+                MeetingTime = makeAppointment.MeetingTime
+            };
+
+            AppointmentReturnModel appointment = await new AppoinmentRepository().Create(makeAppointment);
+            return Ok(new Response
+            {
+                status = 0,
                 message = "success",
-                data = new AppointmentRepository().GetAppointmentsByPatient()
+                //data = TheModelFactory.GetUser(user)
+                data = appointment
             });
         }
     }

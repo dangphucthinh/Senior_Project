@@ -4,17 +4,20 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Doctor_Appointment.Models
+namespace Doctor_Appointment.Models.DTO.Appoinment
 {
-    public class Appointment
+    public class MakeAppoinment
     {
-        [Key]
         public int Id { get; set; }
+        [Required]
         public int DoctorId { get; set; }
         public int PatientId { get; set; }
-        public string Issue { get; set; }
-        public string Detail { get; set; }
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime MeetingTime { get; set; }
-        public int AppointmentStatus_Id { get; set; }
+        [Required]
+        public string Issue { get; set; }
+        [Required]
+        public string Detail { get; set; }
     }
 }
