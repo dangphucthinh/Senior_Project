@@ -42,5 +42,9 @@ namespace Doctor_Appointment.DTO.User
 
         public string PhoneNumber { get; set; }
 
+        public string MedicalHistory { get; set; }
+        public string Sympton { get; set; }
+        public string Allergy { get; set; }
+
     }
 }

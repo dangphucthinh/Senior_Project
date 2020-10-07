@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using System.Web.Http;
+using static Doctor_Appointment.Repository.PatientRepository;
 
 namespace Doctor_Appointment.Controllers
 {
@@ -119,7 +120,19 @@ namespace Doctor_Appointment.Controllers
 
         }
 
-        //Post api/Account/Register
+       //Get api/Auth/GetListAllPatient
+       [Route("GetListAllPatient")]
+       public async Task<IHttpActionResult> GetListAllPatient()
+        {
+            return Ok(new Response
+            {
+                status = 0,
+                message = ResponseMessages.Success,
+                data = await new PatientRepository().GetAllPatientInfo()
+            });
+        }
+        
+        //Post api/Auth/Register
         [Route("Register")]
         [HttpPost]
         [AllowAnonymous]
@@ -161,12 +174,14 @@ namespace Doctor_Appointment.Controllers
             }
 
             AppUserManager.AddToRole(user.Id, Constant.Constant.PATIENT);
+            PatientReturnModel res = await new PatientRepository().CreatePatient(user.Id, userForRegisterDTO);
 
             return Ok(new Response
             {
                 status = 0,
                 message = ResponseMessages.Success,
-                data = TheModelFactory.GetUser(user)
+                //data = TheModelFactory.GetUser(user)
+                data = res
             });
         }
 

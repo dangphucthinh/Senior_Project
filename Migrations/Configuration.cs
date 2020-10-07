@@ -12,7 +12,7 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Doctor_Appointment.Infrastucture.ApplicationDbContext context)

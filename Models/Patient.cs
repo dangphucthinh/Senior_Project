@@ -10,7 +10,7 @@ namespace Doctor_Appointment.Models
     {
         [Key]
         public int Id { get; set; }
-        public string User_Id { get; set; }
+        public string UserId { get; set; }
         public string MedicalHistory { get; set; }
         public string Sympton { get; set; }
         public string Allergy { get; set; }
