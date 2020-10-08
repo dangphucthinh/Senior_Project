@@ -19,6 +19,29 @@
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.Appointments",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        DoctorId = c.Int(nullable: false),
+                        PatientId = c.Int(nullable: false),
+                        MeetingTime = c.DateTime(nullable: false),
+                        Issue = c.String(),
+                        Detail = c.String(),
+                        StatusId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.AppointmentStatus",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Doctors",
                 c => new
                     {
@@ -59,7 +82,7 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        User_Id = c.String(),
+                        UserId = c.String(),
                         MedicalHistory = c.String(),
                         Sympton = c.String(),
                         Allergy = c.String(),
@@ -175,6 +198,8 @@
             DropTable("dbo.HospitalSpecialties");
             DropTable("dbo.HospitalCenters");
             DropTable("dbo.Doctors");
+            DropTable("dbo.AppointmentStatus");
+            DropTable("dbo.Appointments");
             DropTable("dbo.Addresses");
         }
     }

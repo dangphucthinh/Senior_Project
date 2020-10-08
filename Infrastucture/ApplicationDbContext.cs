@@ -43,6 +43,7 @@ namespace Doctor_Appointment.Infrastucture
             //AspNetUsers -> UserLogin
             modelBuilder.Entity<IdentityUserLogin>()
                 .ToTable("UserLogin");
+
         }
         public DbSet<Patient> patients { get; set; }
         public DbSet<Doctor> doctors { get; set; }

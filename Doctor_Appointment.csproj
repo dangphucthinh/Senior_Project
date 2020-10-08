@@ -173,21 +173,9 @@
   <ItemGroup>
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
-    <Compile Include="Migrations\202010060653574_InitialDb.cs" />
-    <Compile Include="Migrations\202010060653574_InitialDb.designer.cs">
-      <DependentUpon>202010060653574_InitialDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010060900303_make_appointment.cs" />
-    <Compile Include="Migrations\202010060900303_make_appointment.designer.cs">
-      <DependentUpon>202010060900303_make_appointment.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010070247221_create_appointment_table.cs" />
-    <Compile Include="Migrations\202010070247221_create_appointment_table.designer.cs">
-      <DependentUpon>202010070247221_create_appointment_table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010070532563_update_appointment_table.cs" />
-    <Compile Include="Migrations\202010070532563_update_appointment_table.designer.cs">
-      <DependentUpon>202010070532563_update_appointment_table.cs</DependentUpon>
+    <Compile Include="Migrations\202010080237431_InitialDb.cs" />
+    <Compile Include="Migrations\202010080237431_InitialDb.designer.cs">
+      <DependentUpon>202010080237431_InitialDb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -249,17 +237,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010060653574_InitialDb.resx">
-      <DependentUpon>202010060653574_InitialDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010060900303_make_appointment.resx">
-      <DependentUpon>202010060900303_make_appointment.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010070247221_create_appointment_table.resx">
-      <DependentUpon>202010070247221_create_appointment_table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010070532563_update_appointment_table.resx">
-      <DependentUpon>202010070532563_update_appointment_table.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010080237431_InitialDb.resx">
+      <DependentUpon>202010080237431_InitialDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

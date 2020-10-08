@@ -7,13 +7,13 @@ namespace Doctor_Appointment.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class update_appointment_table : IMigrationMetadata
+    public sealed partial class InitialDb : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(update_appointment_table));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialDb));
         
         string IMigrationMetadata.Id
         {
-            get { return "202010070532563_update_appointment_table"; }
+            get { return "202010080237431_InitialDb"; }
         }
         
         string IMigrationMetadata.Source
