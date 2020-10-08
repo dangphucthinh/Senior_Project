@@ -173,9 +173,10 @@
   <ItemGroup>
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
-    <Compile Include="Migrations\202010080237431_InitialDb.cs" />
-    <Compile Include="Migrations\202010080237431_InitialDb.designer.cs">
-      <DependentUpon>202010080237431_InitialDb.cs</DependentUpon>
+    <Compile Include="Controllers\SpecialtyController.cs" />
+    <Compile Include="Migrations\202010080416498_InitialDb.cs" />
+    <Compile Include="Migrations\202010080416498_InitialDb.designer.cs">
+      <DependentUpon>202010080416498_InitialDb.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -237,8 +238,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010080237431_InitialDb.resx">
-      <DependentUpon>202010080237431_InitialDb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010080416498_InitialDb.resx">
+      <DependentUpon>202010080416498_InitialDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
