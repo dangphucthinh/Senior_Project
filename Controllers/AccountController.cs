@@ -1,6 +1,7 @@
 ﻿using Doctor_Appointment.DTO;
 using Doctor_Appointment.Infrastucture;
 using Doctor_Appointment.Models;
+using Doctor_Appointment.Models.DTO.User;
 using Doctor_Appointment.Repository;
 using Microsoft.AspNet.Identity;
 using System;
@@ -148,6 +149,7 @@ namespace Doctor_Appointment.Controllers
                 Email = userForRegisterDTO.Email,
                 FirstName = userForRegisterDTO.FirstName,
                 LastName = userForRegisterDTO.LastName,
+                PhoneNumber = userForRegisterDTO.PhoneNumber,
                 DateOfBirth = userForRegisterDTO.DateOfBirth,
                 Gender = userForRegisterDTO.Gender,
                 isPatient = true,
@@ -179,7 +181,7 @@ namespace Doctor_Appointment.Controllers
         }
 
         //Post api/Auth/ChangePassword
-        [Authorize]
+        
         [Route("ChangePassword")]
         [HttpPost]
         public async Task<IHttpActionResult> ChangePassword(UserForChangePasswordDTO userForChangePasswordDTO)
@@ -208,5 +210,61 @@ namespace Doctor_Appointment.Controllers
                 data = new object()
             });
         }     
+   
+        [Route("Update/{UserId}")]
+        [HttpPost]
+        [Authorize(Roles ="Patient")]
+        
+        public async Task<IHttpActionResult> Update(string UserId,UserForUpdate userForUpdate)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok(new Response
+                {
+                    status = 1,
+                    message = "false",
+                    data = ModelState
+                });
+            }
+            //default account register is patient (isPatient == true)
+            var patient = new Patient()
+            {
+               // UserName = userForUpdate.Username,
+                Allergy = userForUpdate.Allergy,
+                Medical_History = userForUpdate.Medical_History,
+                //Gender = userForUpdate.Gender,
+                Sympton = userForUpdate.Sympton
+                
+            };
+
+            //IdentityResult result = this.AppUserManager.Update(patient);
+            //if (!result.Succeeded)
+            //{
+            //    return Ok(new Response
+            //    {
+            //        status = 1,
+            //        message = "false",
+            //        data = result
+            //    });
+            //}
+
+            PatientReturnModel res = await new PatientRepository().UpdateInfoPatient(UserId, userForUpdate);
+
+            if (res != null)
+            {
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = "success",
+                    data = res
+                });
+            }
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false",
+                //data = TheModelFactory.CreateUser(doctor)
+            });
+        }
     }
 }

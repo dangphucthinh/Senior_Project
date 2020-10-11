@@ -44,5 +44,8 @@ namespace Doctor_Appointment.DTO
         public string Sympton { get; set; }
         public string Allergy { get; set; }
 
+        [Required]
+        public string PhoneNumber { get; set; }
+
     }
 }

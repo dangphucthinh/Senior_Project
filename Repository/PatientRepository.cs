@@ -1,6 +1,7 @@
 ﻿using Doctor_Appointment.DTO;
 using Doctor_Appointment.Infrastucture;
 using Doctor_Appointment.Models;
+using Doctor_Appointment.Models.DTO.User;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -19,6 +20,7 @@ namespace Doctor_Appointment.Repository
             public string Avatar { get; set; }
             public string UserName { get; set; }
             public string FullName { get; set; }
+            public string PhoneNumber { get; set; }
             public bool Gender { get; set; }
             public string Email { get; set; }
             public bool EmailConfirmed { get; set; }
@@ -60,9 +62,9 @@ namespace Doctor_Appointment.Repository
             {
                 await db.SaveChangesAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return null;    
+                return null;
             }
 
             ApplicationUser user = db.Users.Find(UserId);
@@ -73,12 +75,13 @@ namespace Doctor_Appointment.Repository
                 Avatar = user.Avatar,
                 Gender = user.Gender,
                 Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
                 EmailConfirmed = user.EmailConfirmed,
                 isPatient = user.isPatient,
                 DateOfBirth = user.DateOfBirth,
                 FullName = user.FirstName + " " + user.LastName,
                 Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
-            
+
                 //patient
                 UserId = UserId,
                 PatientId = patient.Id,
@@ -88,7 +91,7 @@ namespace Doctor_Appointment.Repository
 
             };
         }
-        
+
         public async Task<IEnumerable<PatientReturnModel>> GetAllPatientInfo()
         {
             List<PatientReturnModel> ret = await (from patient in db.patients
@@ -113,6 +116,35 @@ namespace Doctor_Appointment.Repository
                                                       Sympton = patient.Sympton,
                                                       UserId = patient.UserId
                                                   }).ToListAsync<PatientReturnModel>();
+            return ret;
+        }
+
+        public async Task<PatientReturnModel> UpdateInfoPatient(string UserId, UserForUpdate model)
+        {
+            ApplicationUser user = db.Users.Find(UserId);
+            Patient tmp = db.patients.Where(p => p.UserId == UserId).FirstOrDefault();
+            Patient patient = tmp != null ? db.patients.Find(tmp.Id) : null;
+
+
+            PropertyCopier<UserForUpdate, ApplicationUser>.Copy(model, user);
+            PropertyCopier<UserForUpdate, Patient>.Copy(model, patient, new List<string>() { "UserId" });
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            PatientReturnModel ret = new PatientReturnModel();
+            PropertyCopier<ApplicationUser, PatientReturnModel>.Copy(user, ret);
+            PropertyCopier<Patient, PatientReturnModel>.Copy(patient, ret);
+
+            ret.FullName = user.FirstName + " " + user.LastName;
+            ret.Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>();
+
             return ret;
         }
     }

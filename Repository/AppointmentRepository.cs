@@ -69,9 +69,9 @@ public class AppoinmentRepository
             };
         }
 
-        public async Task<AppointmentReturnModel> GetListAll()
-        {
+        //public async Task<AppointmentReturnModel> GetListAppointmentByPatient(int id)
+        //{
 
-        }
+        //}
     }
 }

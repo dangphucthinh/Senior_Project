@@ -195,8 +195,10 @@
     <Compile Include="Models\DTO\Roles\RoleModel.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Doctor.cs" />
+    <Compile Include="Models\DTO\User\UserForUpdate.cs" />
     <Compile Include="Models\HospitalCenter.cs" />
     <Compile Include="Models\HospitalSpeciality.cs" />
+    <Compile Include="Models\PropertyCopier.cs" />
     <Compile Include="Repository\AppointmentRepository.cs" />
     <Compile Include="Repository\DoctorRepository.cs" />
     <Compile Include="Repository\ModelFactory.cs" />
