@@ -35,7 +35,7 @@ public class AppoinmentRepository
         return await this.db.appointments.ToListAsync();
     }
 
-        public async Task<AppointmentReturnModel> Create(MakeAppoinment model)
+        public async Task<AppointmentReturnModel> Create(MakeAppointment model)
         {
             Appointment newApp = new Appointment()
             {
@@ -68,10 +68,5 @@ public class AppoinmentRepository
                 //PatientName = db.Users.Find(model.PatientId).FirstName + " "+db.Users.Find(model.PatientId).LastName
             };
         }
-
-        //public async Task<AppointmentReturnModel> GetListAppointmentByPatient(int id)
-        //{
-
-        //}
     }
 }

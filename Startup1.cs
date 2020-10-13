@@ -51,7 +51,7 @@ namespace Doctor_Appointment
                 TokenEndpointPath = new PathString("/Auth/Login"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(7),
                 Provider = new CustomOAuthProvider(),
-                AccessTokenFormat = new CustomJwtFormat("https://localhost:44355/")
+                AccessTokenFormat = new CustomJwtFormat("http://116.110.87.119:2904/")
             };
 
             // OAuth 2.0 Bearer Access Token Generation
@@ -60,7 +60,7 @@ namespace Doctor_Appointment
 
         private void ConfigureOAuthTokenConsumption(IAppBuilder app)
         {
-            var issuer = "https://localhost:44355/";
+            var issuer = "http://116.110.87.119:2904/";
             string audienceId = ConfigurationManager.AppSettings["as:AudienceId"];
             byte[] audienceSecret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["as:AudienceSecret"].ToString());
 

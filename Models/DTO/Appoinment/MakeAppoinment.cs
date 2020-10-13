@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Doctor_Appointment.Models.DTO.Appoinment
 {
-    public class MakeAppoinment
+    public class MakeAppointment
     {
         public int Id { get; set; }
         [Required]

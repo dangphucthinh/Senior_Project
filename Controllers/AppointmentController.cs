@@ -1,6 +1,7 @@
 ﻿using Doctor_Appointment.Models;
 using Doctor_Appointment.Models.DTO.Appoinment;
 using Doctor_Appointment.Repository;
+using Doctor_Appointment.Utils;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -16,14 +17,14 @@ namespace Doctor_Appointment.Controllers
             return Ok(new Response
             {
                 status = 0,
-                message = "Success",
+                message = ResponseMessages.Success,
                 data = await new AppoinmentRepository().GetAppointments()
             });
         }
 
         [Route("MakeAnAppointment")]
         [HttpPost]
-        public async Task<IHttpActionResult> MakeAnAppointment(MakeAppoinment makeAppointment)
+        public async Task<IHttpActionResult> MakeAnAppointment(MakeAppointment makeAppointment)
         {
             if (!ModelState.IsValid)
             {
