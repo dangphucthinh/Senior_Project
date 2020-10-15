@@ -129,7 +129,7 @@
                         Id = c.String(nullable: false, maxLength: 128),
                         FirstName = c.String(maxLength: 100),
                         LastName = c.String(maxLength: 100),
-                        DateOfBirth = c.DateTime(nullable: false),
+                        DateOfBirth = c.DateTime(),
                         Gender = c.Boolean(nullable: false),
                         Avatar = c.String(),
                         isPatient = c.Boolean(nullable: false),

@@ -21,14 +21,14 @@ namespace Doctor_Appointment.DTO.User
         [Required]
         public string LastName { get; set; }
 
-        [Required]
+        //[Required]
         public bool Gender { get; set; }
 
-        [Required]
+       // [Required]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
-        [Required]
+        //[Required]
         public bool isPatient { get; set; }
 
         [Required]

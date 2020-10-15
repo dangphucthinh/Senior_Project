@@ -20,7 +20,7 @@ namespace Doctor_Appointment.Infrastucture
         public string LastName { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         public bool Gender { get; set; } 
 

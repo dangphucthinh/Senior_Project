@@ -5,6 +5,7 @@ using Doctor_Appointment.Models;
 using Doctor_Appointment.Repository;
 using Doctor_Appointment.Utils.Constant;
 using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -154,9 +155,9 @@ namespace Doctor_Appointment.Controllers
                 UserName = userForRegisterDTO.Username,
                 Email = userForRegisterDTO.Email,
                 FirstName = userForRegisterDTO.FirstName,
-                Gender = userForRegisterDTO.Gender,
+                //Gender = userForRegisterDTO.Gender,
                 LastName = userForRegisterDTO.LastName,
-                DateOfBirth = userForRegisterDTO.DateOfBirth,
+                DateOfBirth = userForRegisterDTO.DateOfBirth != new DateTime() ? userForRegisterDTO.DateOfBirth : DateTime.Now,
                 isPatient = true,
                 PhoneNumber = userForRegisterDTO.PhoneNumber
             };
@@ -276,7 +277,7 @@ namespace Doctor_Appointment.Controllers
                 });
             }
 
-            string baseAddress = "https://localhost:44355";
+            string baseAddress = "http://116.110.86.5:2905";
             using (var client = new HttpClient())
             {
                 var form = new Dictionary<string, string>

@@ -24,7 +24,7 @@ namespace Doctor_Appointment.Repository
             public string Email { get; set; }
             public bool EmailConfirmed { get; set; }
             public bool isPatient { get; set; }
-            public DateTime DateOfBirth { get; set; }
+            public DateTime? DateOfBirth { get; set; }
             public IList<string> Roles { get; set; }
             //patient
             public int PatientId { get; set; }

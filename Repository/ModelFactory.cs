@@ -75,7 +75,7 @@ namespace Doctor_Appointment.Repository
         public bool Gender { get; set; }
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public IList<string> Roles { get; set; }
         public IList<System.Security.Claims.Claim> Claims { get; set; }
     }
