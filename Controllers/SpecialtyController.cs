@@ -26,7 +26,7 @@ namespace Doctor_Appointment.Controllers
         }
 
 
-        [HttpPost]
+        
         [Route("GetAllSpecialities/{HsId}")]
         public async Task<IHttpActionResult> GetAllSpecialities(int? HsId)
         {

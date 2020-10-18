@@ -306,7 +306,7 @@ namespace Doctor_Appointment.Controllers
                         data = new
                         {
                             Token = token,
-                            User = user
+                            User = this.TheModelFactory.GetUser(user)
                         }
                     });
             }

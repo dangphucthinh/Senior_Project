@@ -72,7 +72,7 @@ namespace Doctor_Appointment.Controllers
             }
             AppUserManager.AddToRole(doctor.Id, Constant.Constant.DOCTOR);
 
-            DoctorReturnModel res = await new DoctorRepository().CreateDoctor(doctor.Id, doctorRegister);
+            Repository.DoctorReturnModel res = await new DoctorRepository().CreateDoctor(doctor.Id, doctorRegister);
             
 
             if (res != null)
@@ -92,10 +92,11 @@ namespace Doctor_Appointment.Controllers
             });
         }
 
-        [Route("GetDoctorInfo/{UserId}")]
-        public async Task<IHttpActionResult> GetDoctorInfo(string UserId)
+        [Route("GetDoctorInfo")]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetDoctorInfo(PostUserIdModel model)
         {
-            DoctorReturnModel doctor = await new DoctorRepository().GetDoctorInfo(UserId);
+            Repository.DoctorReturnModel doctor = await new DoctorRepository().GetDoctorInfo(model.UserId);
             if (doctor != null)
             {
                 return Ok(new Response
@@ -115,9 +116,10 @@ namespace Doctor_Appointment.Controllers
         }
 
         [Route("GetDoctorInfoBySpecialty/{HosSpecId}")]
-        public async Task<IHttpActionResult> GetDoctorInfoBySpecialty(int HosSpecId)
+        [HttpPost]
+        public async Task<IHttpActionResult> GetDoctorInfoBySpecialty(PostHosSpecIdModel model)
         {
-            IEnumerable<DoctorReturnModel> doctor = await new DoctorRepository().GetDoctorInfoBySpecialty(HosSpecId);
+            IEnumerable<Repository.DoctorReturnModel> doctor = await new DoctorRepository().GetDoctorInfoBySpecialty(model.HosSpecId);
             if (doctor != null)
             {
                 return Ok(new Response
