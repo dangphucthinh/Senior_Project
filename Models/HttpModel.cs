@@ -14,4 +14,9 @@ namespace Doctor_Appointment.Models.DTO.Doctor
     {
         public int HosSpecId { get; set; }
     }
+
+    public class PostHsIdModel
+    {
+        public int HsId { get; set; }
+    }
 }

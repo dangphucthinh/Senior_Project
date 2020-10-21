@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialDb : DbMigration
+    public partial class InitialDB : DbMigration
     {
         public override void Up()
         {
@@ -84,7 +84,7 @@
                         Id = c.Int(nullable: false, identity: true),
                         UserId = c.String(),
                         MedicalHistory = c.String(),
-                        Sympton = c.String(),
+                        Symptom = c.String(),
                         Allergy = c.String(),
                     })
                 .PrimaryKey(t => t.Id);

@@ -35,7 +35,6 @@ namespace Doctor_Appointment.Controllers
             return Ok(roles);
         }
 
-
         [Route("create")]
         public async Task<IHttpActionResult> Create(CreateRoleModel createRoleModel)
         {

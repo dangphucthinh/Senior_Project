@@ -1,4 +1,5 @@
 ﻿using Doctor_Appointment.Models;
+using Doctor_Appointment.Models.DTO.Doctor;
 using Doctor_Appointment.Repository;
 using System;
 using System.Collections.Generic;
@@ -27,15 +28,16 @@ namespace Doctor_Appointment.Controllers
 
 
         
-        [Route("GetAllSpecialities/{HsId}")]
-        public async Task<IHttpActionResult> GetAllSpecialities(int? HsId)
+        [Route("GetAllSpecialities")]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetAllSpecialities(PostHsIdModel model)
         {
 
             return Ok(new Response
             {
                 status = 0,
                 message = "success",
-                data = await new HospitalSpecialtyRepository().GetAllSpecialties(HsId.Value)
+                data = await new HospitalSpecialtyRepository().GetAllSpecialties(model.HsId)
             });
         }
     }

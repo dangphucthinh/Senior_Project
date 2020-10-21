@@ -2,6 +2,7 @@
 using Doctor_Appointment.DTO.User;
 using Doctor_Appointment.Infrastucture;
 using Doctor_Appointment.Models;
+using Doctor_Appointment.Models.DTO.Doctor;
 using Doctor_Appointment.Repository;
 using Doctor_Appointment.Utils.Constant;
 using Microsoft.AspNet.Identity;
@@ -82,6 +83,7 @@ namespace Doctor_Appointment.Controllers
         }
 
         [Route("user/{id:guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IHttpActionResult> DeleteUser(string id)
         {
 
@@ -277,7 +279,7 @@ namespace Doctor_Appointment.Controllers
                 });
             }
 
-            string baseAddress = "http://116.110.86.5:2905";
+            string baseAddress = "http://116.110.94.169:2905";
             using (var client = new HttpClient())
             {
                 var form = new Dictionary<string, string>
@@ -302,7 +304,7 @@ namespace Doctor_Appointment.Controllers
                     return Ok(new Response
                 {
                     status = 0,
-                    message = ResponseMessages.False,
+                    message = ResponseMessages.Success,
                         data = new
                         {
                             Token = token,
@@ -310,6 +312,30 @@ namespace Doctor_Appointment.Controllers
                         }
                     });
             }
+        }
+
+        [HttpPost]
+        [Route("GetPatientInfo")]
+       // [AllowAnonymous]
+        public async Task<IHttpActionResult> GetPatientInfo(PostUserIdModel model)
+        {
+            PatientReturnModel patient = await new PatientRepository().GetPatientInfo(model.UserId);
+            if (patient != null)
+            {
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = "success",
+                    data = patient
+                });
+            }
+
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false",
+                data = patient
+            });
         }
     }
 }

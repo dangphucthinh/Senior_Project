@@ -3,14 +3,10 @@ using Doctor_Appointment.Models;
 using Doctor_Appointment.Models.DTO.Doctor;
 using Doctor_Appointment.Repository;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Results;
+
 
 namespace Doctor_Appointment.Controllers
 {
@@ -72,7 +68,7 @@ namespace Doctor_Appointment.Controllers
             }
             AppUserManager.AddToRole(doctor.Id, Constant.Constant.DOCTOR);
 
-            Repository.DoctorReturnModel res = await new DoctorRepository().CreateDoctor(doctor.Id, doctorRegister);
+            DoctorReturnModel res = await new DoctorRepository().CreateDoctor(doctor.Id, doctorRegister);
             
 
             if (res != null)
@@ -93,10 +89,11 @@ namespace Doctor_Appointment.Controllers
         }
 
         [Route("GetDoctorInfo")]
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IHttpActionResult> GetDoctorInfo(PostUserIdModel model)
         {
-            Repository.DoctorReturnModel doctor = await new DoctorRepository().GetDoctorInfo(model.UserId);
+            DoctorReturnModel doctor = await new DoctorRepository().GetDoctorInfo(model.UserId);
             if (doctor != null)
             {
                 return Ok(new Response
@@ -115,7 +112,8 @@ namespace Doctor_Appointment.Controllers
             });
         }
 
-        [Route("GetDoctorInfoBySpecialty/{HosSpecId}")]
+        [Route("GetDoctorInfoBySpecialty")]
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IHttpActionResult> GetDoctorInfoBySpecialty(PostHosSpecIdModel model)
         {

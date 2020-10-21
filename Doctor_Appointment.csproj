@@ -184,14 +184,15 @@
     <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\SpecialtyController.cs" />
-    <Compile Include="Migrations\202010150637136_InitialDb.cs" />
-    <Compile Include="Migrations\202010150637136_InitialDb.designer.cs">
-      <DependentUpon>202010150637136_InitialDb.cs</DependentUpon>
+    <Compile Include="Migrations\202010200245497_InitialDB.cs" />
+    <Compile Include="Migrations\202010200245497_InitialDB.designer.cs">
+      <DependentUpon>202010200245497_InitialDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
-    <Compile Include="Models\DTO\Doctor\HttpModel.cs" />
+    <Compile Include="Models\DTO\User\UserForUpdate.cs" />
+    <Compile Include="Models\HttpModel.cs" />
     <Compile Include="Models\DTO\Doctor\DoctorRegister.cs" />
     <Compile Include="Models\DTO\Appointment\MakeAppointment.cs" />
     <Compile Include="Models\DTO\Images\ImageForCreate.cs" />
@@ -250,8 +251,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010150637136_InitialDb.resx">
-      <DependentUpon>202010150637136_InitialDb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010200245497_InitialDB.resx">
+      <DependentUpon>202010200245497_InitialDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
