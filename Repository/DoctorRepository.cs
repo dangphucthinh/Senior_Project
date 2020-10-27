@@ -20,6 +20,7 @@ namespace Doctor_Appointment.Repository
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
         public bool isPatient { get; set; }
+        public string PhoneNumber { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public IList<string> Roles { get; set; }
 
@@ -76,6 +77,7 @@ namespace Doctor_Appointment.Repository
                 EmailConfirmed = user.EmailConfirmed,
                 isPatient = user.isPatient,
                 DateOfBirth = user.DateOfBirth,
+                PhoneNumber = user.PhoneNumber,
                 FullName = user.FirstName + " " + user.LastName,
                 Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
                 
@@ -112,6 +114,7 @@ namespace Doctor_Appointment.Repository
                                                      EmailConfirmed = user.EmailConfirmed,
                                                      isPatient = user.isPatient,
                                                      DateOfBirth = user.DateOfBirth,
+                                                     PhoneNumber = user.PhoneNumber,
                                                      FullName = user.FirstName + " " + user.LastName,
                                                      Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
                                                      //doctor:
@@ -148,6 +151,7 @@ namespace Doctor_Appointment.Repository
                                                EmailConfirmed = user.EmailConfirmed,
                                                isPatient = user.isPatient,
                                                DateOfBirth = user.DateOfBirth,
+                                               PhoneNumber = user.PhoneNumber,
                                                FullName = user.FirstName + " " + user.LastName,
                                                Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
                                                //doctor:
@@ -180,6 +184,7 @@ namespace Doctor_Appointment.Repository
                                                      EmailConfirmed = user.EmailConfirmed,
                                                      isPatient = user.isPatient,
                                                      DateOfBirth = user.DateOfBirth,
+                                                     PhoneNumber = user.PhoneNumber,
                                                      FullName = user.FirstName + " " + user.LastName,
                                                      Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
                                                      //doctor:

@@ -28,6 +28,7 @@ namespace Doctor_Appointment.Repository
             public string Email { get; set; }
             public bool EmailConfirmed { get; set; }
             public bool isPatient { get; set; }
+            public string phoneNumber { get; set; }
             public DateTime? DateOfBirth { get; set; }
             public IList<string> Roles { get; set; }
             //patient
@@ -132,6 +133,7 @@ namespace Doctor_Appointment.Repository
                                                EmailConfirmed = user.EmailConfirmed,
                                                isPatient = user.isPatient,
                                                DateOfBirth = user.DateOfBirth,
+                                               phoneNumber = user.PhoneNumber,
                                                FullName = user.FirstName + " " + user.LastName,
                                                Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
                                                //doctor:
@@ -182,7 +184,7 @@ namespace Doctor_Appointment.Repository
             var user = db.Users.FirstOrDefault(x => x.Id.Trim() == userId.Trim());
             user.FirstName = context.Request.Form["FirstName"];
             user.LastName = context.Request.Form["LastName"];
-            user.Gender = Convert.ToInt32(context.Request.Form["Gender"].Trim()) == 0 ? false : true;
+           // user.Gender = Convert.ToInt32(context.Request.Form["Gender"].Trim()) == 0 ? false : true;
             //user.DateTime = Convert.ToDateTime(context.Request.Form["Date"]);
 
             var avatar = this.UploadAndGetImage(context.Request.Files[0]);

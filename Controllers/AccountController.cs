@@ -14,6 +14,8 @@ using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using System.Web.Http;
 using static Doctor_Appointment.Repository.PatientRepository;
+using CloudinaryDotNet;
+using System.Web;
 
 namespace Doctor_Appointment.Controllers
 {
@@ -21,6 +23,7 @@ namespace Doctor_Appointment.Controllers
     [RoutePrefix("api/Auth")]
     public class AccountController : BaseAPIController
     {
+        private readonly Cloudinary _cloudinary;
         [Route("users")]
         [Authorize(Roles = "Admin")]
         public IHttpActionResult GetUsers()
@@ -335,6 +338,25 @@ namespace Doctor_Appointment.Controllers
                 status = 1,
                 message = "false",
                 data = patient
+            });
+        }
+    
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("Update")]
+        public async Task<IHttpActionResult> Update()
+        {
+            new PatientRepository().UpdateUser(HttpContext.Current);
+            //var image = HttpContext.Current.Request.Files[0];
+
+            //new PatientRepository().UploadAndGetImage(image);
+
+
+            return Ok(new Response
+            {
+                status = 0,
+                message = ResponseMessages.Success,
+                data = { }
             });
         }
     }
