@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace Doctor_Appointment.Controllers
 {
-    [Authorize]
+   // [Authorize]
     [RoutePrefix("api/Speciality")]
     public class SpecialityController : BaseAPIController
     {

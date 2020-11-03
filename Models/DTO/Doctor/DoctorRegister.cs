@@ -19,5 +19,7 @@ namespace Doctor_Appointment.Models.DTO.Doctor
         public int Hospital_Id { get; set; }
         [Required]
         public int HospitalSpecialty_Id { get; set; }
+        [Required]
+        public string Bio { get; set; }
     }
 }

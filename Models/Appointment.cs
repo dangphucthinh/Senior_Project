@@ -10,9 +10,10 @@ namespace Doctor_Appointment.Models
     {
         [Key]
         public int Id { get; set; }
-        public int DoctorId { get; set; }
-        public int PatientId { get; set; }
+        public string DoctorId { get; set; }
+        public string PatientId { get; set; }
         public DateTime MeetingTime { get; set; }
+        public string StartTime { get; set; }
         public string Issue { get; set; }
         public string Detail { get; set; }
         public int StatusId { get; set; }

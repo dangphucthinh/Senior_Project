@@ -6,6 +6,10 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using CloudinaryDotNet;
+using System.IO;
+using CloudinaryDotNet.Actions;
+using System.Web;
 
 namespace Doctor_Appointment.Repository
 {
@@ -29,6 +33,7 @@ namespace Doctor_Appointment.Repository
         public string UserId { get; set; }
         public string Certification { get; set; }
         public string Education { get; set; }
+        public string Bio { get; set; }
         public int Hospital_Id { get; set; }
         public int Specialty_Id { get; set; }
         public string SpecialtyName { get; set; }
@@ -52,6 +57,7 @@ namespace Doctor_Appointment.Repository
                 Education = model.Education,
                 Hospital_Id = model.Hospital_Id,
                 Certification = model.Certification,
+                Bio = model.Bio,
                 HospitalSpecialty_Id = model.HospitalSpecialty_Id
             };
             Doctor doc = db.doctors.Add(newDoc);
@@ -123,6 +129,7 @@ namespace Doctor_Appointment.Repository
                                                      Education = doc.Education,
                                                      Hospital_Id = doc.Hospital_Id,
                                                      SpecialtyName = spec.Name,
+                                                     Bio = doc.Bio,
                                                      HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
                                                      HospitalSpecialty_Name = hosSpec.Name,
                                                      UserId = doc.UserId
@@ -159,6 +166,7 @@ namespace Doctor_Appointment.Repository
                                                Certification = doc.Certification,
                                                Education = doc.Education,
                                                Hospital_Id = doc.Hospital_Id,
+                                               Bio = doc.Bio,
                                                SpecialtyName = spec.Name,
                                                HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
                                                HospitalSpecialty_Name = hosSpec.Name,
@@ -192,12 +200,76 @@ namespace Doctor_Appointment.Repository
                                                      Certification = doc.Certification,
                                                      Education = doc.Education,
                                                      Hospital_Id = doc.Hospital_Id,
+                                                     Bio = doc.Bio,
                                                      SpecialtyName = spec.Name,
                                                      HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
                                                      HospitalSpecialty_Name = hosSpec.Name,
                                                      UserId = doc.UserId
                                                  }).ToListAsync<DoctorReturnModel>();
             return ret;
+        }
+        public string UploadAndGetImage(HttpPostedFile file)
+        {
+            BinaryReader br = new BinaryReader(file.InputStream);
+            byte[] ImageBytes = br.ReadBytes((Int32)file.InputStream.Length);
+
+            Account acc = new Account(
+                "deh0sqxwl",
+                "212524559265538",
+                "1p5EO6Mj_IBdALes5ke3wUMMw6w");
+            var _cloudinary = new Cloudinary(acc);
+
+            var uploadResult = new ImageUploadResult();
+
+
+            if (file.ContentLength > 0)
+            {
+                MemoryStream stream = new MemoryStream(ImageBytes);
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(file.FileName, stream),
+                    Transformation = new Transformation()
+                            .Width(500).Height(500).Crop("fill").Gravity("face")
+                };
+
+                uploadResult = _cloudinary.Upload(uploadParams);
+            }
+
+            return uploadResult.Url.ToString();
+        }
+        public string UpdateUser(HttpContext context)
+        {
+
+            var userId = context.Request.Form["UserId"];
+
+            var user = db.Users.FirstOrDefault(x => x.Id.Trim() == userId.Trim());
+            user.FirstName = context.Request.Form["FirstName"];
+            user.LastName = context.Request.Form["LastName"];
+
+            // user.Gender = Convert.ToInt32(context.Request.Form["Gender"].Trim()) == 0 ? false : true;
+            //user.DateTime = Convert.ToDateTime(context.Request.Form["Date"]);
+
+            var avatar = UploadAndGetImage(context.Request.Files[0]);
+            user.Avatar = avatar;
+
+            var doctor = db.doctors.FirstOrDefault(x => x.UserId.Trim() == userId.Trim());
+  
+            doctor.Certification = context.Request.Form["Certification"];
+            doctor.Education = context.Request.Form["Education"];
+            doctor.Bio = context.Request.Form["Bio"];
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+            return "asdads";
+
+
         }
     }
 }

@@ -188,15 +188,35 @@
     <Compile Include="Migrations\202010200245497_InitialDB.designer.cs">
       <DependentUpon>202010200245497_InitialDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010270213390_AddImage.cs" />
+    <Compile Include="Migrations\202010270213390_AddImage.designer.cs">
+      <DependentUpon>202010270213390_AddImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010300821565_updateTableDoctor.cs" />
+    <Compile Include="Migrations\202010300821565_updateTableDoctor.designer.cs">
+      <DependentUpon>202010300821565_updateTableDoctor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011030125152_Update_Appoinment_table.cs" />
+    <Compile Include="Migrations\202011030125152_Update_Appoinment_table.designer.cs">
+      <DependentUpon>202011030125152_Update_Appoinment_table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011030139383_update_table.cs" />
+    <Compile Include="Migrations\202011030139383_update_table.designer.cs">
+      <DependentUpon>202011030139383_update_table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011030748328_update_appointment_table.cs" />
+    <Compile Include="Migrations\202011030748328_update_appointment_table.designer.cs">
+      <DependentUpon>202011030748328_update_appointment_table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
-    <Compile Include="Models\DTO\User\UserForUpdate.cs" />
+    <Compile Include="Models\DTO\Appointment\UpdateAppoinment.cs" />
     <Compile Include="Models\HttpModel.cs" />
     <Compile Include="Models\DTO\Doctor\DoctorRegister.cs" />
     <Compile Include="Models\DTO\Appointment\MakeAppointment.cs" />
-    <Compile Include="Models\DTO\Images\ImageForCreate.cs" />
     <Compile Include="Models\HospitalSpecialty.cs" />
+    <Compile Include="Models\PropertyCopier.cs" />
     <Compile Include="Repository\AppoinmentRepository.cs" />
     <Compile Include="Repository\DoctorRepository.cs" />
     <Compile Include="Repository\HospitalSpecialtyRepository.cs" />
@@ -253,6 +273,21 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202010200245497_InitialDB.resx">
       <DependentUpon>202010200245497_InitialDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010270213390_AddImage.resx">
+      <DependentUpon>202010270213390_AddImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010300821565_updateTableDoctor.resx">
+      <DependentUpon>202010300821565_updateTableDoctor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011030125152_Update_Appoinment_table.resx">
+      <DependentUpon>202011030125152_Update_Appoinment_table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011030139383_update_table.resx">
+      <DependentUpon>202011030139383_update_table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011030748328_update_appointment_table.resx">
+      <DependentUpon>202011030748328_update_appointment_table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

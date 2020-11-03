@@ -1,16 +1,7 @@
 ﻿using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
 using Doctor_Appointment.Models;
-using Doctor_Appointment.Models.DTO.User;
 using Doctor_Appointment.Repository;
 using Doctor_Appointment.Utils.Constant;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;

@@ -16,5 +16,6 @@ namespace Doctor_Appointment.Models
         public int Specialty_Id { get; set; }
         public int Hospital_Id { get; set; }
         public int HospitalSpecialty_Id { get; set; }
+        public string Bio { get; set; }
     }
 }

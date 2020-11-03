@@ -1,18 +1,16 @@
 ﻿using Doctor_Appointment.Models;
 using Doctor_Appointment.Models.DTO;
+using Doctor_Appointment.Models.DTO.Appointment;
+using Doctor_Appointment.Models.DTO.Doctor;
 using Doctor_Appointment.Repository;
 using Doctor_Appointment.Utils.Constant;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Doctor_Appointment.Controllers
 {
-    [Authorize]
+   // [Authorize]
     [RoutePrefix("api/Appointment")]
     public class AppointmentController : BaseAPIController
     {
@@ -50,12 +48,81 @@ namespace Doctor_Appointment.Controllers
             };
 
             AppointmentReturnModel appointment = await new AppoinmentRepository().Create(app.Id,makeAppointment);
+            if (appointment != null)
+            {
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = ResponseMessages.Success,
+                    //data = TheModelFactory.GetUser(user)
+                    data = appointment
+                });
+            }
             return Ok(new Response
             {
-                status = 0,
-                message = ResponseMessages.Success,
+                status = 1,
+                message = ResponseMessages.False,
                 //data = TheModelFactory.GetUser(user)
-                data = appointment
+                data = "Cannot make an appointment this time"
+            });
+            
+        }
+
+
+        [Route("Update")]
+        [HttpPost]
+        public async Task<IHttpActionResult> Update(UpdateAppoinment model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok(new Response
+                {
+                    status = 1,
+                    message = "false",
+                    data = ModelState
+                });
+            }
+
+            await new AppoinmentRepository().UpdateInfoAppoinment(model);
+
+            if (model != null)
+            {
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = "success",
+                    data = model
+                });
+            }
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false",
+                data = model
+            });
+        }
+
+        [Route("GetAppoinmentByUser")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetDoctorInfoBySpecialty(PostUserIdModel model)
+        {
+            IEnumerable<AppointmentReturnModel> app = await new AppoinmentRepository().GetAppointmentByUser(model.UserId);
+            if (app != null)
+            {
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = "success",
+                    data = app
+                });
+            }
+
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false",
+                data = app
             });
         }
     }

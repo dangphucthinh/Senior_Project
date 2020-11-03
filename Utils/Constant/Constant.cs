@@ -11,4 +11,9 @@ namespace Doctor_Appointment.Constant
         public const string DOCTOR = "Doctor";
         public const string PATIENT = "Patient";
     }
+
+    public class API
+    {
+        public const string HTTP = "http://116.110.152.72:2905";
+    }
 }
