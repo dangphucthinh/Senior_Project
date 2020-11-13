@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace Doctor_Appointment.Controllers
 {
-   // [Authorize]
+    //[Authorize]
     [RoutePrefix("api/Appointment")]
     public class AppointmentController : BaseAPIController
     {
@@ -39,22 +39,14 @@ namespace Doctor_Appointment.Controllers
                 });
             }
 
-            var app = new Appointment()
-            {
-                Issue = makeAppointment.Issue,
-                Detail = makeAppointment.Detail,
-                StatusId = 1,
-                MeetingTime = makeAppointment.MeetingTime
-            };
 
-            AppointmentReturnModel appointment = await new AppoinmentRepository().Create(app.Id,makeAppointment);
+            AppointmentReturnModel appointment = await new AppoinmentRepository().Create(makeAppointment);
             if (appointment != null)
             {
                 return Ok(new Response
                 {
                     status = 0,
                     message = ResponseMessages.Success,
-                    //data = TheModelFactory.GetUser(user)
                     data = appointment
                 });
             }
@@ -62,7 +54,6 @@ namespace Doctor_Appointment.Controllers
             {
                 status = 1,
                 message = ResponseMessages.False,
-                //data = TheModelFactory.GetUser(user)
                 data = "Cannot make an appointment this time"
             });
             
@@ -103,11 +94,10 @@ namespace Doctor_Appointment.Controllers
         }
 
         [Route("GetAppoinmentByUser")]
-        [AllowAnonymous]
         [HttpPost]
-        public async Task<IHttpActionResult> GetDoctorInfoBySpecialty(PostUserIdModel model)
+        public async Task<IHttpActionResult> GetDoctorInfoBySpecialty(PostAppointmentId model)
         {
-            IEnumerable<AppointmentReturnModel> app = await new AppoinmentRepository().GetAppointmentByUser(model.UserId);
+            IEnumerable<AppointmentReturnModel> app = await new AppoinmentRepository().GetAppointmentByUser(model.UserId, model.StatusId);
             if (app != null)
             {
                 return Ok(new Response

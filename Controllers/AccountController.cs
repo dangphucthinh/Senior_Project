@@ -346,7 +346,7 @@ namespace Doctor_Appointment.Controllers
         [Route("Update")]
         public async Task<IHttpActionResult> Update()
         {
-            new PatientRepository().UpdateUser(HttpContext.Current);
+          new PatientRepository().UpdateUser(HttpContext.Current);
             //var image = HttpContext.Current.Request.Files[0];
 
             //new PatientRepository().UploadAndGetImage(image);

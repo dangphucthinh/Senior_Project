@@ -24,4 +24,10 @@ namespace Doctor_Appointment.Models.DTO.Doctor
     {
         public int Id { get; set; }
     }
+
+    public class PostAppointmentId
+    {
+        public int StatusId { get; set; }
+        public string UserId { get; set; }
+    }
 }

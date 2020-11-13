@@ -57,7 +57,7 @@ namespace Doctor_Appointment.Controllers
             };
 
 
-            IdentityResult result = await this.AppUserManager.CreateAsync(doctor, doctorRegister.Password);
+            IdentityResult result = await AppUserManager.CreateAsync(doctor, doctorRegister.Password);
 
             if (!result.Succeeded)
             {

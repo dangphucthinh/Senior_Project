@@ -11,8 +11,9 @@ namespace Doctor_Appointment.Models.DTO
         public int Id { get; set; }
         [Required]
         public string DoctorId { get; set; }
-        public string PatientId { get; set; }
         [Required]
+        public string PatientId { get; set; }
+  
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime MeetingTime { get; set; }
 
@@ -22,7 +23,9 @@ namespace Doctor_Appointment.Models.DTO
         public string Issue { get; set; }
         [Required]
         public string Detail { get; set; }
-        public string StatusName { get; set; }
+        public int StatusId { get; set; }
+
+ 
         
     }
 }

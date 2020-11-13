@@ -180,8 +180,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AIController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Controllers\HospitalController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\SpecialtyController.cs" />
     <Compile Include="Migrations\202010200245497_InitialDB.cs" />
@@ -208,22 +210,28 @@
     <Compile Include="Migrations\202011030748328_update_appointment_table.designer.cs">
       <DependentUpon>202011030748328_update_appointment_table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011101313540_add_image_in_hospital_table.cs" />
+    <Compile Include="Migrations\202011101313540_add_image_in_hospital_table.designer.cs">
+      <DependentUpon>202011101313540_add_image_in_hospital_table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
+    <Compile Include="Models\DTO\Hospital\HospitalDTO.cs" />
+    <Compile Include="Models\DTO\AI\ChatbotDataDTO.cs" />
+    <Compile Include="Models\DTO\AI\PredictionDTO.cs" />
     <Compile Include="Models\DTO\Appointment\UpdateAppoinment.cs" />
     <Compile Include="Models\HttpModel.cs" />
     <Compile Include="Models\DTO\Doctor\DoctorRegister.cs" />
     <Compile Include="Models\DTO\Appointment\MakeAppointment.cs" />
     <Compile Include="Models\HospitalSpecialty.cs" />
     <Compile Include="Models\PropertyCopier.cs" />
+    <Compile Include="Repository\HospitalRepository.cs" />
     <Compile Include="Repository\AppoinmentRepository.cs" />
     <Compile Include="Repository\DoctorRepository.cs" />
     <Compile Include="Repository\HospitalSpecialtyRepository.cs" />
     <Compile Include="Repository\PatientRepository.cs" />
     <Compile Include="Utils\Constant\Constant.cs" />
-    <Compile Include="Models\DTO\ExternalLogin\ExternalLoginData.cs" />
-    <Compile Include="Models\DTO\ExternalLogin\ExternalLoginDTO.cs" />
     <Compile Include="Models\DTO\Roles\RoleModel.cs" />
     <Compile Include="Models\DTO\User\UserForResetPassword.cs" />
     <Compile Include="Models\Address.cs" />
@@ -288,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011030748328_update_appointment_table.resx">
       <DependentUpon>202011030748328_update_appointment_table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011101313540_add_image_in_hospital_table.resx">
+      <DependentUpon>202011101313540_add_image_in_hospital_table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
