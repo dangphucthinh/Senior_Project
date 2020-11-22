@@ -43,6 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>packages\Portable.BouncyCastle.1.8.5\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="CloudinaryDotNet, Version=1.13.1.0, Culture=neutral, PublicKeyToken=c8234dc617ae7841, processorArchitecture=MSIL">
       <HintPath>packages\CloudinaryDotNet.1.13.1\lib\net45\CloudinaryDotNet.dll</HintPath>
     </Reference>
@@ -51,6 +54,9 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MailKit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
+      <HintPath>packages\MailKit.2.9.0\lib\net45\MailKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -107,14 +113,20 @@
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
     </Reference>
+    <Reference Include="MimeKit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>packages\MimeKit.2.9.2\lib\net45\MimeKit.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="SendGrid, Version=9.21.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
-      <HintPath>packages\SendGrid.9.21.0\lib\net40\SendGrid.dll</HintPath>
+    <Reference Include="SendGrid, Version=9.21.2.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>packages\SendGrid.9.21.2\lib\net40\SendGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGrid.SmtpApi, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SendGrid.SmtpApi.1.3.9\lib\portable40-net40+sl5+win8+wp8+wpa81\SendGrid.SmtpApi.dll</HintPath>
     </Reference>
     <Reference Include="StarkbankEcdsa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\starkbank-ecdsa.1.2.0\lib\net40\StarkbankEcdsa.dll</HintPath>
@@ -135,6 +147,7 @@
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Text.Encodings.Web, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Text.Encodings.Web.4.5.0\lib\netstandard1.0\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -183,54 +196,35 @@
     <Compile Include="Controllers\AIController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HospitalController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\SpecialtyController.cs" />
-    <Compile Include="Migrations\202010200245497_InitialDB.cs" />
-    <Compile Include="Migrations\202010200245497_InitialDB.designer.cs">
-      <DependentUpon>202010200245497_InitialDB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010270213390_AddImage.cs" />
-    <Compile Include="Migrations\202010270213390_AddImage.designer.cs">
-      <DependentUpon>202010270213390_AddImage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010300821565_updateTableDoctor.cs" />
-    <Compile Include="Migrations\202010300821565_updateTableDoctor.designer.cs">
-      <DependentUpon>202010300821565_updateTableDoctor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011030125152_Update_Appoinment_table.cs" />
-    <Compile Include="Migrations\202011030125152_Update_Appoinment_table.designer.cs">
-      <DependentUpon>202011030125152_Update_Appoinment_table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011030139383_update_table.cs" />
-    <Compile Include="Migrations\202011030139383_update_table.designer.cs">
-      <DependentUpon>202011030139383_update_table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011030748328_update_appointment_table.cs" />
-    <Compile Include="Migrations\202011030748328_update_appointment_table.designer.cs">
-      <DependentUpon>202011030748328_update_appointment_table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011101313540_add_image_in_hospital_table.cs" />
-    <Compile Include="Migrations\202011101313540_add_image_in_hospital_table.designer.cs">
-      <DependentUpon>202011101313540_add_image_in_hospital_table.cs</DependentUpon>
+    <Compile Include="Migrations\202011180245029_InitialDB.cs" />
+    <Compile Include="Migrations\202011180245029_InitialDB.designer.cs">
+      <DependentUpon>202011180245029_InitialDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
+    <Compile Include="Models\DTO\Email\Message.cs" />
     <Compile Include="Models\DTO\Hospital\HospitalDTO.cs" />
     <Compile Include="Models\DTO\AI\ChatbotDataDTO.cs" />
     <Compile Include="Models\DTO\AI\PredictionDTO.cs" />
     <Compile Include="Models\DTO\Appointment\UpdateAppoinment.cs" />
+    <Compile Include="Models\DTO\User\UserForForgotPassword.cs" />
     <Compile Include="Models\HttpModel.cs" />
     <Compile Include="Models\DTO\Doctor\DoctorRegister.cs" />
     <Compile Include="Models\DTO\Appointment\MakeAppointment.cs" />
     <Compile Include="Models\HospitalSpecialty.cs" />
     <Compile Include="Models\PropertyCopier.cs" />
+    <Compile Include="Repository\EmailRepository.cs" />
     <Compile Include="Repository\HospitalRepository.cs" />
     <Compile Include="Repository\AppoinmentRepository.cs" />
     <Compile Include="Repository\DoctorRepository.cs" />
     <Compile Include="Repository\HospitalSpecialtyRepository.cs" />
     <Compile Include="Repository\PatientRepository.cs" />
+    <Compile Include="Service\EmailService.cs" />
     <Compile Include="Utils\Constant\Constant.cs" />
     <Compile Include="Models\DTO\Roles\RoleModel.cs" />
     <Compile Include="Models\DTO\User\UserForResetPassword.cs" />
@@ -279,26 +273,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010200245497_InitialDB.resx">
-      <DependentUpon>202010200245497_InitialDB.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010270213390_AddImage.resx">
-      <DependentUpon>202010270213390_AddImage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010300821565_updateTableDoctor.resx">
-      <DependentUpon>202010300821565_updateTableDoctor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011030125152_Update_Appoinment_table.resx">
-      <DependentUpon>202011030125152_Update_Appoinment_table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011030139383_update_table.resx">
-      <DependentUpon>202011030139383_update_table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011030748328_update_appointment_table.resx">
-      <DependentUpon>202011030748328_update_appointment_table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011101313540_add_image_in_hospital_table.resx">
-      <DependentUpon>202011101313540_add_image_in_hospital_table.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011180245029_InitialDB.resx">
+      <DependentUpon>202011180245029_InitialDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

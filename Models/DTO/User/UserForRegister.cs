@@ -8,7 +8,7 @@ namespace Doctor_Appointment.DTO.User
 {
     public class UserForRegisterDTO
     {
-        [Required]
+        //[Required]
         [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string Email { get; set; }
 

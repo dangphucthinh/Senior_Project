@@ -31,6 +31,9 @@ namespace Doctor_Appointment.Repository
             public string phoneNumber { get; set; }
             public DateTime? DateOfBirth { get; set; }
             public IList<string> Roles { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            
             //patient
             public int PatientId { get; set; }
             public string UserId { get; set; }
@@ -135,8 +138,10 @@ namespace Doctor_Appointment.Repository
                                                DateOfBirth = user.DateOfBirth,
                                                phoneNumber = user.PhoneNumber,
                                                FullName = user.FirstName + " " + user.LastName,
+                                               FirstName = user.FirstName,
+                                               LastName = user.LastName,
                                                Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
-                                               //doctor:
+                                               //patient
                                                PatientId = pat.Id,
                                                Medical_History = pat.MedicalHistory,
                                                Allergy = pat.Allergy,

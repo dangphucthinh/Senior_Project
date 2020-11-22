@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace Doctor_Appointment.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [RoutePrefix("api/Appointment")]
     public class AppointmentController : BaseAPIController
     {

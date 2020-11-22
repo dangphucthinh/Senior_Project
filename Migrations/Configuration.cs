@@ -55,17 +55,33 @@
 
             //Create list of Hospital Specialties
             List<HospitalSpecialty> hospitalSpecialties = new List<HospitalSpecialty>();
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Pediatrics – Neonatology" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Cardiovascular Center" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Diagnostic imaging Department" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Oncology Department" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Pharmacy" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "General Surgical Department" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Laboratory Department" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Intensive Care and Emergency Medicine" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Obstetrics Department" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Anesthesiology Department" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "General Internal Medicine" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Foreign Neurology" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Foreign Injury" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Chest Surgery" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Cardiovascular intervention" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "External digestion" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Extra urinary" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Cardiomyopathy" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Endocrine - Hepatobiliary" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Internal respiratory system" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Endocrine" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Neurology - musculoskeletal - blood transfusion" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Active resuscitation against poison" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Anesthesia Resuscitation" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Tumor" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Ear, nose and throat" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Dentomaxillofacial" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Foreign burns" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Foreign synthesis" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Internal synthesis" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Tropical medicine" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Nuclear medicine" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Rehabilitation" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Maternity" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Artificial kidney" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Eyes" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Geriatrics" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Department of Nutrition" });
 
             context.hospitalSpecialties.AddRange(hospitalSpecialties);
             context.SaveChanges();
@@ -90,6 +106,48 @@
 
             context.specialties.AddRange(specialties);
             context.SaveChanges();
+
+
+            //create list address
+            List<Address> addresses = new List<Address>();
+            addresses.Add(new Address
+            {
+                AddressNumber = 102,
+                Street = "Nguyen Nhan,Hoa Tho Dong, Cam Le",
+                City = "Da Nang",
+            });
+            addresses.Add(new Address
+            {
+                AddressNumber = 64,
+                Street = "Cach Mang Thang Tam, Khue Trung, Cam Le",
+                City = "Da Nang",
+            });
+            addresses.Add(new Address
+            {
+                AddressNumber = 9,
+                Street = "Tran Thu Do, Khue Trung, Cam Le ",
+                City = "Da Nang",
+            });
+            addresses.Add(new Address
+            {
+                AddressNumber = 64,
+                Street = "Phan Dang Luu, Hoa Cuong Bac, Hai Chau",
+                City = "Da Nang",
+            });
+            addresses.Add(new Address
+            {
+                AddressNumber = 219,
+                Street = "Nguyen Van Linh, Thac Gian, Cam Le",
+                City = "Da Nang",
+            });
+            context.addresses.AddRange(addresses);
+            context.SaveChanges();
+
+
+            //http://res.cloudinary.com/deh0sqxwl/image/upload/v1604048938/e1p2tjwsp4zydfjhtg4z.jpg do anh vu
+            //http://res.cloudinary.com/deh0sqxwl/image/upload/v1604240896/um8s8bnx07vhdlsimk6u.jpg doan vu ngoc lam
+
+
         }
     }
 }

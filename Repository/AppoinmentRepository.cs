@@ -76,7 +76,7 @@ namespace Doctor_Appointment.Repository
                     //DoctorId = app.DoctorId,
                     //PatientId = app.PatientId,
                     //Id = app.Id,
-                    DoctorName = (from user in db.Users where user.Id == model.DoctorId.Trim() select new { FullName = user.FirstName + user.LastName }).FirstOrDefault().FullName,
+                    DoctorName = (from user in db.Users where user.Id == model.DoctorId.Trim() select new { FullName = user.FirstName + " " + user.LastName }).FirstOrDefault().FullName,
                     //DoctorName = db.Users.Find(model.DoctorId).FirstName + " " + db.Users.Find(model.DoctorId).LastName,
                     Issue = model.Issue,
                     Detail = model.Detail,
@@ -128,7 +128,7 @@ namespace Doctor_Appointment.Repository
                                                           PatientId = patient.UserId,
                                                           StartTime = app.StartTime,
                                                           MeetingTime = app.MeetingTime,
-                                                          DoctorName = (from user in db.Users where user.Id == doctor.UserId.Trim() select new { FullName = user.FirstName + user.LastName }).FirstOrDefault().FullName,
+                                                          DoctorName = (from user in db.Users where user.Id == doctor.UserId.Trim() select new { FullName = user.FirstName + " " +  user.LastName }).FirstOrDefault().FullName,
                                                           PatientName = (from user in db.Users where user.Id == patient.UserId.Trim() select new { FullName = user.FirstName + " " + user.LastName }).FirstOrDefault().FullName,
                                                           StatusName = status.Name,
                                                         ///  DoctorPhone = db.Users.Find(doctor.UserId).PhoneNumber
@@ -139,10 +139,5 @@ namespace Doctor_Appointment.Repository
                                                       var a = ret;
             return a;
         }
-
-        //public async Task<IEnumerable<AppointmentReturnModel>> DeleteAppointment(int Id)
-        //{
-            
-        //}
     }
 }

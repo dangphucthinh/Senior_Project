@@ -16,6 +16,7 @@ using System.Web.Http;
 using static Doctor_Appointment.Repository.PatientRepository;
 using System.Web;
 using Doctor_Appointment.Constant;
+using Doctor_Appointment.Models.DTO.User;
 
 namespace Doctor_Appointment.Controllers
 {
@@ -126,9 +127,9 @@ namespace Doctor_Appointment.Controllers
 
         }
 
-       //Get api/Auth/GetListAllPatient
-       [Route("GetListAllPatient")]
-       public async Task<IHttpActionResult> GetListAllPatient()
+        //Get api/Auth/GetListAllPatient
+        [Route("GetListAllPatient")]
+        public async Task<IHttpActionResult> GetListAllPatient()
         {
             return Ok(new Response
             {
@@ -137,7 +138,7 @@ namespace Doctor_Appointment.Controllers
                 data = await new PatientRepository().GetAllPatientInfo()
             });
         }
-        
+
         //Post api/Auth/Register
         [Route("Register")]
         [HttpPost]
@@ -180,17 +181,123 @@ namespace Doctor_Appointment.Controllers
             }
 
             AppUserManager.AddToRole(user.Id, Constant.Constant.PATIENT);
+
+            string code = await this.AppUserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+            var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code = code }));
+
+            await this.AppUserManager.SendEmailAsync(user.Id,
+                                                    "Confirm your account",
+                                                    "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+            //Uri locationHeader = new Uri(Url.Link("GetUserById", new { id = user.Id }));
             PatientReturnModel res = await new PatientRepository().CreatePatient(user.Id, userForRegisterDTO);
 
             return Ok(new Response
             {
                 status = 0,
                 message = ResponseMessages.Success,
-                //data = TheModelFactory.GetUser(user)
                 data = res
             });
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("ConfirmEmail", Name = "ConfirmEmailRoute")]
+        public async Task<IHttpActionResult> ConfirmEmail(string userId = "", string code = "")
+        {
+            if (string.IsNullOrWhiteSpace(userId) || string.IsNullOrWhiteSpace(code))
+            {
+                ModelState.AddModelError("", "User Id and Code are required");
+                return BadRequest(ModelState);
+            }
+
+            IdentityResult result = await this.AppUserManager.ConfirmEmailAsync(userId, code);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return GetErrorResult(result);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("ForgotPassword")]
+        public async Task<IHttpActionResult> ForgotPassword(UserForForgotPassword model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await this.AppUserManager.FindByEmailAsync(model.Email);
+                if (user == null || !(await this.AppUserManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return Ok(new Response
+                    {
+                        status = 1,
+                        message = "false, Cannot find user or email is not confirmed!",
+                    });
+                }
+
+                var code = await this.AppUserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = new Uri(Url.Link("ResetPasswordEmailRoute", new { userId = user.Id, code = code }));
+                //    var callbackUrl = Url.Action("ResetPassword", "Account",
+                //new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                await this.AppUserManager.SendEmailAsync(user.Id, "Reset Password",
+            "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = ResponseMessages.Success,
+                    //data = TheModelFactory.GetUser(user)
+                });
+            }
+
+            // If we got this far, something failed, redisplay form
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false, Unknown Error.",
+
+            });
+        }
+        //Post api/Auth/ResetPassword
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("ResetPasswordEmail", Name = "ResetPasswordEmailRoute")]
+        public async Task<IHttpActionResult> ResetPasswordEmail(string userId = "", string code = "")
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok(new Response
+                {
+                    status = 1,
+                    message = ResponseMessages.False,
+                    data = ModelState
+                });
+            }
+
+            var removePassword = await this.AppUserManager.ResetPasswordAsync(userId, code, "Abc@12345");
+            if (removePassword.Succeeded)
+            {
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = ResponseMessages.Success,
+
+                });
+            }
+
+            return Ok(new Response
+            {
+                status = 0,
+                message = ResponseMessages.Success,
+                data = ModelState
+            });
+        }
         //Post api/Auth/ChangePassword
         [Authorize]
         [Route("ChangePassword")]
@@ -227,45 +334,6 @@ namespace Doctor_Appointment.Controllers
             });
         }
 
-        //Post api/Auth/ResetPassword
-        [HttpPost]
-        [Route("ResetPassword")]
-        public async Task<IHttpActionResult> ResetPassword(UserForResetPassword userForResetPassword)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Ok(new Response
-                {
-                    status = 1,
-                    message = ResponseMessages.False,
-                    data = ModelState
-                });
-            }
-
-            var removePassword = await this.AppUserManager.RemovePasswordAsync(User.Identity.GetUserId());
-            if (removePassword.Succeeded)
-            {
-                //Removed Password Success
-                var AddPassword = await this.AppUserManager.AddPasswordAsync(User.Identity.GetUserId(), userForResetPassword.NewPassword);
-                if (AddPassword.Succeeded)
-                {
-                    return Ok(new Response
-                    {
-                        status = 0,
-                        message = ResponseMessages.Success,
-                        data = AddPassword
-                    });
-                }
-            }
-
-            return Ok(new Response
-            {
-                status = 0,
-                message = ResponseMessages.Success,
-                data = ModelState
-            });
-        }
-
         //Post api/Auth/Login   
         [HttpPost]
         [AllowAnonymous]
@@ -292,9 +360,9 @@ namespace Doctor_Appointment.Controllers
                    {"Password", userForLoginDTO.Password},
                };
                 var tokenResponse = await client.PostAsync(baseAddress + "/Auth/Login", new FormUrlEncodedContent(form));
-                var token = tokenResponse.Content.ReadAsAsync<Token>(new[] { new JsonMediaTypeFormatter() }).Result;      
-                
-                if(token.AccessToken == null)
+                var token = tokenResponse.Content.ReadAsAsync<Token>(new[] { new JsonMediaTypeFormatter() }).Result;
+
+                if (token.AccessToken == null)
                 {
                     return Ok(new Response
                     {
@@ -303,23 +371,23 @@ namespace Doctor_Appointment.Controllers
                         data = token
                     });
                 }
-                var user = await this.AppUserManager.FindByNameAsync(userForLoginDTO.Username);       
-                    return Ok(new Response
+                var user = await this.AppUserManager.FindByNameAsync(userForLoginDTO.Username);
+                return Ok(new Response
                 {
                     status = 0,
                     message = ResponseMessages.Success,
-                        data = new
-                        {
-                            Token = token,
-                            User = this.TheModelFactory.GetUser(user)
-                        }
-                    });
+                    data = new
+                    {
+                        Token = token,
+                        User = this.TheModelFactory.GetUser(user)
+                    }
+                });
             }
         }
 
         [HttpPost]
         [Route("GetPatientInfo")]
-       // [AllowAnonymous]
+        // [AllowAnonymous]
         public async Task<IHttpActionResult> GetPatientInfo(PostUserIdModel model)
         {
             PatientReturnModel patient = await new PatientRepository().GetPatientInfo(model.UserId);
@@ -340,22 +408,22 @@ namespace Doctor_Appointment.Controllers
                 data = patient
             });
         }
-    
+
         [HttpPost]
         [AllowAnonymous]
         [Route("Update")]
         public async Task<IHttpActionResult> Update()
         {
-          new PatientRepository().UpdateUser(HttpContext.Current);
+            new PatientRepository().UpdateUser(HttpContext.Current);
             //var image = HttpContext.Current.Request.Files[0];
 
             //new PatientRepository().UploadAndGetImage(image);
-           
-            return Ok( new Response
+
+            return Ok(new Response
             {
                 status = 0,
                 message = ResponseMessages.Success,
-                data = {}
+                data = { }
             });
         }
     }

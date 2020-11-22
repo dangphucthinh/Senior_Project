@@ -4,10 +4,6 @@ using Doctor_Appointment.Repository;
 using Doctor_Appointment.Utils.Constant;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +12,7 @@ using System.Web.Http;
 namespace Doctor_Appointment.Controllers
 {
     [RoutePrefix("api/AI")]
+    [Authorize]
     public class AIController : ApiController
     {
         [HttpPost]
@@ -66,7 +63,7 @@ namespace Doctor_Appointment.Controllers
                 {
                     disease = dataReturn,
                     spec = dataReturn2,
-                    doctors = doctors
+                    doctor = doctors
                 }
                
             });

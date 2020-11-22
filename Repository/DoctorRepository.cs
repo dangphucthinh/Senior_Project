@@ -35,6 +35,7 @@ namespace Doctor_Appointment.Repository
         public string Education { get; set; }
         public string Bio { get; set; }
         public int Hospital_Id { get; set; }
+        public string Hospital_Name { get; set; }
         public int Specialty_Id { get; set; }
         public string SpecialtyName { get; set; }
         public int HospitalSpecialty_Id { get; set; }
@@ -136,16 +137,13 @@ namespace Doctor_Appointment.Repository
                                                  }).ToListAsync<DoctorReturnModel>();
             return ret;
         }
-        public async Task<Doctor> GetDoctor(int id)
-        {
-            return await this.db.doctors.FindAsync(id);
-        }
         public async Task<DoctorReturnModel> GetDoctorInfo(string userId)
         {
             DoctorReturnModel ret = await (from doc in db.doctors
                                            join spec in db.specialties on doc.Specialty_Id equals spec.Id
                                            join user in db.Users on doc.UserId equals user.Id
                                            join hosSpec in db.hospitalSpecialties on doc.HospitalSpecialty_Id equals hosSpec.Id
+                                           join hosCen in db.hospitalCenters on doc.Hospital_Id equals hosCen.Id
                                            where user.isPatient == false && user.Id == userId
                                            select new DoctorReturnModel()
                                            {
@@ -170,6 +168,7 @@ namespace Doctor_Appointment.Repository
                                                SpecialtyName = spec.Name,
                                                HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
                                                HospitalSpecialty_Name = hosSpec.Name,
+                                               Hospital_Name = hosCen.Name,
                                                UserId = doc.UserId
                                            }).FirstOrDefaultAsync();
             return ret;
@@ -180,6 +179,7 @@ namespace Doctor_Appointment.Repository
                                                  join spec in db.specialties on doc.Specialty_Id equals spec.Id
                                                  join user in db.Users on doc.UserId equals user.Id
                                                  join hosSpec in db.hospitalSpecialties on doc.HospitalSpecialty_Id equals hosSpec.Id
+                                                 join hosCen in db.hospitalCenters on doc.Hospital_Id equals hosCen.Id
                                                  where user.isPatient == false && doc.HospitalSpecialty_Id == specId
                                                  select new DoctorReturnModel()
                                                  {
@@ -204,6 +204,7 @@ namespace Doctor_Appointment.Repository
                                                      SpecialtyName = spec.Name,
                                                      HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
                                                      HospitalSpecialty_Name = hosSpec.Name,
+                                                     Hospital_Name = hosCen.Name,
                                                      UserId = doc.UserId
                                                  }).ToListAsync<DoctorReturnModel>();
             return ret;
@@ -215,6 +216,7 @@ namespace Doctor_Appointment.Repository
                                                  join spec in db.specialties on doc.Specialty_Id equals spec.Id
                                                  join user in db.Users on doc.UserId equals user.Id
                                                  join hosSpec in db.hospitalSpecialties on doc.HospitalSpecialty_Id equals hosSpec.Id
+                                                 join hosCen in db.hospitalCenters on doc.Hospital_Id equals hosCen.Id
                                                  where user.isPatient == false && doc.HospitalSpecialty_Id == specObject.Id
                                                  select new DoctorReturnModel()
                                                  {
@@ -239,6 +241,7 @@ namespace Doctor_Appointment.Repository
                                                      SpecialtyName = spec.Name,
                                                      HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
                                                      HospitalSpecialty_Name = hosSpec.Name,
+                                                     Hospital_Name = hosCen.Name,
                                                      UserId = doc.UserId
                                                  }).ToListAsync<DoctorReturnModel>();
             return ret;
