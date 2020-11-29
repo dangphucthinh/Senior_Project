@@ -108,46 +108,44 @@
             context.SaveChanges();
 
 
-            //create list address
-            List<Address> addresses = new List<Address>();
-            addresses.Add(new Address
-            {
-                AddressNumber = 102,
-                Street = "Nguyen Nhan,Hoa Tho Dong, Cam Le",
-                City = "Da Nang",
-            });
-            addresses.Add(new Address
-            {
-                AddressNumber = 64,
-                Street = "Cach Mang Thang Tam, Khue Trung, Cam Le",
-                City = "Da Nang",
-            });
-            addresses.Add(new Address
-            {
-                AddressNumber = 9,
-                Street = "Tran Thu Do, Khue Trung, Cam Le ",
-                City = "Da Nang",
-            });
-            addresses.Add(new Address
-            {
-                AddressNumber = 64,
-                Street = "Phan Dang Luu, Hoa Cuong Bac, Hai Chau",
-                City = "Da Nang",
-            });
-            addresses.Add(new Address
-            {
-                AddressNumber = 219,
-                Street = "Nguyen Van Linh, Thac Gian, Cam Le",
-                City = "Da Nang",
-            });
-            context.addresses.AddRange(addresses);
-            context.SaveChanges();
+            ////create list address
+            //List<Address> addresses = new List<Address>();
+            //addresses.Add(new Address
+            //{
+            //    AddressNumber = 102,
+            //    Street = "Nguyen Nhan,Hoa Tho Dong, Cam Le",
+            //    City = "Da Nang",
+            //});
+            //addresses.Add(new Address
+            //{
+            //    AddressNumber = 64,
+            //    Street = "Cach Mang Thang Tam, Khue Trung, Cam Le",
+            //    City = "Da Nang",
+            //});
+            //addresses.Add(new Address
+            //{
+            //    AddressNumber = 9,
+            //    Street = "Tran Thu Do, Khue Trung, Cam Le ",
+            //    City = "Da Nang",
+            //});
+            //addresses.Add(new Address
+            //{
+            //    AddressNumber = 64,
+            //    Street = "Phan Dang Luu, Hoa Cuong Bac, Hai Chau",
+            //    City = "Da Nang",
+            //});
+            //addresses.Add(new Address
+            //{
+            //    AddressNumber = 219,
+            //    Street = "Nguyen Van Linh, Thac Gian, Cam Le",
+            //    City = "Da Nang",
+            //});
+            //context.addresses.AddRange(addresses);
+            //context.SaveChanges();
 
 
             //http://res.cloudinary.com/deh0sqxwl/image/upload/v1604048938/e1p2tjwsp4zydfjhtg4z.jpg do anh vu
             //http://res.cloudinary.com/deh0sqxwl/image/upload/v1604240896/um8s8bnx07vhdlsimk6u.jpg doan vu ngoc lam
-
-
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Doctor_Appointment.Repository
         public DateTime? DateOfBirth { get; set; }
         public IList<string> Roles { get; set; }
 
-        //doctor:
+        //doctor
         public int DoctorId { get; set; }
         public string UserId { get; set; }
         public string Certification { get; set; }

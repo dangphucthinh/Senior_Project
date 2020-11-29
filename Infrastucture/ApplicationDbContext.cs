@@ -47,7 +47,7 @@ namespace Doctor_Appointment.Infrastucture
         }
         public DbSet<Patient> patients { get; set; }
         public DbSet<Doctor> doctors { get; set; }
-        public DbSet<Address> addresses { get; set; }
+     //   public DbSet<Address> addresses { get; set; }
         public DbSet<HospitalCenter> hospitalCenters { get; set; }
         public DbSet<Specialty> specialties { get; set; }
         public DbSet<HospitalSpecialty> hospitalSpecialties { get; set; }

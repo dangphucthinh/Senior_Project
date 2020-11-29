@@ -16,7 +16,7 @@ namespace Doctor_Appointment.Repository
         public string City { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public int AddressId { get; set; }
+       // public int AddressId { get; set; }
     }
 
     public class HospitalRepository
