@@ -28,20 +28,20 @@ namespace Doctor_Appointment.Repository
             db = new ApplicationDbContext();
         }
 
-        public async Task<IEnumerable<HospitalReturnModel>> getListHospital()
-        {
-            List<HospitalReturnModel> ret = await (from hos in db.hospitalCenters
-                                                 join add in db.addresses on hos.Address_Id equals add.Id
+        //public async Task<IEnumerable<HospitalReturnModel>> getListHospital()
+        //{
+        //    List<HospitalReturnModel> ret = await (from hos in db.hospitalCenters
+        //                                         join add in db.addresses on hos.Address_Id equals add.Id
                                                
-                                                 select new HospitalReturnModel()
-                                                 {
-                                                     // user:
-                                                     Id = hos.Id,
-                                                     Name = hos.Name,
-                                                     Address = add.AddressNumber + " " + add.Street + ", " + add.City 
+        //                                         select new HospitalReturnModel()
+        //                                         {
+        //                                             // user:
+        //                                             Id = hos.Id,
+        //                                             Name = hos.Name,
+        //                                             Address = add.AddressNumber + " " + add.Street + ", " + add.City 
                                                     
-                                                 }).ToListAsync<HospitalReturnModel>();
-            return ret;
-        }
+        //                                         }).ToListAsync<HospitalReturnModel>();
+        //    return ret;
+        //}
     }
 }

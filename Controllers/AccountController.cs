@@ -17,6 +17,9 @@ using static Doctor_Appointment.Repository.PatientRepository;
 using System.Web;
 using Doctor_Appointment.Constant;
 using Doctor_Appointment.Models.DTO.User;
+using System.IO;
+using Newtonsoft.Json;
+using System.Reflection;
 
 namespace Doctor_Appointment.Controllers
 {
@@ -156,6 +159,7 @@ namespace Doctor_Appointment.Controllers
                 });
             }
 
+           
             var user = new ApplicationUser()
             {
                 UserName = userForRegisterDTO.Username,
@@ -163,7 +167,7 @@ namespace Doctor_Appointment.Controllers
                 FirstName = userForRegisterDTO.FirstName,
                 //Gender = userForRegisterDTO.Gender,
                 LastName = userForRegisterDTO.LastName,
-                DateOfBirth = userForRegisterDTO.DateOfBirth != new DateTime() ? userForRegisterDTO.DateOfBirth : DateTime.Now,
+                DateOfBirth = userForRegisterDTO.DateOfBirth != new DateTime() ? userForRegisterDTO.DateOfBirth : DateTime.Today,
                 isPatient = true,
                 PhoneNumber = userForRegisterDTO.PhoneNumber
             };
@@ -243,9 +247,20 @@ namespace Doctor_Appointment.Controllers
                 }
 
                 var code = await this.AppUserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = new Uri(Url.Link("ResetPasswordEmailRoute", new { userId = user.Id, code = code }));
+                //var callbackUrl = new Uri(Url.Link("ResetPasswordEmailRoute", new { userId = user.Id, code = code }));
                 //    var callbackUrl = Url.Action("ResetPassword", "Account",
                 //new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //var outPutDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase);
+                var outPutDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string configPath = Path.Combine(outPutDirectory, "Utils\\Constant\\server_config.json");
+                StreamReader r = new StreamReader(configPath);
+                string json = r.ReadToEnd();
+                ServerConfig conf = JsonConvert.DeserializeObject<ServerConfig>(json);
+
+                string mvc_server = conf.mvc_server;
+                string userId = HttpUtility.UrlEncode(user.Id);
+                string codeUrl = HttpUtility.UrlEncode(code); 
+                string callbackUrl = mvc_server+"/Home/ResetPasswordEmail?userId=" + userId + "&code=" + codeUrl; 
                 await this.AppUserManager.SendEmailAsync(user.Id, "Reset Password",
             "Please reset your password by clicking here: <a href=\"" + callbackUrl + "\">link</a>");
                 return Ok(new Response
@@ -265,6 +280,39 @@ namespace Doctor_Appointment.Controllers
             });
         }
         //Post api/Auth/ResetPassword
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("ResetPasswordEmailPost", Name = "ResetPasswordEmailPostRoute")]
+        public async Task<IHttpActionResult> ResetPasswordEmailPost(UserForResetPasswordPost model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Ok(new Response
+                {
+                    status = 1,
+                    message = ResponseMessages.False,
+                    data = ModelState
+                });
+            }
+
+            var removePassword = await this.AppUserManager.ResetPasswordAsync(model.userId, model.code, model.Password);
+            if (removePassword.Succeeded)
+            {
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = ResponseMessages.Success,
+
+                });
+            }
+
+            return Ok(new Response
+            {
+                status = 0,
+                message = ResponseMessages.Success,
+                data = ModelState
+            });
+        }
         [AllowAnonymous]
         [HttpGet]
         [Route("ResetPasswordEmail", Name = "ResetPasswordEmailRoute")]

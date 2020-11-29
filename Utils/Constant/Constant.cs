@@ -14,6 +14,7 @@ namespace Doctor_Appointment.Constant
 
     public class API
     {
-        public const string HTTP = "http://116.110.211.56:2905";
+        public const string HTTP = "http://116.110.85.217:2905";
+        //public const string HTTP_MVC = ""
     }
 }

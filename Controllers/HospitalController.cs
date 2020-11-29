@@ -21,7 +21,8 @@ namespace Doctor_Appointment.Controllers
             {
                 status = 0,
                 message = ResponseMessages.Success,
-                data = await new HospitalRepository().getListHospital()
+                //data = await new HospitalRepository().getListHospital()
+                data = {}
             });
         }
 

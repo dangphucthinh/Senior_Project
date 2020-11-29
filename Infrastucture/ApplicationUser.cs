@@ -29,6 +29,7 @@ namespace Doctor_Appointment.Infrastucture
         public bool isPatient { get; set; }
 
         public int Address_Id { get; set; }
+        public string Address { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
