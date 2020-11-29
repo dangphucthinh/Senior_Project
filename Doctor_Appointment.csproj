@@ -213,6 +213,10 @@
     <Compile Include="Migrations\202011291413260_updateDatabase.designer.cs">
       <DependentUpon>202011291413260_updateDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011291422210_update_hospitalCenter_table.cs" />
+    <Compile Include="Migrations\202011291422210_update_hospitalCenter_table.designer.cs">
+      <DependentUpon>202011291422210_update_hospitalCenter_table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
@@ -294,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011291413260_updateDatabase.resx">
       <DependentUpon>202011291413260_updateDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011291422210_update_hospitalCenter_table.resx">
+      <DependentUpon>202011291422210_update_hospitalCenter_table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
