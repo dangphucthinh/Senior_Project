@@ -246,6 +246,56 @@ namespace Doctor_Appointment.Repository
                                                  }).ToListAsync<DoctorReturnModel>();
             return ret;
         }
+
+        public async Task<IEnumerable<DoctorReturnModel>> GetDoctorBySearch(string searchPhrase)
+        {
+            //var specObject = await db.specialties.FirstOrDefaultAsync(p => p.Name == specName);
+            
+            List<DoctorReturnModel> ret = null;
+            try
+            {
+                ret = await (from doc in db.doctors
+                             join spec in db.specialties on doc.Specialty_Id equals spec.Id
+                             join user in db.Users on doc.UserId equals user.Id
+                             join hosSpec in db.hospitalSpecialties on doc.HospitalSpecialty_Id equals hosSpec.Id
+                             join hosCen in db.hospitalCenters on doc.Hospital_Id equals hosCen.Id
+                             where user.isPatient == false && (user.FirstName.Contains(searchPhrase) || user.LastName.Contains(searchPhrase)
+                                                || hosSpec.Name.Contains(searchPhrase))
+                             select new DoctorReturnModel()
+                             {
+                                 // user:
+                                 Id = user.Id,
+                                 Avatar = user.Avatar,
+                                 UserName = user.UserName,
+                                 Gender = user.Gender,
+                                 Email = user.Email,
+                                 EmailConfirmed = user.EmailConfirmed,
+                                 isPatient = user.isPatient,
+                                 DateOfBirth = user.DateOfBirth,
+                                 PhoneNumber = user.PhoneNumber,
+                                 FullName = user.FirstName + " " + user.LastName,
+                                 Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
+                                 //doctor:
+                                 DoctorId = doc.Id,
+                                 Certification = doc.Certification,
+                                 Education = doc.Education,
+                                 Hospital_Id = doc.Hospital_Id,
+                                 Bio = doc.Bio,
+                                 SpecialtyName = spec.Name,
+                                 HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
+                                 HospitalSpecialty_Name = hosSpec.Name,
+                                 Hospital_Name = hosCen.Name,
+                                 UserId = doc.UserId
+                             }).ToListAsync<DoctorReturnModel>();
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+            
+            return ret;
+        }
+
         public string UploadAndGetImage(HttpPostedFile file)
         {
             BinaryReader br = new BinaryReader(file.InputStream);

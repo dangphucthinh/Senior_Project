@@ -199,6 +199,7 @@
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\HospitalController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SpecialtyController.cs" />
     <Compile Include="Migrations\202011180245029_InitialDB.cs" />
     <Compile Include="Migrations\202011180245029_InitialDB.designer.cs">
@@ -223,6 +224,7 @@
     <Compile Include="Models\DTO\Appointment\MakeAppointment.cs" />
     <Compile Include="Models\HospitalSpecialty.cs" />
     <Compile Include="Models\PropertyCopier.cs" />
+    <Compile Include="Models\Search\SearchModel.cs" />
     <Compile Include="Repository\EmailRepository.cs" />
     <Compile Include="Repository\HospitalRepository.cs" />
     <Compile Include="Repository\AppoinmentRepository.cs" />
