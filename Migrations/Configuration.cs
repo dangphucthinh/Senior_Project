@@ -79,66 +79,46 @@
             context.hospitalSpecialties.AddRange(hospitalSpecialties);
             context.SaveChanges();
 
+
+            //create list hospital center
+            List<HospitalCenter> hospitalCenters = new List<HospitalCenter>();
+            hospitalCenters.Add(new HospitalCenter { Name = "Cam Le General Hospital", Address = " 2 Tran Quy Hai, Hoa Tho Dong, Cam Le, Da Nang" });
+            hospitalCenters.Add(new HospitalCenter { Name = "Tam Tri General Hospital", Address = "64 Cach Mang Thang Tam, Khue Trung, Cam Le, Da Nang" });
+            hospitalCenters.Add(new HospitalCenter { Name = "Traditional Medicine Hospital", Address = "9 Tran Thu Do, Khue Trung, Cam Le, Da Nang" });
+            hospitalCenters.Add(new HospitalCenter { Name = "Da Nang Eye - hospital", Address = "68 Phan Dang Luu, Hai Chau, Da Nang" });
+            hospitalCenters.Add(new HospitalCenter { Name = "Hoan My General Hospital", Address = "Nguyen Van Linh, Thac Giac, Thanh Khe, Da Nang" });
+
+            context.hospitalCenters.AddRange(hospitalCenters);
+            context.SaveChanges();
+
             //Create list of Speacialties
-            //List<Specialty> specialties = new List<Specialty>();
-            //specialties.Add(new Specialty { Name = "Pediatrics", HsId = 1 });
-            //specialties.Add(new Specialty { Name = "Vaccine", HsId = 1 });
-            //specialties.Add(new Specialty { Name = "Cardiology", HsId = 2 });
-            //specialties.Add(new Specialty { Name = "Radiology", HsId = 3 });
-            //specialties.Add(new Specialty { Name = "Oncology", HsId = 4 });
-            //specialties.Add(new Specialty { Name = "Pharmacy", HsId = 5 });
-            //specialties.Add(new Specialty { Name = "Orthopedic", HsId = 6 });
-            //specialties.Add(new Specialty { Name = "Orthopedic surgery", HsId = 6 });
-            //specialties.Add(new Specialty { Name = "Lab test", HsId = 7 });
-            //specialties.Add(new Specialty { Name = "Resuscitation & Emergency", HsId = 8 });
-            //specialties.Add(new Specialty { Name = "Gynecology & Obstetrics", HsId = 9 });
-            //specialties.Add(new Specialty { Name = "Gynecology", HsId = 9 });
-            //specialties.Add(new Specialty { Name = "Anesthetics & Recovery", HsId = 10 });
-            //specialties.Add(new Specialty { Name = "General examination", HsId = 11 });
-            //specialties.Add(new Specialty { Name = "General Internal Medicine", HsId = 11 });
+            List<Specialty> specialties = new List<Specialty>();
+            specialties.Add(new Specialty { Name = "Foreign Neurology", HsId = 1 });
+            specialties.Add(new Specialty { Name = "Vaccine", HsId = 1 });
+            specialties.Add(new Specialty { Name = "Cardiology", HsId = 2 });
+            specialties.Add(new Specialty { Name = "Radiology", HsId = 3 });
+            specialties.Add(new Specialty { Name = "Oncology", HsId = 4 });
+            specialties.Add(new Specialty { Name = "Pharmacy", HsId = 5 });
+            specialties.Add(new Specialty { Name = "Orthopedic", HsId = 6 });
+            specialties.Add(new Specialty { Name = "Orthopedic surgery", HsId = 6 });
+            specialties.Add(new Specialty { Name = "Lab test", HsId = 7 });
+            specialties.Add(new Specialty { Name = "Resuscitation & Emergency", HsId = 8 });
+            specialties.Add(new Specialty { Name = "Gynecology & Obstetrics", HsId = 9 });
+            specialties.Add(new Specialty { Name = "Gynecology", HsId = 9 });
+            specialties.Add(new Specialty { Name = "Anesthetics & Recovery", HsId = 10 });
+            specialties.Add(new Specialty { Name = "General examination", HsId = 11 });
+            specialties.Add(new Specialty { Name = "General Internal Medicine", HsId = 11 });
 
-            //context.specialties.AddRange(specialties);
-            //context.SaveChanges();
+            context.specialties.AddRange(specialties);
+            context.SaveChanges();
 
-
-            ////create list address
-            //List<Address> addresses = new List<Address>();
-            //addresses.Add(new Address
-            //{
-            //    AddressNumber = 102,
-            //    Street = "Nguyen Nhan,Hoa Tho Dong, Cam Le",
-            //    City = "Da Nang",
-            //});
-            //addresses.Add(new Address
-            //{
-            //    AddressNumber = 64,
-            //    Street = "Cach Mang Thang Tam, Khue Trung, Cam Le",
-            //    City = "Da Nang",
-            //});
-            //addresses.Add(new Address
-            //{
-            //    AddressNumber = 9,
-            //    Street = "Tran Thu Do, Khue Trung, Cam Le ",
-            //    City = "Da Nang",
-            //});
-            //addresses.Add(new Address
-            //{
-            //    AddressNumber = 64,
-            //    Street = "Phan Dang Luu, Hoa Cuong Bac, Hai Chau",
-            //    City = "Da Nang",
-            //});
-            //addresses.Add(new Address
-            //{
-            //    AddressNumber = 219,
-            //    Street = "Nguyen Van Linh, Thac Gian, Cam Le",
-            //    City = "Da Nang",
-            //});
-            //context.addresses.AddRange(addresses);
-            //context.SaveChanges();
-
+            //
 
             //http://res.cloudinary.com/deh0sqxwl/image/upload/v1604048938/e1p2tjwsp4zydfjhtg4z.jpg do anh vu
             //http://res.cloudinary.com/deh0sqxwl/image/upload/v1604240896/um8s8bnx07vhdlsimk6u.jpg doan vu ngoc lam
+            //http://res.cloudinary.com/deh0sqxwl/image/upload/v1607178308/loxavfpuujkjlhgfedy5.jpg nguyen tat binh
+            //http://res.cloudinary.com/deh0sqxwl/image/upload/v1607178387/t8xfnhvklydynlw8j6nq.jpg vo thanh nhan
+            //http://res.cloudinary.com/deh0sqxwl/image/upload/v1607178539/mo2lggrrfjlsdasz6tft.png khong trong thang
         }
     }
 }

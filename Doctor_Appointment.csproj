@@ -217,6 +217,14 @@
     <Compile Include="Migrations\202011291422210_update_hospitalCenter_table.designer.cs">
       <DependentUpon>202011291422210_update_hospitalCenter_table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012081415064_edit_table1.cs" />
+    <Compile Include="Migrations\202012081415064_edit_table1.designer.cs">
+      <DependentUpon>202012081415064_edit_table1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012081429265_update_table_user.cs" />
+    <Compile Include="Migrations\202012081429265_update_table_user.designer.cs">
+      <DependentUpon>202012081429265_update_table_user.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
@@ -302,6 +310,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011291422210_update_hospitalCenter_table.resx">
       <DependentUpon>202011291422210_update_hospitalCenter_table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012081415064_edit_table1.resx">
+      <DependentUpon>202012081415064_edit_table1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012081429265_update_table_user.resx">
+      <DependentUpon>202012081429265_update_table_user.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
