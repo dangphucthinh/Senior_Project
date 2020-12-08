@@ -12,7 +12,7 @@ using System.Web.Http;
 namespace Doctor_Appointment.Controllers
 {
     [RoutePrefix("api/AI")]
-    [Authorize]
+   // [Authorize]
     public class AIController : ApiController
     {
         [HttpPost]
@@ -49,11 +49,12 @@ namespace Doctor_Appointment.Controllers
             response.EnsureSuccessStatusCode();
             var responseBody = await response.Content.ReadAsStringAsync();
 
-            var dataReturn = JObject.Parse(responseBody)["response"].ToString();
-
+            var dataReturn = JObject.Parse(responseBody)["response"];
+            string disease = dataReturn.First.ToString();
+            var speacialty = dataReturn.Last[0];
             var dataReturn2 = "Pediatrics";
 
-            var doctors = await new DoctorRepository().GetDoctorInfoBySpecialtyName(dataReturn2);
+            //var doctors = await new DoctorRepository().GetDoctorInfoBySpecialtyName(dataReturn2);
 
             return Ok(new Response
             {
@@ -61,9 +62,9 @@ namespace Doctor_Appointment.Controllers
                 message = ResponseMessages.Success,
                 data = new
                 {
-                    disease = dataReturn,
-                    spec = dataReturn2,
-                    doctor = doctors
+                    disease = dataReturn.First.ToString(),
+                    spec = dataReturn.Last,
+                    //doctor = doctors
                 }
                
             });

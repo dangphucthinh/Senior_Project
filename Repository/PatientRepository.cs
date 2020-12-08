@@ -189,17 +189,12 @@ namespace Doctor_Appointment.Repository
             var user = db.Users.FirstOrDefault(x => x.Id.Trim() == userId.Trim());
             user.FirstName = context.Request.Form["FirstName"];
             user.LastName = context.Request.Form["LastName"];
+            user.PhoneNumber = context.Request.Form["PhoneNumber"];
            // user.Gender = Convert.ToInt32(context.Request.Form["Gender"].Trim()) == 0 ? false : true;
             //user.DateTime = Convert.ToDateTime(context.Request.Form["Date"]);
 
             var avatar = this.UploadAndGetImage(context.Request.Files[0]);
             user.Avatar = avatar;
-
-
-            //var patient = db.patients.FirstOrDefault(x => x.UserId.Trim() == userId.Trim());
-            //patient.Allergy = context.Request.Form["Allergy"];
-            //patient.MedicalHistory = context.Request.Form["MedicalHistory"];
-            //patient.Symptom = context.Request.Form["Symptom"]; 
 
             var patient = db.patients.FirstOrDefault(x => x.UserId.Trim() == userId.Trim());
             patient.Allergy = context.Request.Form["Allergy"];

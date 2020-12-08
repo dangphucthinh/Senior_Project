@@ -1,41 +1,22 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Doctor_Appointment.Infrastucture;
-using Doctor_Appointment.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Doctor_Appointment.Repository
 {
-    public class HospitalSpecialtyRepository
+    public class ImageRepository
     {
         public ApplicationDbContext db;
 
-        public HospitalSpecialtyRepository()
+        public ImageRepository()
         {
             this.db = new ApplicationDbContext();
         }
-
-        public async Task<IEnumerable<HospitalSpecialty>> GetAllHospitalSpecialty()
-        {
-            return await this.db.hospitalSpecialties.ToListAsync();
-        }
-
-        public async Task<IEnumerable<HospitalSpecialty>> GetHospitalSpecialtyBySearch(string searchPhrase)
-        {
-            return await this.db.hospitalSpecialties.Where(h => h.Name.Contains(searchPhrase)).ToListAsync();
-        }
-
-        public async Task<IEnumerable<Specialty>> GetAllSpecialties(int HsId)
-        {
-            return await this.db.specialties.Where(s => s.HsId == HsId).ToListAsync();
-        }
-
         public string UploadAndGetImage(HttpPostedFile file)
         {
             BinaryReader br = new BinaryReader(file.InputStream);
@@ -64,31 +45,6 @@ namespace Doctor_Appointment.Repository
             }
 
             return uploadResult.Url.ToString();
-        }
-
-        public string UpdateImage(HttpContext context)
-        {
-
-            var hosSpecId = context.Request.Form["Id"];
-
-            var user = db.hospitalSpecialties.FirstOrDefault(x => x.Id.ToString() == hosSpecId);
-            user.Name = context.Request.Form["Name"];
-
-            var imgHosImg = UploadAndGetImage(context.Request.Files[0]);
-            user.HosSpecImg = imgHosImg;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-
-            return "asdads";
-
-
         }
     }
 }

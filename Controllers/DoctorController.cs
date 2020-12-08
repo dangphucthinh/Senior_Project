@@ -91,7 +91,7 @@ namespace Doctor_Appointment.Controllers
         }
 
         [Route("GetDoctorInfo")]
-        [AllowAnonymous]
+        //AllowAnonymous]
         [HttpPost]
         public async Task<IHttpActionResult> GetDoctorInfo(PostUserIdModel model)
         {

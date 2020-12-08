@@ -55,57 +55,50 @@
 
             //Create list of Hospital Specialties
             List<HospitalSpecialty> hospitalSpecialties = new List<HospitalSpecialty>();
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Foreign Neurology" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Foreign Injury" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Chest Surgery" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Cardiovascular intervention" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "External digestion" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Extra urinary" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Cardiomyopathy" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Endocrine - Hepatobiliary" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Internal respiratory system" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Endocrine" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Neurology - musculoskeletal - blood transfusion" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Active resuscitation against poison" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Anesthesia Resuscitation" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Tumor" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Ear, nose and throat" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Dentomaxillofacial" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Foreign burns" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Foreign synthesis" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Internal synthesis" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Tropical medicine" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Nuclear medicine" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Rehabilitation" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Maternity" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Artificial kidney" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Eyes" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Geriatrics" });
-            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Department of Nutrition" });
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Foreign Neurology", HosSpecImg = "http://res.cloudinary.com/deh0sqxwl/image/upload/v1607408356/aeuign0v53epn7zdyo90.png" }); // khoa than kinh
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Gastroenterology" }); // khoa tiêu hoá
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Pediatrics" }); //khoa nhi
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Obstetrics" }); //khoa sản
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Neurology - musculoskeletal - blood transfusion" }); // noi than kinh- co xuong khop
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Cardiology" }); //khoa tim mach
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Nephrology - Endocrinology" }); //khoa thận - nội tiết
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Dermatology" }); // khoa da liễu
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "General medicine" }); // đa khoa
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Oncolgy & Hematology " }); // ung bướu
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Nutrition" }); // khoa dinh dưỡng
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Internal espiration" }); // nội hô hấp 
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Geriatrics" }); //lão khoa
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Blood vessel" }); //ngoại mạch máu
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Eyes" }); // khoa mắt, nhãn khoa
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "General pediatric" }); // nội tổng hợp
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Ear, nose and throat" }); // tai- mũi- họng
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Physiotherapy" }); // vật lý trị liệu
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Traditional medicine" }); // y học cổ truyền
+            hospitalSpecialties.Add(new HospitalSpecialty { Name = "Infectious Diseases" }); // khoa truyen nhiem
 
             context.hospitalSpecialties.AddRange(hospitalSpecialties);
             context.SaveChanges();
 
             //Create list of Speacialties
-            List<Specialty> specialties = new List<Specialty>();
-            specialties.Add(new Specialty { Name = "Pediatrics", HsId = 1 });
-            specialties.Add(new Specialty { Name = "Vaccine", HsId = 1 });
-            specialties.Add(new Specialty { Name = "Cardiology", HsId = 2 });
-            specialties.Add(new Specialty { Name = "Radiology", HsId = 3 });
-            specialties.Add(new Specialty { Name = "Oncology", HsId = 4 });
-            specialties.Add(new Specialty { Name = "Pharmacy", HsId = 5 });
-            specialties.Add(new Specialty { Name = "Orthopedic", HsId = 6 });
-            specialties.Add(new Specialty { Name = "Orthopedic surgery", HsId = 6 });
-            specialties.Add(new Specialty { Name = "Lab test", HsId = 7 });
-            specialties.Add(new Specialty { Name = "Resuscitation & Emergency", HsId = 8 });
-            specialties.Add(new Specialty { Name = "Gynecology & Obstetrics", HsId = 9 });
-            specialties.Add(new Specialty { Name = "Gynecology", HsId = 9 });
-            specialties.Add(new Specialty { Name = "Anesthetics & Recovery", HsId = 10 });
-            specialties.Add(new Specialty { Name = "General examination", HsId = 11 });
-            specialties.Add(new Specialty { Name = "General Internal Medicine", HsId = 11 });
+            //List<Specialty> specialties = new List<Specialty>();
+            //specialties.Add(new Specialty { Name = "Pediatrics", HsId = 1 });
+            //specialties.Add(new Specialty { Name = "Vaccine", HsId = 1 });
+            //specialties.Add(new Specialty { Name = "Cardiology", HsId = 2 });
+            //specialties.Add(new Specialty { Name = "Radiology", HsId = 3 });
+            //specialties.Add(new Specialty { Name = "Oncology", HsId = 4 });
+            //specialties.Add(new Specialty { Name = "Pharmacy", HsId = 5 });
+            //specialties.Add(new Specialty { Name = "Orthopedic", HsId = 6 });
+            //specialties.Add(new Specialty { Name = "Orthopedic surgery", HsId = 6 });
+            //specialties.Add(new Specialty { Name = "Lab test", HsId = 7 });
+            //specialties.Add(new Specialty { Name = "Resuscitation & Emergency", HsId = 8 });
+            //specialties.Add(new Specialty { Name = "Gynecology & Obstetrics", HsId = 9 });
+            //specialties.Add(new Specialty { Name = "Gynecology", HsId = 9 });
+            //specialties.Add(new Specialty { Name = "Anesthetics & Recovery", HsId = 10 });
+            //specialties.Add(new Specialty { Name = "General examination", HsId = 11 });
+            //specialties.Add(new Specialty { Name = "General Internal Medicine", HsId = 11 });
 
-            context.specialties.AddRange(specialties);
-            context.SaveChanges();
+            //context.specialties.AddRange(specialties);
+            //context.SaveChanges();
 
 
             ////create list address

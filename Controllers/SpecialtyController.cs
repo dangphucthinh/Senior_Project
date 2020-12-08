@@ -1,17 +1,19 @@
 ﻿using Doctor_Appointment.Models;
 using Doctor_Appointment.Models.DTO.Doctor;
 using Doctor_Appointment.Repository;
+using Doctor_Appointment.Utils.Constant;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace Doctor_Appointment.Controllers
 {
-    [Authorize]
+   // [Authorize]
     [RoutePrefix("api/Speciality")]
     public class SpecialityController : BaseAPIController
     {
@@ -26,8 +28,23 @@ namespace Doctor_Appointment.Controllers
             });
         }
 
+        [Route("Update")]
+        public async Task<IHttpActionResult> Update()
+        {
+            new HospitalSpecialtyRepository().UpdateImage(HttpContext.Current);
+            //var image = HttpContext.Current.Request.Files[0];
 
-        
+            //new PatientRepository().UploadAndGetImage(image);
+
+            return Ok(new Response
+            {
+                status = 0,
+                message = ResponseMessages.Success,
+                data = { }
+            });
+        }
+
+
         [Route("GetAllSpecialities")]
         [HttpPost]
         public async Task<IHttpActionResult> GetAllSpecialities(PostHsIdModel model)

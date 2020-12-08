@@ -27,6 +27,8 @@ namespace Doctor_Appointment.Repository
         public string PhoneNumber { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public IList<string> Roles { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         //doctor
         public int DoctorId { get; set; }
@@ -93,6 +95,7 @@ namespace Doctor_Appointment.Repository
                 Specialty_Id = model.Specialty_Id,
                 Education = model.Education,
                 Hospital_Id = model.Hospital_Id,
+                Hospital_Name = db.hospitalCenters.Find(model.Hospital_Id).Name,
                 SpecialtyName = db.specialties.Find(model.Specialty_Id).Name,
                 Certification = model.Certification,
                 HospitalSpecialty_Id = model.HospitalSpecialty_Id,
@@ -109,6 +112,7 @@ namespace Doctor_Appointment.Repository
                                                  join spec in db.specialties on doc.Specialty_Id equals spec.Id
                                                  join user in db.Users on doc.UserId equals user.Id
                                                  join hosSpec in db.hospitalSpecialties on doc.HospitalSpecialty_Id equals hosSpec.Id
+                                                 join hos in db.hospitalCenters on doc.Hospital_Id equals hos.Id
                                                  where user.isPatient == false
                                                  select new DoctorReturnModel()
                                                  {
@@ -129,6 +133,7 @@ namespace Doctor_Appointment.Repository
                                                      Certification = doc.Certification,
                                                      Education = doc.Education,
                                                      Hospital_Id = doc.Hospital_Id,
+                                                     Hospital_Name = hos.Name,
                                                      SpecialtyName = spec.Name,
                                                      Bio = doc.Bio,
                                                      HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
@@ -158,6 +163,8 @@ namespace Doctor_Appointment.Repository
                                                DateOfBirth = user.DateOfBirth,
                                                PhoneNumber = user.PhoneNumber,
                                                FullName = user.FirstName + " " + user.LastName,
+                                               FirstName = user.FirstName,
+                                               LastName = user.LastName,
                                                Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
                                                //doctor:
                                                DoctorId = doc.Id,
@@ -246,7 +253,6 @@ namespace Doctor_Appointment.Repository
                                                  }).ToListAsync<DoctorReturnModel>();
             return ret;
         }
-
         public async Task<IEnumerable<DoctorReturnModel>> GetDoctorBySearch(string searchPhrase)
         {
             //var specObject = await db.specialties.FirstOrDefaultAsync(p => p.Name == specName);
@@ -295,7 +301,6 @@ namespace Doctor_Appointment.Repository
             
             return ret;
         }
-
         public string UploadAndGetImage(HttpPostedFile file)
         {
             BinaryReader br = new BinaryReader(file.InputStream);
@@ -333,7 +338,7 @@ namespace Doctor_Appointment.Repository
             var user = db.Users.FirstOrDefault(x => x.Id.Trim() == userId.Trim());
             user.FirstName = context.Request.Form["FirstName"];
             user.LastName = context.Request.Form["LastName"];
-
+            user.PhoneNumber = context.Request.Form["PhoneNumber"];
             // user.Gender = Convert.ToInt32(context.Request.Form["Gender"].Trim()) == 0 ? false : true;
             //user.DateTime = Convert.ToDateTime(context.Request.Form["Date"]);
 
@@ -342,9 +347,9 @@ namespace Doctor_Appointment.Repository
 
             var doctor = db.doctors.FirstOrDefault(x => x.UserId.Trim() == userId.Trim());
   
-            doctor.Certification = context.Request.Form["Certification"];
-            doctor.Education = context.Request.Form["Education"];
-            doctor.Bio = context.Request.Form["Bio"];
+           // doctor.Certification = context.Request.Form["Certification"];
+           // doctor.Education = context.Request.Form["Education"];
+           // doctor.Bio = context.Request.Form["Bio"];
 
             try
             {

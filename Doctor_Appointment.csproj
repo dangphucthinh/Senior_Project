@@ -238,6 +238,7 @@
     <Compile Include="Repository\AppoinmentRepository.cs" />
     <Compile Include="Repository\DoctorRepository.cs" />
     <Compile Include="Repository\HospitalSpecialtyRepository.cs" />
+    <Compile Include="Repository\ImageRepository.cs" />
     <Compile Include="Repository\PatientRepository.cs" />
     <Compile Include="Service\EmailService.cs" />
     <Compile Include="Utils\Constant\Constant.cs" />
