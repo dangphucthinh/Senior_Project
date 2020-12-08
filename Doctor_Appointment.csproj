@@ -225,6 +225,14 @@
     <Compile Include="Migrations\202012081429265_update_table_user.designer.cs">
       <DependentUpon>202012081429265_update_table_user.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012081455511_add_fk_doctor_user.cs" />
+    <Compile Include="Migrations\202012081455511_add_fk_doctor_user.designer.cs">
+      <DependentUpon>202012081455511_add_fk_doctor_user.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012081513346_add_fk_all.cs" />
+    <Compile Include="Migrations\202012081513346_add_fk_all.designer.cs">
+      <DependentUpon>202012081513346_add_fk_all.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
@@ -316,6 +324,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012081429265_update_table_user.resx">
       <DependentUpon>202012081429265_update_table_user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012081455511_add_fk_doctor_user.resx">
+      <DependentUpon>202012081455511_add_fk_doctor_user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012081513346_add_fk_all.resx">
+      <DependentUpon>202012081513346_add_fk_all.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

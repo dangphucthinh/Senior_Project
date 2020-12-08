@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Web;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Doctor_Appointment.Models;
 
 namespace Doctor_Appointment.Infrastucture
 {
@@ -37,5 +38,6 @@ namespace Doctor_Appointment.Infrastucture
 
             return userIdentity;
         }
+        //public virtual Doctor doctor { get; set; }
     }
 }

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Doctor_Appointment.Infrastucture;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -14,5 +16,7 @@ namespace Doctor_Appointment.Models
         public string MedicalHistory { get; set; }
         public string Symptom { get; set; }
         public string Allergy { get; set; }
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser user { get; set; }
     }
 }
