@@ -15,7 +15,7 @@ namespace Doctor_Appointment.Models
         public string UserId { get; set; }
         public string Certification { get; set; }
         public string Education { get; set; }
-        public int Specialty_Id { get; set; }
+        //public int Specialty_Id { get; set; }
         public int Hospital_Id { get; set; }
         public int HospitalSpecialty_Id { get; set; }
         public string Bio { get; set; }
@@ -25,8 +25,11 @@ namespace Doctor_Appointment.Models
         [ForeignKey("Hospital_Id")]
         public virtual HospitalCenter hospitalCenter { get; set; }
 
-        [ForeignKey("Specialty_Id")]
-        public virtual Specialty specialty { get; set; }
+        //[ForeignKey("Specialty_Id")]
+        //public virtual Specialty specialty { get; set; }
+
+        [ForeignKey("HospitalSpecialty_Id")]
+        public virtual HospitalSpecialty hospitalSpecialty { get; set; }
 
     }
 }

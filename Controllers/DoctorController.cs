@@ -53,7 +53,7 @@ namespace Doctor_Appointment.Controllers
                 LastName = doctorRegister.LastName,
                 DateOfBirth = doctorRegister.DateOfBirth,
                 PhoneNumber = doctorRegister.PhoneNumber,
-                isPatient = false,
+                //isPatient = false,
             };
 
 
@@ -90,6 +90,28 @@ namespace Doctor_Appointment.Controllers
             });
         }
 
+        [Route("GetDoctorByHospital")]
+        [HttpPost]
+        public async Task<IHttpActionResult> GetDoctorByHospital(PostHospitalIdModel model)
+        {
+            List<DoctorReturnModel> doctor = await new DoctorRepository().GetDoctorInfoByHospitalId(model.Id);
+            if(doctor != null)
+            {
+                return Ok(new Response
+                {
+                    status = 0,
+                    message = "success",
+                    data = doctor
+                });
+            }
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false",
+                data = doctor
+            });
+        }
+
         [Route("GetDoctorInfo")]
         //AllowAnonymous]
         [HttpPost]
@@ -119,7 +141,7 @@ namespace Doctor_Appointment.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> GetDoctorInfoBySpecialty(PostHosSpecIdModel model)
         {
-            IEnumerable<DoctorReturnModel> doctor = await new DoctorRepository().GetDoctorInfoBySpecialty(model.HosSpecId);
+            IEnumerable<DoctorReturnModel> doctor = await new DoctorRepository().GetDoctorInfoBySpecialty(model.HosSpecName);
             if (doctor != null)
             {
                 return Ok(new Response

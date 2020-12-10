@@ -12,7 +12,7 @@ namespace Doctor_Appointment.Models.DTO.Doctor
     }
     public class PostHosSpecIdModel
     {
-        public int HosSpecId { get; set; }
+        public string HosSpecName { get; set; }
     }
 
     public class PostHsIdModel
@@ -29,5 +29,9 @@ namespace Doctor_Appointment.Models.DTO.Doctor
     {
         public int StatusId { get; set; }
         public string UserId { get; set; }
+    }
+    public class PostHospitalIdModel
+    {
+        public int Id { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace Doctor_Appointment.Repository
             public bool Gender { get; set; }
             public string Email { get; set; }
             public bool EmailConfirmed { get; set; }
-            public bool isPatient { get; set; }
+            //public bool isPatient { get; set; }
             public string phoneNumber { get; set; }
             public DateTime? DateOfBirth { get; set; }
             public IList<string> Roles { get; set; }
@@ -78,7 +78,7 @@ namespace Doctor_Appointment.Repository
                 Gender = user.Gender,
                 Email = model.Email,
                 EmailConfirmed = user.EmailConfirmed,
-                isPatient = user.isPatient,
+                //isPatient = user.isPatient,
                 DateOfBirth = user.DateOfBirth,
                 FullName = user.FirstName + " " + user.LastName,
                 Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
@@ -97,7 +97,10 @@ namespace Doctor_Appointment.Repository
         {
             List<PatientReturnModel> ret = await (from patient in db.patients
                                                   join user in db.Users on patient.UserId equals user.Id
-                                                  where user.isPatient == true
+                                                  join urole in db.UserRoles on user.Id equals urole.UserId
+                                                  join role in db.Roles on urole.RoleId equals role.Id
+                                                  where role.Name == "Patient"
+                                                  //where user.isPatient == true
                                                   select new PatientReturnModel()
                                                   {
                                                       Id = user.Id,
@@ -106,7 +109,7 @@ namespace Doctor_Appointment.Repository
                                                       Gender = user.Gender,
                                                       Email = user.Email,
                                                       EmailConfirmed = user.EmailConfirmed,
-                                                      isPatient = user.isPatient,
+                                                      //isPatient = user.isPatient,
                                                       DateOfBirth = user.DateOfBirth,
                                                       FullName = user.FirstName + " " + user.LastName,
                                                       Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
@@ -124,7 +127,9 @@ namespace Doctor_Appointment.Repository
         {
             PatientReturnModel ret = await (from pat in db.patients
                                            join user in db.Users on pat.UserId equals user.Id
-                                           where user.isPatient == true && user.Id == userId
+                                            join urole in db.UserRoles on user.Id equals urole.UserId
+                                            join role in db.Roles on urole.RoleId equals role.Id
+                                            where role.Name == "Patient" && user.Id == userId
                                            select new PatientReturnModel()
                                            {
                                                // user:
@@ -134,7 +139,7 @@ namespace Doctor_Appointment.Repository
                                                Gender = user.Gender,
                                                Email = user.Email,
                                                EmailConfirmed = user.EmailConfirmed,
-                                               isPatient = user.isPatient,
+                                               //isPatient = user.isPatient,
                                                DateOfBirth = user.DateOfBirth,
                                                phoneNumber = user.PhoneNumber,
                                                FullName = user.FirstName + " " + user.LastName,

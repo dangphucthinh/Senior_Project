@@ -23,7 +23,7 @@ namespace Doctor_Appointment.Repository
         public bool Gender { get; set; }
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
-        public bool isPatient { get; set; }
+        //public bool isPatient { get; set; }
         public string PhoneNumber { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public IList<string> Roles { get; set; }
@@ -56,7 +56,7 @@ namespace Doctor_Appointment.Repository
             Doctor newDoc = new Doctor()
             {
                 UserId = UserId,
-                Specialty_Id = model.Specialty_Id,
+                //Specialty_Id = model.Specialty_Id,
                 Education = model.Education,
                 Hospital_Id = model.Hospital_Id,
                 Certification = model.Certification,
@@ -84,7 +84,7 @@ namespace Doctor_Appointment.Repository
                 Gender = user.Gender,
                 Email = model.Email,
                 EmailConfirmed = user.EmailConfirmed,
-                isPatient = user.isPatient,
+                //isPatient = user.isPatient,
                 DateOfBirth = user.DateOfBirth,
                 PhoneNumber = user.PhoneNumber,
                 FullName = user.FirstName + " " + user.LastName,
@@ -96,24 +96,24 @@ namespace Doctor_Appointment.Repository
                 Education = model.Education,
                 Hospital_Id = model.Hospital_Id,
                 Hospital_Name = db.hospitalCenters.Find(model.Hospital_Id).Name,
-                SpecialtyName = db.specialties.Find(model.Specialty_Id).Name,
+                //SpecialtyName = db.specialties.Find(model.Specialty_Id).Name,
                 Certification = model.Certification,
                 HospitalSpecialty_Id = model.HospitalSpecialty_Id,
                 HospitalSpecialty_Name = db.hospitalSpecialties.Find(model.HospitalSpecialty_Id).Name
             };
         }
-        public async Task<IEnumerable<Doctor>> GetAllDoctors()
-        {
-            return await this.db.doctors.AsNoTracking().ToListAsync();
-        }
-        public async Task<IEnumerable<DoctorReturnModel>> GetAllDoctorsInfo()
+
+        public async Task<List<DoctorReturnModel>> GetDoctorInfoByHospitalId(int id)
         {
             List<DoctorReturnModel> ret = await (from doc in db.doctors
-                                                 join spec in db.specialties on doc.Specialty_Id equals spec.Id
+                                                     //join spec in db.specialties on doc.Specialty_Id equals spec.Id
                                                  join user in db.Users on doc.UserId equals user.Id
                                                  join hosSpec in db.hospitalSpecialties on doc.HospitalSpecialty_Id equals hosSpec.Id
                                                  join hos in db.hospitalCenters on doc.Hospital_Id equals hos.Id
-                                                 where user.isPatient == false
+                                                 //where user.isPatient == false
+                                                 join urole in db.UserRoles on user.Id equals urole.UserId
+                                                 join role in db.Roles on urole.RoleId equals role.Id
+                                                 where role.Name == "Doctor" && hos.Id == id
                                                  select new DoctorReturnModel()
                                                  {
                                                      // user:
@@ -123,7 +123,7 @@ namespace Doctor_Appointment.Repository
                                                      Gender = user.Gender,
                                                      Email = user.Email,
                                                      EmailConfirmed = user.EmailConfirmed,
-                                                     isPatient = user.isPatient,
+                                                     //isPatient = user.isPatient,
                                                      DateOfBirth = user.DateOfBirth,
                                                      PhoneNumber = user.PhoneNumber,
                                                      FullName = user.FirstName + " " + user.LastName,
@@ -134,7 +134,51 @@ namespace Doctor_Appointment.Repository
                                                      Education = doc.Education,
                                                      Hospital_Id = doc.Hospital_Id,
                                                      Hospital_Name = hos.Name,
-                                                     SpecialtyName = spec.Name,
+                                                     //SpecialtyName = spec.Name,
+                                                     Bio = doc.Bio,
+                                                     HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
+                                                     HospitalSpecialty_Name = hosSpec.Name,
+                                                     UserId = doc.UserId
+                                                 }).ToListAsync<DoctorReturnModel>();
+            return ret;
+        }
+
+        public async Task<IEnumerable<Doctor>> GetAllDoctors()
+        {
+            return await this.db.doctors.AsNoTracking().ToListAsync();
+        }
+        public async Task<IEnumerable<DoctorReturnModel>> GetAllDoctorsInfo()
+        {
+            List<DoctorReturnModel> ret = await (from doc in db.doctors
+                                                 //join spec in db.specialties on doc.Specialty_Id equals spec.Id
+                                                 join user in db.Users on doc.UserId equals user.Id
+                                                 join hosSpec in db.hospitalSpecialties on doc.HospitalSpecialty_Id equals hosSpec.Id
+                                                 join hos in db.hospitalCenters on doc.Hospital_Id equals hos.Id
+                                                 //where user.isPatient == false
+                                                 join urole in db.UserRoles on user.Id equals urole.UserId
+                                                 join role in db.Roles on urole.RoleId equals role.Id
+                                                 where role.Name == "Doctor"
+                                                 select new DoctorReturnModel()
+                                                 {
+                                                     // user:
+                                                     Id = user.Id,
+                                                     Avatar = user.Avatar,
+                                                     UserName = user.UserName,
+                                                     Gender = user.Gender,
+                                                     Email = user.Email,
+                                                     EmailConfirmed = user.EmailConfirmed,
+                                                     //isPatient = user.isPatient,
+                                                     DateOfBirth = user.DateOfBirth,
+                                                     PhoneNumber = user.PhoneNumber,
+                                                     FullName = user.FirstName + " " + user.LastName,
+                                                     Roles = (from ur in user.Roles join rd in db.Roles on ur.RoleId equals rd.Id select rd.Name).ToList<string>(),
+                                                     //doctor:
+                                                     DoctorId = doc.Id,
+                                                     Certification = doc.Certification,
+                                                     Education = doc.Education,
+                                                     Hospital_Id = doc.Hospital_Id,
+                                                     Hospital_Name = hos.Name,
+                                                     //SpecialtyName = spec.Name,
                                                      Bio = doc.Bio,
                                                      HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
                                                      HospitalSpecialty_Name = hosSpec.Name,
@@ -145,11 +189,13 @@ namespace Doctor_Appointment.Repository
         public async Task<DoctorReturnModel> GetDoctorInfo(string userId)
         {
             DoctorReturnModel ret = await (from doc in db.doctors
-                                           join spec in db.specialties on doc.Specialty_Id equals spec.Id
+                                           //join spec in db.specialties on doc.Specialty_Id equals spec.Id
                                            join user in db.Users on doc.UserId equals user.Id
                                            join hosSpec in db.hospitalSpecialties on doc.HospitalSpecialty_Id equals hosSpec.Id
                                            join hosCen in db.hospitalCenters on doc.Hospital_Id equals hosCen.Id
-                                           where user.isPatient == false && user.Id == userId
+                                           join urole in db.UserRoles on user.Id equals urole.UserId
+                                           join role in db.Roles on urole.RoleId equals role.Id
+                                           where role.Name == "Doctor" && user.Id == userId
                                            select new DoctorReturnModel()
                                            {
                                                // user:
@@ -159,7 +205,7 @@ namespace Doctor_Appointment.Repository
                                                Gender = user.Gender,
                                                Email = user.Email,
                                                EmailConfirmed = user.EmailConfirmed,
-                                               isPatient = user.isPatient,
+                                               //isPatient = user.isPatient,
                                                DateOfBirth = user.DateOfBirth,
                                                PhoneNumber = user.PhoneNumber,
                                                FullName = user.FirstName + " " + user.LastName,
@@ -172,7 +218,7 @@ namespace Doctor_Appointment.Repository
                                                Education = doc.Education,
                                                Hospital_Id = doc.Hospital_Id,
                                                Bio = doc.Bio,
-                                               SpecialtyName = spec.Name,
+                                               //SpecialtyName = spec.Name,
                                                HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
                                                HospitalSpecialty_Name = hosSpec.Name,
                                                Hospital_Name = hosCen.Name,
@@ -180,14 +226,16 @@ namespace Doctor_Appointment.Repository
                                            }).FirstOrDefaultAsync();
             return ret;
         }
-        public async Task<IEnumerable<DoctorReturnModel>> GetDoctorInfoBySpecialty(int specId)
+        public async Task<IEnumerable<DoctorReturnModel>> GetDoctorInfoBySpecialty(string specId)
         {
             List<DoctorReturnModel> ret = await (from doc in db.doctors
-                                                 join spec in db.specialties on doc.Specialty_Id equals spec.Id
+                                                 //join spec in db.specialties on doc.Specialty_Id equals spec.Id
                                                  join user in db.Users on doc.UserId equals user.Id
                                                  join hosSpec in db.hospitalSpecialties on doc.HospitalSpecialty_Id equals hosSpec.Id
                                                  join hosCen in db.hospitalCenters on doc.Hospital_Id equals hosCen.Id
-                                                 where user.isPatient == false && doc.HospitalSpecialty_Id == specId
+                                                 join urole in db.UserRoles on user.Id equals urole.UserId
+                                                 join role in db.Roles on urole.RoleId equals role.Id
+                                                 where role.Name == "Doctor" && hosSpec.Name == specId
                                                  select new DoctorReturnModel()
                                                  {
                                                      // user:
@@ -197,7 +245,7 @@ namespace Doctor_Appointment.Repository
                                                      Gender = user.Gender,
                                                      Email = user.Email,
                                                      EmailConfirmed = user.EmailConfirmed,
-                                                     isPatient = user.isPatient,
+                                                     //isPatient = user.isPatient,
                                                      DateOfBirth = user.DateOfBirth,
                                                      PhoneNumber = user.PhoneNumber,
                                                      FullName = user.FirstName + " " + user.LastName,
@@ -208,7 +256,7 @@ namespace Doctor_Appointment.Repository
                                                      Education = doc.Education,
                                                      Hospital_Id = doc.Hospital_Id,
                                                      Bio = doc.Bio,
-                                                     SpecialtyName = spec.Name,
+                                                     //SpecialtyName = spec.Name,
                                                      HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
                                                      HospitalSpecialty_Name = hosSpec.Name,
                                                      Hospital_Name = hosCen.Name,
@@ -218,13 +266,15 @@ namespace Doctor_Appointment.Repository
         }
         public async Task<IEnumerable<DoctorReturnModel>> GetDoctorInfoBySpecialtyName(string specName)
         {
-            var specObject = await db.specialties.FirstOrDefaultAsync(p => p.Name == specName);
+            var specObject = await db.hospitalSpecialties.FirstOrDefaultAsync(p => p.Name == specName);
             List<DoctorReturnModel> ret = await (from doc in db.doctors
-                                                 join spec in db.specialties on doc.Specialty_Id equals spec.Id
+                                                 //join spec in db.specialties on doc.Specialty_Id equals spec.Id
                                                  join user in db.Users on doc.UserId equals user.Id
                                                  join hosSpec in db.hospitalSpecialties on doc.HospitalSpecialty_Id equals hosSpec.Id
                                                  join hosCen in db.hospitalCenters on doc.Hospital_Id equals hosCen.Id
-                                                 where user.isPatient == false && doc.HospitalSpecialty_Id == specObject.Id
+                                                 join urole in db.UserRoles on user.Id equals urole.UserId
+                                                 join role in db.Roles on urole.RoleId equals role.Id
+                                                 where role.Name == "Doctor" && doc.HospitalSpecialty_Id == specObject.Id
                                                  select new DoctorReturnModel()
                                                  {
                                                      // user:
@@ -234,7 +284,7 @@ namespace Doctor_Appointment.Repository
                                                      Gender = user.Gender,
                                                      Email = user.Email,
                                                      EmailConfirmed = user.EmailConfirmed,
-                                                     isPatient = user.isPatient,
+                                                     //isPatient = user.isPatient,
                                                      DateOfBirth = user.DateOfBirth,
                                                      PhoneNumber = user.PhoneNumber,
                                                      FullName = user.FirstName + " " + user.LastName,
@@ -245,7 +295,7 @@ namespace Doctor_Appointment.Repository
                                                      Education = doc.Education,
                                                      Hospital_Id = doc.Hospital_Id,
                                                      Bio = doc.Bio,
-                                                     SpecialtyName = spec.Name,
+                                                     //SpecialtyName = spec.Name,
                                                      HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
                                                      HospitalSpecialty_Name = hosSpec.Name,
                                                      Hospital_Name = hosCen.Name,
@@ -261,11 +311,13 @@ namespace Doctor_Appointment.Repository
             try
             {
                 ret = await (from doc in db.doctors
-                             join spec in db.specialties on doc.Specialty_Id equals spec.Id
+                             //join spec in db.specialties on doc.Specialty_Id equals spec.Id
                              join user in db.Users on doc.UserId equals user.Id
                              join hosSpec in db.hospitalSpecialties on doc.HospitalSpecialty_Id equals hosSpec.Id
                              join hosCen in db.hospitalCenters on doc.Hospital_Id equals hosCen.Id
-                             where user.isPatient == false && (user.FirstName.Contains(searchPhrase) || user.LastName.Contains(searchPhrase)
+                             join urole in db.UserRoles on user.Id equals urole.UserId
+                             join role in db.Roles on urole.RoleId equals role.Id
+                             where role.Name == "Doctor" && (user.FirstName.Contains(searchPhrase) || user.LastName.Contains(searchPhrase)
                                                 || hosSpec.Name.Contains(searchPhrase))
                              select new DoctorReturnModel()
                              {
@@ -276,7 +328,7 @@ namespace Doctor_Appointment.Repository
                                  Gender = user.Gender,
                                  Email = user.Email,
                                  EmailConfirmed = user.EmailConfirmed,
-                                 isPatient = user.isPatient,
+                                 //isPatient = user.isPatient,
                                  DateOfBirth = user.DateOfBirth,
                                  PhoneNumber = user.PhoneNumber,
                                  FullName = user.FirstName + " " + user.LastName,
@@ -287,7 +339,7 @@ namespace Doctor_Appointment.Repository
                                  Education = doc.Education,
                                  Hospital_Id = doc.Hospital_Id,
                                  Bio = doc.Bio,
-                                 SpecialtyName = spec.Name,
+                                 //SpecialtyName = spec.Name,
                                  HospitalSpecialty_Id = doc.HospitalSpecialty_Id,
                                  HospitalSpecialty_Name = hosSpec.Name,
                                  Hospital_Name = hosCen.Name,

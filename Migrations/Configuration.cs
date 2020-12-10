@@ -36,7 +36,7 @@
                 LastName = "Dang",
                 Gender = true,
                 DateOfBirth = DateTime.Now.AddYears(-3),
-                isPatient = true
+                //isPatient = true
             };
 
             manager.Create(user, "Admin@123");
@@ -91,26 +91,26 @@
             context.hospitalCenters.AddRange(hospitalCenters);
             context.SaveChanges();
 
-            //Create list of Speacialties
-            List<Specialty> specialties = new List<Specialty>();
-            specialties.Add(new Specialty { Name = "Foreign Neurology", HsId = 1 });
-            specialties.Add(new Specialty { Name = "Vaccine", HsId = 1 });
-            specialties.Add(new Specialty { Name = "Cardiology", HsId = 2 });
-            specialties.Add(new Specialty { Name = "Radiology", HsId = 3 });
-            specialties.Add(new Specialty { Name = "Oncology", HsId = 4 });
-            specialties.Add(new Specialty { Name = "Pharmacy", HsId = 5 });
-            specialties.Add(new Specialty { Name = "Orthopedic", HsId = 6 });
-            specialties.Add(new Specialty { Name = "Orthopedic surgery", HsId = 6 });
-            specialties.Add(new Specialty { Name = "Lab test", HsId = 7 });
-            specialties.Add(new Specialty { Name = "Resuscitation & Emergency", HsId = 8 });
-            specialties.Add(new Specialty { Name = "Gynecology & Obstetrics", HsId = 9 });
-            specialties.Add(new Specialty { Name = "Gynecology", HsId = 9 });
-            specialties.Add(new Specialty { Name = "Anesthetics & Recovery", HsId = 10 });
-            specialties.Add(new Specialty { Name = "General examination", HsId = 11 });
-            specialties.Add(new Specialty { Name = "General Internal Medicine", HsId = 11 });
+            ////Create list of Speacialties
+            //List<Specialty> specialties = new List<Specialty>();
+            //specialties.Add(new Specialty { Name = "Foreign Neurology", HsId = 1 });
+            //specialties.Add(new Specialty { Name = "Vaccine", HsId = 1 });
+            //specialties.Add(new Specialty { Name = "Cardiology", HsId = 2 });
+            //specialties.Add(new Specialty { Name = "Radiology", HsId = 3 });
+            //specialties.Add(new Specialty { Name = "Oncology", HsId = 4 });
+            //specialties.Add(new Specialty { Name = "Pharmacy", HsId = 5 });
+            //specialties.Add(new Specialty { Name = "Orthopedic", HsId = 6 });
+            //specialties.Add(new Specialty { Name = "Orthopedic surgery", HsId = 6 });
+            //specialties.Add(new Specialty { Name = "Lab test", HsId = 7 });
+            //specialties.Add(new Specialty { Name = "Resuscitation & Emergency", HsId = 8 });
+            //specialties.Add(new Specialty { Name = "Gynecology & Obstetrics", HsId = 9 });
+            //specialties.Add(new Specialty { Name = "Gynecology", HsId = 9 });
+            //specialties.Add(new Specialty { Name = "Anesthetics & Recovery", HsId = 10 });
+            //specialties.Add(new Specialty { Name = "General examination", HsId = 11 });
+            //specialties.Add(new Specialty { Name = "General Internal Medicine", HsId = 11 });
 
-            context.specialties.AddRange(specialties);
-            context.SaveChanges();
+            //context.specialties.AddRange(specialties);
+            //context.SaveChanges();
 
             //
 

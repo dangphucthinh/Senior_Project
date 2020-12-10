@@ -190,6 +190,26 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Images\Abdu William.png" />
+    <Content Include="Images\Bui Thi Hong Khang.jpeg" />
+    <Content Include="Images\CORRIE ANDERSON.jpg" />
+    <Content Include="Images\Dang Manh Cuong.jpeg" />
+    <Content Include="Images\Fouad Abbas.jpg" />
+    <Content Include="Images\Khalid Abbed.png" />
+    <Content Include="Images\MARK AARON.jpg" />
+    <Content Include="Images\MONA ABAZA.jpg" />
+    <Content Include="Images\Myles Abbot.png" />
+    <Content Include="Images\Naresh Trehan.jpg" />
+    <Content Include="Images\Nguyen Duc Tho.jpeg" />
+    <Content Include="Images\Nguyen Thi Minh Tuyet.jpeg" />
+    <Content Include="Images\Nong Ngoc Son.png" />
+    <Content Include="Images\Phan Nguyen Thanh Binh.jpeg" />
+    <Content Include="Images\Reese Abright.png" />
+    <Content Include="Images\Sudhansu Bhatacharya.jpg" />
+    <Content Include="Images\Ton Nu Tra My.jpeg" />
+    <Content Include="Images\Tran Thi Diem Trang.jpeg" />
+    <Content Include="Images\Tran Thi Thu Huong.jpeg" />
+    <Content Include="Images\Vo Khac Khoi Nguyen.jpeg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +252,14 @@
     <Compile Include="Migrations\202012081513346_add_fk_all.cs" />
     <Compile Include="Migrations\202012081513346_add_fk_all.designer.cs">
       <DependentUpon>202012081513346_add_fk_all.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012090830327_off_isPatient.cs" />
+    <Compile Include="Migrations\202012090830327_off_isPatient.designer.cs">
+      <DependentUpon>202012090830327_off_isPatient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012091531117_drop_speciality.cs" />
+    <Compile Include="Migrations\202012091531117_drop_speciality.designer.cs">
+      <DependentUpon>202012091531117_drop_speciality.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -330,6 +358,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012081513346_add_fk_all.resx">
       <DependentUpon>202012081513346_add_fk_all.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012090830327_off_isPatient.resx">
+      <DependentUpon>202012090830327_off_isPatient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012091531117_drop_speciality.resx">
+      <DependentUpon>202012091531117_drop_speciality.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

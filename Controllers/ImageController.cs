@@ -17,6 +17,11 @@ using System.Web.UI;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using Doctor_Appointment.Models.DTO.Email;
+using System;
+using System.IO;
+using System.Collections.Generic;
+using CloudinaryDotNet.Actions;
+using System.Linq;
 
 namespace Doctor_Appointment.Controllers
 {
@@ -47,6 +52,75 @@ namespace Doctor_Appointment.Controllers
             //    Body ="dsfsdf",
             //    Subject ="asfdsfsdf"});
 
+            return Ok();
+        }
+
+        //private class FileInfo
+        [HttpGet]
+        [Route("UploadImages")]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> UploadImages()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            var outPutDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string configPath = Path.Combine(outPutDirectory, "Images\\");
+            List<FileInfo> listFile = new List<FileInfo>();
+            DirectoryInfo d = new DirectoryInfo(configPath);//Assuming Test is your Folder
+            FileInfo[] Files = d.GetFiles("*.*"); //Getting Text files
+            //string str = "";
+            foreach (FileInfo file in Files)
+            {
+                listFile.Add(file);
+            }
+            
+            foreach(var f in listFile)
+            {
+                byte[] buff = null;
+                FileStream fs = new FileStream(f.FullName,
+                                               FileMode.Open,
+                                               FileAccess.Read);
+                BinaryReader br = new BinaryReader(fs);
+                long numBytes = f.Length;
+                buff = br.ReadBytes((int)numBytes);
+                Account acc = new Account(
+                "deh0sqxwl",
+                "212524559265538",
+                "1p5EO6Mj_IBdALes5ke3wUMMw6w");
+                var _cloudinary = new Cloudinary(acc);
+
+                var uploadResult = new ImageUploadResult();
+
+
+                if (numBytes > 0)
+                {
+                    MemoryStream stream = new MemoryStream(buff);
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(f.Name, stream),
+                        Transformation = new Transformation()
+                                .Width(500).Height(500).Crop("fill").Gravity("face")
+                    };
+
+                    uploadResult = _cloudinary.Upload(uploadParams);
+
+                    string ext = f.Extension;
+                    string name_no_ext = f.Name.Replace(ext, "");
+                    var user = db.Users.FirstOrDefault(u => u.FirstName + " " + u.LastName == name_no_ext);
+                    if (user != null)
+                        user.Avatar = uploadResult.Url.ToString();
+                    //var user  = new ApplicationUser() { }
+                }
+            }
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                return Ok();
+            }
+            //StreamReader r = new StreamReader(configPath);
             return Ok();
         }
 

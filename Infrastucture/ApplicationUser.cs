@@ -27,7 +27,7 @@ namespace Doctor_Appointment.Infrastucture
 
         public string Avatar { get; set; }
 
-        public bool isPatient { get; set; }
+        //public bool isPatient { get; set; }
 
         public string Address { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)

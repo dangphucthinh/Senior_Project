@@ -31,10 +31,10 @@ namespace Doctor_Appointment.Repository
             return await this.db.hospitalSpecialties.Where(h => h.Name.Contains(searchPhrase)).ToListAsync();
         }
 
-        public async Task<IEnumerable<Specialty>> GetAllSpecialties(int HsId)
-        {
-            return await this.db.specialties.Where(s => s.HsId == HsId).ToListAsync();
-        }
+        //public async Task<IEnumerable<Specialty>> GetAllSpecialties(int HsId)
+        //{
+        //    return await this.db.specialties.Where(s => s.HsId == HsId).ToListAsync();
+        //}
 
         public string UploadAndGetImage(HttpPostedFile file)
         {

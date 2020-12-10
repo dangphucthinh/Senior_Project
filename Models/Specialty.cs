@@ -12,6 +12,7 @@ namespace Doctor_Appointment.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int HsId { get; set; }
+
         [ForeignKey("HsId")]
         public virtual HospitalSpecialty hospitalSpecialty { get; set; }
     }

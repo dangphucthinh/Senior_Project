@@ -168,7 +168,7 @@ namespace Doctor_Appointment.Controllers
                 //Gender = userForRegisterDTO.Gender,
                 LastName = userForRegisterDTO.LastName,
                 DateOfBirth = userForRegisterDTO.DateOfBirth != new DateTime() ? userForRegisterDTO.DateOfBirth : DateTime.Today,
-                isPatient = true,
+                //isPatient = true,
                 PhoneNumber = userForRegisterDTO.PhoneNumber
             };
 
