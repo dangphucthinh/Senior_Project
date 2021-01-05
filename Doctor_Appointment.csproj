@@ -191,25 +191,45 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Images\Abdu William.png" />
+    <Content Include="Images\Bui Ngoc Phuong Hoa.jpeg" />
     <Content Include="Images\Bui Thi Hong Khang.jpeg" />
     <Content Include="Images\CORRIE ANDERSON.jpg" />
     <Content Include="Images\Dang Manh Cuong.jpeg" />
+    <Content Include="Images\Dang Van Phap.jpeg" />
     <Content Include="Images\Fouad Abbas.jpg" />
+    <Content Include="Images\Hoang Thi Hien.jpeg" />
     <Content Include="Images\Khalid Abbed.png" />
+    <Content Include="Images\Khuc Thi Nhen.jpeg" />
+    <Content Include="Images\Le Van Quang.jpeg" />
     <Content Include="Images\MARK AARON.jpg" />
+    <Content Include="Images\Martina Pellegrino.jpeg" />
     <Content Include="Images\MONA ABAZA.jpg" />
     <Content Include="Images\Myles Abbot.png" />
     <Content Include="Images\Naresh Trehan.jpg" />
+    <Content Include="Images\Nguyen Dinh Toi.jpeg" />
+    <Content Include="Images\Nguyen Duc Hinh.jpeg" />
     <Content Include="Images\Nguyen Duc Tho.jpeg" />
+    <Content Include="Images\Nguyen Thi Dieu Nga.jpeg" />
     <Content Include="Images\Nguyen Thi Minh Tuyet.jpeg" />
+    <Content Include="Images\Nguyen Thi Tan Sinh.jpeg" />
+    <Content Include="Images\Nguyen Thi Thanh Thu.jpeg" />
+    <Content Include="Images\Nguyen Thuy Oanh.jpeg" />
     <Content Include="Images\Nong Ngoc Son.png" />
+    <Content Include="Images\Pham Thi Hanh Phuc.jpeg" />
+    <Content Include="Images\Pham Thi Son.jpeg" />
+    <Content Include="Images\Pham Thi Thuy Nhung.jpeg" />
     <Content Include="Images\Phan Nguyen Thanh Binh.jpeg" />
+    <Content Include="Images\Phan Quang Doan.jpeg" />
     <Content Include="Images\Reese Abright.png" />
     <Content Include="Images\Sudhansu Bhatacharya.jpg" />
+    <Content Include="Images\Thai Bang.jpeg" />
     <Content Include="Images\Ton Nu Tra My.jpeg" />
     <Content Include="Images\Tran Thi Diem Trang.jpeg" />
     <Content Include="Images\Tran Thi Thu Huong.jpeg" />
+    <Content Include="Images\Truong Cong Duan.jpeg" />
     <Content Include="Images\Vo Khac Khoi Nguyen.jpeg" />
+    <Content Include="Images\Vu Dung Kien.jpeg" />
+    <Content Include="Images\Yi Hyeon Gyu.jpeg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -264,6 +284,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\AppointmentStatus.cs" />
+    <Compile Include="Models\DTO\Doctor\DoctorRegisterList.cs" />
     <Compile Include="Models\DTO\Email\Message.cs" />
     <Compile Include="Models\DTO\Hospital\HospitalDTO.cs" />
     <Compile Include="Models\DTO\AI\ChatbotDataDTO.cs" />

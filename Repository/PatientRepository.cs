@@ -201,10 +201,10 @@ namespace Doctor_Appointment.Repository
             var avatar = this.UploadAndGetImage(context.Request.Files[0]);
             user.Avatar = avatar;
 
-            var patient = db.patients.FirstOrDefault(x => x.UserId.Trim() == userId.Trim());
-            patient.Allergy = context.Request.Form["Allergy"];
-            patient.MedicalHistory = context.Request.Form["MedicalHistory"];
-            patient.Symptom = context.Request.Form["Symptom"];
+            //var patient = db.patients.FirstOrDefault(x => x.UserId.Trim() == userId.Trim());
+            //patient.Allergy = context.Request.Form["Allergy"];
+            //patient.MedicalHistory = context.Request.Form["MedicalHistory"];
+            //patient.Symptom = context.Request.Form["Symptom"];
 
             try
             {

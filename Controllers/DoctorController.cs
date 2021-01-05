@@ -28,6 +28,89 @@ namespace Doctor_Appointment.Controllers
             });
         }
 
+
+        [Route("RegisterList")]
+        //[Authorize(Roles = "Admin")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IHttpActionResult> RegisterList(DoctorRegisterList list)
+        {
+
+            //if (!ModelState.IsValid)
+            //{
+            //    return Ok(new Response
+            //    {
+            //        status = 1,
+            //        message = "false",
+            //        data = ModelState
+            //    });
+            //}
+            //default account register is patient (isPatient == true)
+            foreach(var doctorRegister in list.list)
+            {
+                var doctor = new ApplicationUser()
+                {
+                    UserName = doctorRegister.Username,
+                    Email = doctorRegister.Email,
+                    FirstName = doctorRegister.FirstName,
+                    Gender = doctorRegister.Gender,
+                    LastName = doctorRegister.LastName,
+                    DateOfBirth = doctorRegister.DateOfBirth,
+                    PhoneNumber = doctorRegister.PhoneNumber,
+                    //isPatient = false,
+                };
+                IdentityResult result = null;
+                try
+                {
+                    result = await AppUserManager.CreateAsync(doctor, doctorRegister.Password);
+                }
+                catch
+                {
+
+                }
+                
+
+                //if (!result.Succeeded)
+                //{
+                //    return Ok(new Response
+                //    {
+                //        status = 1,
+                //        message = "false",
+                //        data = result
+                //    });
+                //}
+                
+                DoctorReturnModel res = null;
+                try
+                {
+                    AppUserManager.AddToRole(doctor.Id, Constant.Constant.DOCTOR);
+                    res = await new DoctorRepository().CreateDoctor(doctor.Id, doctorRegister);
+                }
+                catch
+                {
+
+                }
+            }
+            
+
+
+            //if (res != null)
+            //{
+            //    return Ok(new Response
+            //    {
+            //        status = 0,
+            //        message = "success",
+            //        //data = res
+            //    });
+            //}
+            return Ok(new Response
+            {
+                status = 1,
+                message = "false",
+                //data = TheModelFactory.CreateUser(doctor)
+            });
+        }
+
         [Route("Register")]
         [Authorize(Roles = "Admin")]
         [HttpPost]
