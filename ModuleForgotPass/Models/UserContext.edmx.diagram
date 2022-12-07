@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e032a98ff9544018ac5906eddcac13c1" Name="Diagram1">
+        <EntityTypeShape EntityType="UserDatabaseModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserDatabaseModel.Address" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserDatabaseModel.Appointment" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserDatabaseModel.AppointmentStatu" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserDatabaseModel.Doctor" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserDatabaseModel.HospitalCenter" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserDatabaseModel.HospitalSpecialty" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserDatabaseModel.Patient" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserDatabaseModel.Role" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserDatabaseModel.Specialty" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserDatabaseModel.User" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserDatabaseModel.UserClaim" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserDatabaseModel.UserLogin" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="UserDatabaseModel.FK_dbo_UserClaim_dbo_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="UserDatabaseModel.FK_dbo_UserLogin_dbo_User_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="UserDatabaseModel.UserRole" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
